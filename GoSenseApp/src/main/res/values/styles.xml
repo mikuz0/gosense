@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="PreferenceStyle" parent="@style/PreferenceThemeOverlay.v14.Material">
+        <item name="android:preferenceCategoryStyle">@style/CustomPreferenceCategoryMaterial</item>
+        <item name="trayPreferenceCategoryStyle">@style/CustomPreferenceCategoryMaterial</item>
+        <item name="android:divider">@null</item>
+        <item name="android:dividerHeight">0dp</item>
+    </style>
+
+    <style name="PreferenceStyleMaterial" parent="@style/PreferenceThemeOverlay.v14.Material">
+        <item name="android:preferenceCategoryStyle">@style/CustomPreferenceCategoryMaterial</item>
+        <item name="trayPreferenceCategoryStyle">@style/CustomPreferenceCategoryMaterial</item>
+        <item name="android:divider">@null</item>
+        <item name="android:dividerHeight">0dp</item>
+    </style>
+
+    <style name="CustomPreferenceCategory" parent="@style/TrayPreference.Category">
+        <item name="android:layout">@layout/settings_title_text</item>
+        <item name="android:divider">@null</item>
+        <item name="android:dividerHeight">0dp</item>
+        <item name="layout">@layout/settings_title_text</item>
+        <item name="divider">@null</item>
+    </style>
+
+    <style name="CustomPreferenceCategoryMaterial" parent="@style/TrayPreference.Category.Material">
+        <item name="android:layout">@layout/settings_title_text_material</item>
+        <item name="android:divider">@null</item>
+        <item name="android:dividerHeight">0dp</item>
+        <item name="layout">@layout/settings_title_text_material</item>
+        <item name="divider">@null</item>
+    </style>
+
+    <style name="CustomPreferenceScreen" parent="@style/TrayPreference.PreferenceScreen">
+        <item name="android:background">@color/battery_red</item>
+        <item name="background">@color/battery_red</item>
+    </style>
+
+    <style name="CustomPreferenceCategoryText" parent="@android:style/Widget.TextView">
+        <item name="android:textColor">@color/battery_red</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:padding">6dp</item>
+    </style>
+
+    <style name="CustomPreferenceCategoryTitle" parent="@android:style/Widget.TextView">
+        <item name="android:textColor">@color/battery_red</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:padding">6dp</item>
+    </style>
+
+    <style name="CustomPreferenceCategorySummary" parent="@android:style/Widget.TextView">
+        <item name="android:textColor">@color/grey_888</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:padding">6dp</item>
+    </style>
+
+    <style name="Theme.SplashScreenApp" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/gs_blue</item>
+    </style>
+
+    <style name="GoSense.TabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">@color/blue</item>
+        <item name="tabSelectedTextColor">@color/green</item>
+        <item name="tabTextColor">@color/white</item>
+        <!-- <item name="tabTextAppearance">@style/TabLayoutTextAppearance</item> -->
+    </style>
+
+    <style name="TabLayoutTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">10sp</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:singleLine">true</item>
+        <item name="singleLine">true</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+</resources>

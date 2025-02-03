@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="PREF_KEY_IS_IMPERIAL_TEMP">PREF_KEY_IS_IMPERIAL_TEMP</string>
+    <string name="PREF_KEY_IS_WINTER_SEASON">PREF_KEY_IS_WINTER_SEASON</string>
+    <string name="PREF_KEY_SELECTED_ADDRESS">PREF_KEY_SELECTED_ADDRESS</string>
+    <string name="PREF_KEY_ACTIVE_SENSOR_DEVICE">PREF_KEY_ACTIVE_SENSOR_DEVICE</string>
+    <string name="PREF_KEY_AIR_PRESSURE_CHECK">PREF_KEY_AIR_PRESSURE_CHECK</string>
+    <string name="PREF_KEY_HAS_AIR_PRESSURE">PREF_KEY_HAS_AIR_PRESSURE</string>
+    <string name="PREF_KEY_FIRST_CHECK_PRESSURE_SENSOR">PREF_KEY_FIRST_CHECK_PRESSURE_SENSOR</string>
+    <string name="PREF_KEY_AIR_PRESSURE_UNIT">PREF_KEY_AIR_PRESSURE_UNIT</string>
+    <string name="PREF_KEY_AUTOCONNECT_BT">PREF_KEY_AUTOCONNECT_BT</string>
+
+</resources>

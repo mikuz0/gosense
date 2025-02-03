@@ -1,0 +1,210 @@
+<resources>
+    <string name="app_name">GoSense</string>
+
+    <string name="keyboard">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_</string>
+
+    <string name="menu_devices">Devices</string>
+    <string name="menu_dashboard">Dashboard</string>
+    <string name="menu_history">History</string>
+    <string name="menu_comfort_zone">Comfort Zone</string>
+    <string name="menu_settings">Settings</string>
+
+    <string name="title_comfort_zone">COMFORT ZONE</string>
+    <string name="title_dashboard">DASHBOARD</string>
+    <string name="title_history">HISTORY</string>
+    <string name="title_devices">DEVICES</string>
+    <string name="title_settings">SETTINGS</string>
+
+    <!-- '-.-' -->
+    <string name="label_empty_t">\u002d\u002d\u002E\u002d \u00B0</string>
+    <!-- '-.-%' -->
+    <string name="label_empty_ap">\u002d\u002d\u002E\u002d mbar</string>
+    <!-- '-.-%' -->
+    <string name="label_empty_rh">\u002d\u002d\u002E\u002d \u0025</string>
+    <string name="label_empty_heat_index">N.A.</string>
+    <!-- °C -->
+    <string name="unit_celsius">\u00B0C</string>
+    <!-- ºF -->
+    <string name="unit_fahrenheit">\u00B0F</string>
+    <!-- % -->
+    <string name="unit_humidity">\u0025</string>
+    <!-- % -->
+    <string name="char_percent">\u0025</string>
+    <string name="label_ap">Air Pressure</string>
+    <string name="label_t">Temperature</string>
+    <string name="label_rh">Humidity</string>
+    <string name="label_dp">Dew point</string>
+    <string name="label_hi">Heat index</string>
+    <string name="label_humidex">Humidex</string>
+
+    <!-- ComfortZone -->
+    <string name="text_zone_topleft">Rheumatic Pains</string>
+    <string name="text_zone_topright">Heat Stroke</string>
+    <string name="text_zone_bottomright">Dehydration</string>
+    <string name="text_zone_bottomleft">Respiratory Problems</string>
+
+    <string name="text_sensor_name_default">no sensor</string>
+    <!-- '-.-º'-->
+    <string name="text_amb_temp_default">\u002D\u002D.\u002D \u00B0</string>
+    <!-- '-.-%' -->
+    <string name="text_rh_default">\u002D\u002D.\u002D \u0025</string>
+
+    <!-- HistoryFragment -->
+    <string name="label_download">Download</string>
+    <string name="label_10_minutes">10 min</string>
+    <string name="label_1_hour">1 hour</string>
+    <string name="label_6_hours">6 hours</string>
+    <string name="label_1_day">1 day</string>
+    <string name="label_1_week">1 week</string>
+
+    <string name="graph_label_domain_min">TIME elapsed (minutes)</string>
+    <string name="graph_label_domain_hours">TIME elapsed (hours)</string>
+    <string name="graph_label_domain_days">TIME elapsed (days)</string>
+
+    <string name="graph_label_elapsed_time">TIME elapsed</string>
+    <string name="graph_label_temperature">TEMPERATURE</string>
+
+    <!-- (℃) -->
+    <string name="temperature_celsius">\u2103</string>
+    <!-- (℉) -->
+    <string name="temperature_fahrenheit">\u2109</string>
+
+    <!-- TEMPERATURE (℃) -->
+    <string name="graph_label_temperature_celsius">TEMPERATURE\u0020\u0028\u2103\u0029</string>
+    <!-- TEMPERATURE (℉) -->
+    <string name="graph_label_temperature_fahrenheit">TEMPERATURE\u0020\u0028\u2109\u0029</string>
+    <!-- HUMIDITY (%)-->
+    <string name="graph_label_humidity">HUMIDITY\u0020\u0028\u0025\u0029\u0020</string>
+    <!-- RELATIVE HUMIDITY (%) -->
+    <string name="graph_label_relative_humidity">RELATIVE HUMIDITY\u0020\u0028\u0025\u0029\u0020</string>
+
+    <string name="toast_ble_not_supported">BLE not supported</string>
+    <string name="toast_bluetooth_not_supported">Bluetooth not supported</string>
+    <string name="toast_disconnected">BT Device is not connected!</string>
+    <string name="toast_no_any_files">There aren\'t any saved files!</string>
+    <string name="toast_pairing_timeout">Pairing Timed Out!</string>
+    <string name="toast_connection_timeout">Connection Timed Out!</string>
+
+    <string name="notify_data">Notify Data</string>
+    <string name="notify_channel_description">Shows active Bluetooth connection</string>
+    <string name="notify_channel_name">Bluetooth connection</string>
+    <string name="notify_msg">BT device connected</string>
+    <string name="notify_title">BLE connection is active</string>
+
+    <string name="exit_app_title">Exit GoSense</string>
+    <string name="exit_app_message">Are you sure you want to exit?</string>
+
+    <string name="airpressure_handler_msg">AP device data processing</string>
+    <string name="airpressure_handler_title">Air Pressure Service</string>
+
+    <string name="connecting">Connecting</string>
+
+    <string name="device_channel_description">Shows active device connection</string>
+    <string name="device_channel_name">Device connection</string>
+
+    <string name="data_handler_bpm">Data Handler</string>
+    <string name="data_handler_channel_description">Shows active Bluetooth connection</string>
+    <string name="data_handler_channel_name">Bluetooth connection</string>
+    <string name="data_handler_msg">BT device connected</string>
+    <string name="data_handler_title">BLE connection is active</string>
+
+    <string name="bt_device_connected">Device is connected</string>
+    <string name="bt_device_disconnected">Device is disconnected</string>
+
+    <string name="no_bt_dev_connected">NO BLUETOOTH DEVICES ARE CONNECTED</string>
+
+    <string name="disconnect">Disconnect</string>
+    <string name="disconnectInfo">Your BT device has been disconnected, data collection will restart when it is reconnected.</string>
+    <string name="disconnectTitle">DISCONNECTED</string>
+
+    <string name="exit">Exit</string>
+    <string name="exit_message">Are you sure you want to exit?</string>
+    <string name="no_device">There is no paired BT device. Please, pair a heart rate BT device.</string>
+    <string name="no_device_title">No paired BT device</string>
+    <string name="no_selected">No selected files!</string>
+
+    <string name="pair">Pair new BT device</string>
+    <string name="paired_successful">BT device is paired successful.</string>
+    <string name="paired_successful_title">SUCCESS</string>
+    <string name="pairing">Pairing…</string>
+    <string name="cancel">Cancel</string>
+    <string name="stop2">Stop</string>
+    <string name="stop_recording">Stop Recording</string>
+    <string name="delete">DELETE</string>
+    <string name="delete_message">Are you sure you want to delete this record?</string>
+    <string name="delete_title">DELETE RECORD</string>
+    <string name="device_failed">"Can't get BLE device!"</string>
+    <string name="device_not_supported">Wrong device!</string>
+    <string name="device_not_supported_message">The App does not support this device!</string>
+    <string name="device_terminated">Device terminated!</string>
+    <string name="di_na">N.A.</string>
+    <string name="connect">Connect</string>
+    <string name="ok">OK</string>
+    <string name="attempting_reconnection">Attempting Reconnection</string>
+    <string name="attempting_connection">Attempting Connection</string>
+    <string name="close">CLOSE</string>
+    <string name="stop">STOP</string>
+    <string name="no_paired_devices">NO PAIRED DEVICES</string>
+    <string name="connected_devices">CONNECTED DEVICES</string>
+    <string name="paired_devices">PAIRED DEVICES</string>
+    <string name="start_scan">START SCAN</string>
+    <string name="stop_scan">STOP SCAN</string>
+    <string name="device_scanning">DEVICE SCANNING</string>
+    <string name="start_device_scanning">EMPTY LIST\nSTART A SCAN</string>
+    <string name="unknown_device">Unknown device</string>
+    <string name="disconnecting_current_device">Disconnecting current device.</string>
+    <string name="disconnecting_current_devices">Disconnecting current devices.</string>
+    <string name="device_is_connected">Device is already connected.</string>
+    <string name="device_is_current">Device is already the selected default.</string>
+    <string name="device_is_current_attempting_connection">Device is the selected default. Attempting reconnection.</string>
+    <string name="scan_device">Scanning for devices</string>
+    <string name="scan_error">Scan error</string>
+    <string name="scanning">Scanning…</string>
+    <string name="restart_scanning">Restart Scan</string>
+
+    <string name="title_bt_permission">Bluetooth permission</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="title_location_enable">Location disabled</string>
+    <string name="title_location_permission">Location permission</string>
+    <string name="title_notify_permission">Notification permission</string>
+    <string name="title_file_permission">File management permission</string>
+
+    <string name="text_bt_permission">Bluetooth permission needs to be enabled for scanning!</string>
+    <string name="text_location_enable">Please, enable location. It needs to be enabled for Bluetooth Low Energy Scanning!</string>
+    <string name="text_location_permission">Location permission needs to be enabled for Bluetooth Low Energy Scanning!</string>
+    <string name="text_notify_permission">Notification permission needs to be enabled for BLE!</string>
+    <string name="text_file_permission">File management permissions is needed to import or export data!</string>
+
+    <string name="empty_bluetooth_device">BT DEVICE</string>
+    <string name="empty_bluetooth_mac_address">00:00:00:00</string>
+
+    <string name="not_supported_device">does not support environmental sensors, disconnecting.</string>
+    <string name="all_db_data_cleared">All data has been cleared from the database.</string>
+
+    <string name="temperature">Temperature</string>
+    <string name="relative_humidity">Releative Humidity</string>
+    <string name="air_pressure">Air Pressure</string>
+    <string name="elapsed_time">Elapsed Time</string>
+
+    <string name="dismiss">Dismiss</string>
+    <string name="apply">Apply</string>
+    <string name="reset">Reset</string>
+    <string name="set_graph_color"> Set Graph Color</string>
+
+    <string name="data_imported">Backup file was imported to the database</string>
+    <string name="data_exported">Stored database was exported</string>
+    <string name="data_not_imported">ERROR: Backup file was not imported to the database</string>
+    <string name="data_not_exported">ERROR: Stored database was not exported</string>
+    <string name="finished_exporting_data">Finished exporting data</string>
+    <string name="exporting_backup_file">Exporting data to a backup file</string>
+    <string name="importing_backup_file">Importing data from a backup file</string>
+    <string name="export_data_error">ERROR: cannot export data file</string>
+    <string name="import_in_progress">Importing in progress, cannot export data</string>
+    <string name="export_in_progress">Exporting in progress, cannot import data</string>
+    <string name="import_in_progress_clearing">Importing in progress, cannot clear database</string>
+    <string name="export_in_progress_clearing">Exporting in progress, cannot clear database</string>
+    <string name="missing_permissions">File permissions are missing cannot import or export files</string>
+
+    <string name="import_export_in_progress">Data import or export in progress, exiting now would corrupt data</string>
+
+</resources>

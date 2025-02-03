@@ -1,0 +1,150 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/deviceframe"
+    android:orientation="horizontal"
+    android:background="@drawable/selection_ripple"
+    android:layout_width="match_parent"
+    android:layout_height="52dp">
+
+    <View
+        android:id="@+id/spacer"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="0dp"
+        android:layout_width="1dp"
+        android:layout_height="52dp" />
+
+    <CheckBox
+        android:id="@+id/deviceselected"
+        android:layout_toRightOf="@+id/spacer"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:gravity="center"
+        android:buttonTint="@color/white"
+        android:layout_centerVertical="true"
+        android:layout_width="32dp"
+        android:layout_height="32dp" />
+
+    <ImageView
+        android:id="@+id/devicepaired"
+        android:layout_toRightOf="@+id/deviceselected"
+        android:layout_centerVertical="true"
+        app:tint="@color/red_a"
+        android:tint="@color/red_a"
+        android:src="@android:drawable/stat_sys_data_bluetooth"
+        android:layout_marginEnd="2dp"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        tools:ignore="UseAppTint" />
+
+    <ImageView
+        android:id="@+id/devicecolor"
+        android:layout_toRightOf="@+id/devicepaired"
+        android:layout_centerVertical="true"
+        app:tint="@color/white"
+        android:tint="@color/white"
+        android:src="@drawable/round"
+        android:layout_marginEnd="2dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        tools:ignore="UseAppTint" />
+
+    <LinearLayout
+        android:id="@+id/textFrame"
+        android:orientation="vertical"
+        android:layout_toRightOf="@+id/devicecolor"
+        android:layout_marginStart="8dp"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        android:paddingBottom="2dp"
+        android:layout_gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/devicename"
+            android:layout_toRightOf="@+id/devicecolor"
+            android:textAlignment="viewStart"
+            android:text="BLUETOOTH DEVICE"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/deviceaddress"
+            android:layout_below="@+id/devicename"
+            android:layout_alignStart="@+id/devicename"
+            android:textAlignment="viewStart"
+            android:text="00:00:00:00"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <!--
+    <TextView
+        android:id="@+id/devicename"
+        android:layout_toRightOf="@+id/devicecolor"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="6dp"
+        android:textAlignment="center"
+        android:text="BLUETOOTH DEVICE"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/deviceaddress"
+        android:layout_below="@+id/devicename"
+        android:layout_alignStart="@+id/devicename"
+        android:textAlignment="center"
+        android:text="00:00:00:00"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    -->
+
+    <TextView
+        android:id="@+id/devicerssi"
+        android:layout_marginEnd="10dp"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/devicebattery"
+        android:textAlignment="center"
+        android:text="-100 dBm"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/devicebattery"
+        android:layout_toLeftOf="@+id/devicebatteryicon"
+        android:layout_marginEnd="1dp"
+        android:layout_centerVertical="true"
+        android:textAlignment="center"
+        android:text="\?\?\?%"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="8dp"
+        app:tint="@color/white"
+        android:tint="@color/white"
+        android:id="@+id/devicebatteryicon"
+        android:src="@drawable/ic_baseline_battery_unknown_24"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        tools:ignore="UseAppTint" />
+
+</RelativeLayout>

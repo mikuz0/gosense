@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    -->
+    <color name="grey_888">#888888</color>
+
+    <color name="red">#FF0000</color>
+    <color name="red_a">#AF0000</color>
+    <color name="red_7">#7F0000</color>
+
+    <color name="green">#00FF00</color>
+    <color name="green_a">#00AF00</color>
+    <color name="green_7">#007F00</color>
+
+    <color name="blue">#0000FF</color>
+    <color name="blue_a">#0000AF</color>
+    <color name="blue_7">#00007F</color>
+
+    <color name="purple">#FFBB86FC</color>
+    <color name="purple_6">#FF6200EE</color>
+    <color name="purple_3">#FF3700B3</color>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="battery_red">#CF00</color>
+    <color name="battery_yellow">#CFF0</color>
+    <color name="battery_white">#CFFF</color>
+
+    <color name="grey_dark">#333</color>
+    <color name="grey_light">#999</color>
+
+    <color name="background_light">#FFE9E4E0</color>
+    <color name="background_dark">#FFBCB0A7</color>
+
+    <color name="gs_blue">#FF57bbff</color>
+
+    <color name="blegadget_blue">#24B1E1</color>
+    <color name="blegadget_grey_light">#E9E4E0</color>
+    <color name="blegadget_grey_dark">#BCB0A7</color>
+    <color name="blegadget_blue_darkened">#2481fa</color>
+
+    <color name="font_light">#FFF0EFF0</color>
+    <color name="font_dark">#FF3D3A38</color>
+    <color name="font_shadow">#99000000</color>
+
+</resources>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_dashboard"
+        android:icon="@drawable/ic_dashboard"
+        android:iconTint="@color/ap_white"
+        android:title="@string/menu_dashboard" />
+
+    <item
+        android:id="@+id/navigation_comfort_zone"
+        android:icon="@drawable/ic_comfort_zone"
+        android:iconTint="@color/ap_white"
+        android:title="@string/menu_comfort_zone" />
+
+    <item
+        android:id="@+id/navigation_history"
+        android:icon="@drawable/ic_history"
+        android:iconTint="@color/ap_white"
+        android:title="@string/menu_history" />
+
+    <item
+        android:id="@+id/navigation_devices"
+        android:icon="@drawable/ic_device"
+        android:iconTint="@color/ap_white"
+        android:title="@string/menu_devices" />
+
+    <item
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/ic_settings"
+        android:iconTint="@color/ap_white"
+        android:title="Settings" />
+
+</menu>

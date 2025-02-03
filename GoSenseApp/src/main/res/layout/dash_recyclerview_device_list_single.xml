@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/deviceframe"
+    android:orientation="horizontal"
+    android:background="@drawable/selection_ripple"
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
+
+    <TextView
+        android:id="@+id/devicename"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="6dp"
+        android:textAlignment="center"
+        android:text="BLUETOOTH DEVICE"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/deviceaddress"
+        android:layout_below="@+id/devicename"
+        android:layout_alignStart="@+id/devicename"
+        android:textAlignment="center"
+        android:text="00:00:00:00"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/devicerssi"
+        android:layout_marginEnd="15dp"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/devicebattery"
+        android:textAlignment="center"
+        android:text="-100 dBm"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/devicebattery"
+        android:layout_toLeftOf="@+id/devicebatteryicon"
+        android:layout_marginEnd="1dp"
+        android:layout_centerVertical="true"
+        android:textAlignment="center"
+        android:text="\?\?\?%"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="15dp"
+        app:tint="@color/white"
+        android:tint="@color/white"
+        android:id="@+id/devicebatteryicon"
+        android:src="@drawable/ic_baseline_battery_unknown_24"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        tools:ignore="UseAppTint" />
+
+</RelativeLayout>

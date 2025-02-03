@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/black"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/device_notifications"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginEnd="8dp"
+        android:textAlignment="center"
+        android:textSize="22sp"
+        android:text="@string/paired_devices"
+        android:textColor="@color/white"
+        android:layout_alignParentTop="true" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/divider_devices"
+        android:layout_below="@id/device_notifications"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:visibility="visible"
+        app:dividerThickness="1dp"
+        app:dividerColor="@color/white"
+        android:backgroundTint="@color/white"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
+
+    <TextView
+        android:id="@+id/no_device_notifications"
+        android:layout_below="@id/divider_devices"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:textAlignment="center"
+        android:textSize="22sp"
+        android:text="@string/no_paired_devices"
+        android:textColor="@color/white" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/connected_device_list"
+        android:visibility="visible"
+        android:minHeight="160dp"
+        android:maxHeight="200dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:layout_below="@+id/no_device_notifications"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:visibility="visible"
+        android:id="@+id/scan_area"
+        android:layout_below="@+id/connected_device_list"
+        android:layout_above="@+id/scan_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!--
+        <TextView
+            android:id="@+id/device_scan"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="8dp"
+            android:textAlignment="center"
+            android:textSize="22sp"
+            android:text="@string/device_scanning"
+            android:textColor="@color/white" />
+            -->
+
+        <LinearLayout
+            android:id="@+id/scan_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ProgressBar
+                android:id="@+id/scanning_spinner"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginBottom="6dp"
+                android:visibility="visible"
+                android:secondaryProgressTint="@color/white"
+                android:indeterminateTint="@color/white"
+                android:progressTint="@color/white" />
+
+            <TextView
+                android:id="@+id/device_scan"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:textSize="22sp"
+                android:text="@string/device_scanning"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divider_devic_scan"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            app:dividerThickness="1dp"
+            app:dividerColor="@color/white"
+            android:backgroundTint="@color/white"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" />
+
+        <TextView
+            android:id="@+id/start_device_scan"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="8dp"
+            android:textAlignment="center"
+            android:textSize="22sp"
+            android:text="@string/start_device_scanning"
+            android:textColor="@color/white" />
+
+        <ListView
+            android:id="@+id/scanning_device_list"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:divider="@drawable/listview_divider"
+            android:dividerHeight="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/scan_button"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:backgroundTint="@color/red"
+        app:rippleColor="@color/gs_blue"
+        android:text="@string/start_scan"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

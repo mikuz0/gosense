@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="tablayout_names">
+        <item>Settings</item>
+        <item>Dashboard</item>
+        <item>Comfort Zone</item>
+        <item>History</item>
+        <item>Devices</item>
+        <item>Settings</item>
+        <item>Dashboard</item>
+    </string-array>
+
+    <string-array name="pressure_units">
+        <item>mbar</item>
+        <item>hPa</item>
+        <item>kPa</item>
+        <item>Psi</item>
+    </string-array>
+
+    <string-array name="pref_pressure_units">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="data_retention_interval">
+        <item>2 weeks</item>
+        <item>1 month</item>
+        <item>3 months</item>
+        <item>6 months</item>
+        <item>12 months</item>
+    </string-array>
+
+    <string-array name="pref_data_retention_interval">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="scan_order_priority_entries">
+        <item>by signal strength</item>
+        <item>as detected</item>
+    </string-array>
+
+    <string-array name="scan_order_priority_values">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+</resources>

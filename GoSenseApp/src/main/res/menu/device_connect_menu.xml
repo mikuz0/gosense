@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/action_connect"
+        android:icon="@drawable/ic_linked"
+        android:iconTint="@color/white"
+        android:title="CONNECT" />
+
+    <item android:id="@+id/action_preferred"
+        android:icon="@drawable/ic_check_box"
+        android:iconTint="@color/white"
+        android:title="SET AS DISPLAY DEVICE" />
+
+    <item android:id="@+id/action_set_color"
+        android:icon="@drawable/ic_color_select"
+        android:iconTint="@color/white"
+        android:title="SET GRAPH COLOR" />
+
+    <item android:id="@+id/action_delete"
+        android:icon="@drawable/ic_bin"
+        android:iconTint="@color/white"
+        android:title="DELETE" />
+
+</menu>

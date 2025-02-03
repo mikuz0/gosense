@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_dashboard">
+
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="com.draekko.gosense.ui.dashboard.DashboardFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_dashboard" />
+
+    <fragment
+        android:id="@+id/navigation_comfort_zone"
+        android:name="com.draekko.gosense.ui.comfort_zone.ComfortZoneFragment"
+        android:label="@string/title_comfort_zone"
+        tools:layout="@layout/fragment_comfort_zone_old" />
+
+    <fragment
+        android:id="@+id/navigation_history"
+        android:name="com.draekko.gosense.ui.history.HistoryFragment"
+        android:label="@string/title_history"
+        tools:layout="@layout/fragment_history" />
+
+    <fragment
+        android:id="@+id/navigation_devices"
+        android:name="com.draekko.gosense.ui.devices.DevicesFragment"
+        android:label="@string/title_devices"
+        tools:layout="@layout/fragment_devices" />
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.draekko.gosense.ui.settings.SettingsFragment"
+        android:label="@string/title_settings" />
+
+</navigation>
