@@ -255,8 +255,12 @@ public class SettingsFragment extends TrayPreferenceFragment {
             });
         } else {
             TrayPreference pref_developer = findPreference(TraySettings.PREF_KEY_DEVELOPER);
-            TrayPreferenceScreen preference_screen = (TrayPreferenceScreen)findPreference(TraySettings.PREF_KEY_PREFERENCE_SCREEN);
-            preference_screen.removeTrayPreference(pref_developer);
+            if (pref_developer != null) {
+                TrayPreferenceScreen preference_screen = (TrayPreferenceScreen)findPreference(TraySettings.PREF_KEY_PREFERENCE_SCREEN);
+                if (preference_screen != null) {
+                    preference_screen.removeTrayPreference(pref_developer);
+                }
+            }
         }
 
         TrayPreference preferenceCleared = findPreference(TraySettings.PREF_KEY_CLEAR_DATABASE);
