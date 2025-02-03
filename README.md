@@ -18,11 +18,7 @@ Licensed under ***GPL V3***
 ---
 #### Donate:
 
-* Bitcoin donations can be sent to bc1qech68pjafrvp0s409sdnrdu28elgqh08r4zx4s.
- 
-<img src="https://gitlab.com/draekko-rand/gosense/-/raw/main/images/bitcoin.png" data-canonical-src="https://gitlab.com/draekko-rand/gosense/-/raw/main/images/bitcoin.png" />
-
-* Litecoin donations can be sent to lsawedfqdgrgasz3kizvtoecajsqfkb24h
- 
-<img src="https://gitlab.com/draekko-rand/gosense/-/raw/main/images/litecoin.jpg" data-canonical-src="https://gitlab.com/draekko-rand/gosense/-/raw/main/images/litecoin.jpg" />
- 
+| BITCOIN | LITECOIN |
+| --- | --- |
+| bc1qech68pjafrvp0s409sdnrdu28elgqh08r4zx4s |lsawedfqdgrgasz3kizvtoecajsqfkb24h |
+| <img src="https://gitlab.com/draekko-rand/gosense/-/raw/main/images/bitcoin.png" data-canonical-src="https://gitlab.com/draekko-rand/gosense/-/raw/main/images/bitcoin.png" /> | <img src="https://gitlab.com/draekko-rand/gosense/-/raw/main/images/litecoin.jpg" data-canonical-src="https://gitlab.com/draekko-rand/gosense/-/raw/main/images/litecoin.jpg" /> |
