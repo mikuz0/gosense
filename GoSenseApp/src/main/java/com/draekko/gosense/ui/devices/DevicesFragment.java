@@ -108,6 +108,12 @@ public class DevicesFragment extends Fragment {
         public void finished();
     }
 
+    public interface OnColorChange {
+        public void colorChanged(int color);
+    }
+
+    private ArrayList<OnColorChange> mOnColorChange = new ArrayList<>();
+
     private ColorListener mColorListener = new ColorListener() {
         @Override
         public void onColorSelected(int color, boolean fromUser) {
@@ -170,6 +176,10 @@ public class DevicesFragment extends Fragment {
             }
             empty_device_list_msg.setVisibility(View.VISIBLE);
             listView.setVisibility(View.INVISIBLE);
+
+            if (pairedDevicesListAdapter.getItemCount() > 0) {
+                no_device_notifications.setVisibility(View.GONE);
+            }
         }
 
         @Override
@@ -376,13 +386,18 @@ public class DevicesFragment extends Fragment {
         for (int oo = 0; oo < size; oo++) {
             pairedDevicesListAdapter.notifyItemChanged(oo);
         }
-        pairedDevicesListAdapter.notifyAll();
+        synchronized (pairedDevicesListAdapter) {
+            pairedDevicesListAdapter.notifyAll();
+        }
 
         GoSenseDb goSenseDb = new GoSenseDb(mContext);
         goSenseDb.saveSensorDevice(newSensorPairListData);
         goSenseDb.close();
 
         pairedDevicesListAdapter.updateItems();
+
+        no_device_notifications.setVisibility(View.GONE);
+
         oldbtdevice = null;
     }
 
@@ -481,6 +496,9 @@ public class DevicesFragment extends Fragment {
 
                                     }
                                 }
+                                no_device_notifications.setVisibility(View.GONE);
+                            } else {
+                                no_device_notifications.setVisibility(View.VISIBLE);
                             }
 
                             pairedDevicesListAdapter.notifyDataSetChanged();
@@ -613,8 +631,6 @@ public class DevicesFragment extends Fragment {
                 pairedDevicesListAdapter.addSensorDevice(sensorPairListData);
             }
             no_device_notifications.setVisibility(View.GONE);
-        } else {
-            no_device_notifications.setVisibility(View.VISIBLE);
         }
         connectedDevices.setAdapter(pairedDevicesListAdapter);
 
@@ -1210,6 +1226,13 @@ public class DevicesFragment extends Fragment {
                         GoSenseDb goSenseDb = new GoSenseDb(mContext);
                         goSenseDb.updateSensorDevice(connectToDeviceData);
                         goSenseDb.close();
+
+                        if (mOnColorChange.size() > 0) {
+                            for (OnColorChange onColorChange : mOnColorChange) {
+                                onColorChange.colorChanged(mColorSelection);
+                            }
+                        }
+
                         mColorPickerView.unregisterColorListener(mColorListener);
                         dialog.dismiss();
                     }
@@ -1232,7 +1255,6 @@ public class DevicesFragment extends Fragment {
                 mColorPickerView.selectByHsv(connectToColor);
                 colorPoint = mColorPickerView.getSelectedPoint();
                 mColorPickerView.setSelectorPoint(colorPoint.x, colorPoint.y);
-                //mColorPickerView.registerColorListener(mColorListener);
                 Button button = ((androidx.appcompat.app.AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEUTRAL);
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -1244,5 +1266,17 @@ public class DevicesFragment extends Fragment {
             }
         });
         mColorPickerDialogBuilder.show();
+    }
+
+    public void registerOnColorChange(OnColorChange onColorChange) {
+        if (onColorChange != null && !mOnColorChange.contains(onColorChange)) {
+            mOnColorChange.add(onColorChange);
+        }
+    }
+
+    public void unregisterOnColorChange(OnColorChange onColorChange) {
+        if (onColorChange != null && mOnColorChange.contains(onColorChange)) {
+            mOnColorChange.remove(onColorChange);
+        }
     }
 }

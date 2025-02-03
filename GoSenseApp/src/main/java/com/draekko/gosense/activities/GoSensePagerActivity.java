@@ -102,6 +102,19 @@ public class GoSensePagerActivity extends FragmentActivity {
 
     private static ArrayList<OnConnnectionStates> mOnConnnectionStates = new ArrayList<>();
 
+
+    public static void registerOnColorChange(DevicesFragment.OnColorChange onColorChange) {
+        if (onColorChange != null) {
+            DevicesFragment.getInstance().registerOnColorChange(onColorChange);
+        }
+    }
+
+    public static void unregisterOnColorChange(DevicesFragment.OnColorChange onColorChange) {
+        if (onColorChange != null) {
+            DevicesFragment.getInstance().registerOnColorChange(onColorChange);
+        }
+    }
+
     public static void registerOnAirPressureSensorChange(AllDevicesService.OnAirPressureSensorChange onAirPressureSensorChange) {
         if (onAirPressureSensorChange != null) {
             mAllDevicesService.registerOnAirPressureSensorChange(onAirPressureSensorChange);
@@ -540,17 +553,18 @@ public class GoSensePagerActivity extends FragmentActivity {
         mHandlerThread.start();
         mHandler = new Handler(mHandlerThread.getLooper());
 
-        if (TraySettings.getPressureSensorFirstCheck()) {
-            TraySettings.setPressureSensorFirstCheck(false);
-            boolean barometer = false;
-            String barometerStr = "No pressure sensor was found";
-            if (hasBarometer(mContext)) {
-                barometerStr = "Found pressure sensor";
-                barometer = false;
-            }
-            Log.d(TAG, barometerStr);
-            TraySettings.setHasBarometer(barometer);
+        //if (TraySettings.getPressureSensorFirstCheck()) {
+        //    TraySettings.setPressureSensorFirstCheck(false);
+        //}
+
+        boolean barometer = false;
+        String barometerStr = "No pressure sensor was found";
+        if (hasBarometer(mContext)) {
+            barometerStr = "Found pressure sensor";
+            barometer = true;
         }
+        Log.d(TAG, barometerStr);
+        TraySettings.setHasBarometer(barometer);
 
         if (activePeripheral == null) {
             activePeripheral = TraySettings.getActiveSensorDevice();

@@ -67,6 +67,7 @@ import com.draekko.gosense.misc.TraySettings;
 import com.draekko.gosense.services.AllServicesDeviceDataHandler.OnBluetoothDeviceDiscovery;
 import com.draekko.gosense.misc.Utils;
 
+import com.halfhp.fig.BuildConfig;
 import com.welie.blessed.BluetoothCentralManager;
 import com.welie.blessed.BluetoothCentralManagerCallback;
 import com.welie.blessed.BluetoothPeripheral;
@@ -77,6 +78,7 @@ import com.welie.blessed.ScanFailure;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.os.BuildCompat;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -91,12 +93,13 @@ public class AllDevicesService extends Service
 
     private static final String TAG = "AllDevicesService";
 
-    private static final String CHANNEL_ID = "gosense_service_notify";
+    private static final String CHANNEL_ID_DEBUG = "gosense_service_notify_debug";
+    private static final String CHANNEL_ID_RELEASE = "gosense_service_notify_release";
 
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 1;
     private static final long MIN_TIME_BW_UPDATES = 1000 * 5;
-    private static final int ID_PROCESS_1 = 222777;
-    private static final int ID_PROCESS_2 = 333888;
+    private static final int ID_PROCESS_RELEASE = 222777;
+    private static final int ID_PROCESS_DEBUG = 333888;
 
     private DecimalFormat decimalFormat = new DecimalFormat("###0.0");
     private DecimalFormat decimalFormatStorage = new DecimalFormat("###0.0#");
@@ -441,11 +444,13 @@ public class AllDevicesService extends Service
                 }
             }
         }
-        if (mContext != null) {
-            sensorManager = (SensorManager) getSystemService(Service.SENSOR_SERVICE);
-            sensorManager.registerListener(this,
-                    sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE),
-                    SensorManager.SENSOR_DELAY_NORMAL);
+        if (hasBarometer()) {
+            if (mContext != null) {
+                sensorManager = (SensorManager) getSystemService(Service.SENSOR_SERVICE);
+                sensorManager.registerListener(this,
+                        sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE),
+                        SensorManager.SENSOR_DELAY_NORMAL);
+            }
             updateEndStartApDataConnection(
                     Utils.DEFAULT_HW_AP_DEVICE_NAME,
                     Utils.DEFAULT_EMPTY_ADDRESS);
@@ -453,12 +458,14 @@ public class AllDevicesService extends Service
     }
 
     private void handleUnbind() {
-        if (sensorManager != null) {
-            sensorManager.unregisterListener(this);
+        if (hasBarometer()) {
+            if (sensorManager != null) {
+                sensorManager.unregisterListener(this);
+            }
+            updateEndStartApDataConnection(
+                    Utils.DEFAULT_HW_AP_DEVICE_NAME,
+                    Utils.DEFAULT_EMPTY_ADDRESS);
         }
-        updateEndStartApDataConnection(
-                Utils.DEFAULT_HW_AP_DEVICE_NAME,
-                Utils.DEFAULT_EMPTY_ADDRESS);
         unregisterReceiver(remoteTemperatureDataReceiver);
         unregisterReceiver(remoteRelativeHumidityDataReceiver);
         if (goSenseDb != null) {
@@ -561,14 +568,16 @@ public class AllDevicesService extends Service
         ContextCompat.registerReceiver(mContext, remoteTemperatureDataReceiver, new IntentFilter( AllServicesDeviceDataHandler.MEASUREMENT_REMOTE_TEMPERATURE ), flags);
         ContextCompat.registerReceiver(mContext, remoteRelativeHumidityDataReceiver, new IntentFilter( AllServicesDeviceDataHandler.MEASUREMENT_REMOTE_RELATIVE_HUMIDITY ), flags);
 
-        if (mContext != null) {
-            sensorManager = (SensorManager) getSystemService(Service.SENSOR_SERVICE);
-            sensorManager.registerListener(this,
-                    sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE),
-                    SensorManager.SENSOR_DELAY_NORMAL);
-            updateEndStartApDataConnection(
-                    Utils.DEFAULT_HW_AP_DEVICE_NAME,
-                    Utils.DEFAULT_EMPTY_ADDRESS);
+        if (hasBarometer()) {
+            if (mContext != null) {
+                sensorManager = (SensorManager) getSystemService(Service.SENSOR_SERVICE);
+                sensorManager.registerListener(this,
+                        sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE),
+                        SensorManager.SENSOR_DELAY_NORMAL);
+                updateEndStartApDataConnection(
+                        Utils.DEFAULT_HW_AP_DEVICE_NAME,
+                        Utils.DEFAULT_EMPTY_ADDRESS);
+            }
         }
 
         createNotificationChannel();
@@ -639,9 +648,12 @@ public class AllDevicesService extends Service
             }
         }
 
-        updateEndStartApDataConnection(
-                Utils.DEFAULT_HW_AP_DEVICE_NAME,
-                Utils.DEFAULT_EMPTY_ADDRESS);
+        if (hasBarometer()) {
+            updateEndStartApDataConnection(
+                    Utils.DEFAULT_HW_AP_DEVICE_NAME,
+                    Utils.DEFAULT_EMPTY_ADDRESS);
+        }
+
         try {
             unregisterReceiver(remoteTemperatureDataReceiver);
         } catch (Exception e) {
@@ -743,10 +755,14 @@ public class AllDevicesService extends Service
 
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String chanid = CHANNEL_ID_RELEASE;
+            if (BuildConfig.DEBUG) {
+                chanid = CHANNEL_ID_DEBUG;
+            }
             notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             NotificationChannel notificationChannel =
                     new NotificationChannel(
-                            CHANNEL_ID + 1,
+                            chanid,
                             getString(R.string.device_channel_name) + "_1",
                             NotificationManager.IMPORTANCE_HIGH);
             notificationChannel.setDescription(getString(R.string.device_channel_description));
@@ -755,7 +771,11 @@ public class AllDevicesService extends Service
     }
 
     public void startInBackground() {
-        NotificationCompat.Builder autoCancel = new NotificationCompat.Builder(this, CHANNEL_ID).
+        String chanid = CHANNEL_ID_RELEASE;
+        if (BuildConfig.DEBUG) {
+            chanid = CHANNEL_ID_DEBUG;
+        }
+        NotificationCompat.Builder autoCancel = new NotificationCompat.Builder(this, chanid).
                 setSmallIcon(R.drawable.ic_notify_logo).
                 setContentTitle(getString(R.string.data_handler_title)).
                 setContentText(getString(R.string.data_handler_msg)).
@@ -777,6 +797,13 @@ public class AllDevicesService extends Service
 
     @SuppressLint("RemoteViewLayout")
     public void updateNotification(BluetoothPeripheral peripheral, int battery, float temp, float humidity, float airpressure, boolean show_ap) {
+        String chanid = CHANNEL_ID_RELEASE;
+        int procid = ID_PROCESS_RELEASE;
+        if (BuildConfig.DEBUG) {
+            chanid = CHANNEL_ID_DEBUG;
+            procid = ID_PROCESS_DEBUG;
+        }
+
         int deviceStatus = R.string.bt_device_disconnected;
         if (peripheral.getState() == ConnectionState.CONNECTED) {
             deviceStatus = R.string.bt_device_connected;
@@ -830,7 +857,7 @@ public class AllDevicesService extends Service
             return;
         }
 
-        NotificationCompat.Builder visibility = new NotificationCompat.Builder(this, CHANNEL_ID).
+        NotificationCompat.Builder visibility = new NotificationCompat.Builder(this, chanid).
                 setContent(remoteViews).
                 setStyle(new NotificationCompat.DecoratedCustomViewStyle()).
                 setCustomContentView(remoteViews).
@@ -848,20 +875,14 @@ public class AllDevicesService extends Service
         intent.setAction(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
-        //intent.setAction(Long.toString(System.currentTimeMillis()));
         visibility.setContentIntent(PendingIntent.getActivity(this, 0, intent, FLAG_MUTABLE | FLAG_UPDATE_CURRENT));
         notification2 = visibility.build();
-        notificationManager.notify(ID_PROCESS_2, notification2);
-        startForeground(ID_PROCESS_2, notification2);
-        /*
-        startForeground(ID_PROCESS_2,
-                notification2,
-                ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION |
-                        ServiceInfo.FOREGROUND_SERVICE_TYPE_CONNECTED_DEVICE);
-         */
+        notificationManager.notify(procid, notification2);
+        startForeground(procid, notification2);
     }
 
     private boolean hasBarometer() {
+        /*
         SensorManager sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
         List<Sensor> sensors = sensorManager.getSensorList(Sensor.TYPE_PRESSURE);
         if (sensors != null && sensors.size() > 0) {
@@ -873,6 +894,8 @@ public class AllDevicesService extends Service
             }
         }
         return false;
+         */
+        return TraySettings.getHasBarometer();
     }
 
     public void setOnPressureSensorChange(OnPressureSensorChange onPressureSensorChange) {

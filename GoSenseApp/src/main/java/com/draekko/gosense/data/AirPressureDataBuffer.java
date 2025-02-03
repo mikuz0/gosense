@@ -30,7 +30,7 @@ public class AirPressureDataBuffer  extends DataBuffer<AirPressureData> {
         try {
             if(!isEmpty()) {
                 ArrayList<AirPressureData> list = getDataBuffer();
-                Log.d("AirPressureDataBuffer", "list size " + list.size());
+                if (false) Log.d("AirPressureDataBuffer", "list size " + list.size());
                 int count = 0;
                 for (AirPressureData airPressureData : list) {
                     if (airPressureData.getTimestamp() <= getTimeLimit()) {
@@ -40,7 +40,7 @@ public class AirPressureDataBuffer  extends DataBuffer<AirPressureData> {
                         break;
                     }
                 }
-                Log.d("AirPressureDataBuffer", "list items removed " + count);
+                if (false) Log.d("AirPressureDataBuffer", "list items removed " + count);
             }
         } catch (Exception e) {
             e.printStackTrace();

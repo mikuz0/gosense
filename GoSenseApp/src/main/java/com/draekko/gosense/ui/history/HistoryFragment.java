@@ -55,9 +55,11 @@ import com.draekko.gosense.misc.DataBuffer;
 import com.draekko.gosense.misc.TraySettings;
 import com.draekko.gosense.misc.Utils;
 import com.draekko.gosense.services.AllDevicesService;
+import com.draekko.gosense.ui.devices.DevicesFragment;
 import com.draekko.tray.TrayPreferences;
 import com.draekko.tray.core.OnTrayPreferenceChangeListener;
 import com.draekko.tray.core.TrayItem;
+import com.skydoves.colorpickerview.listeners.ColorListener;
 import com.welie.blessed.BluetoothPeripheral;
 import com.welie.blessed.HciStatus;
 
@@ -173,6 +175,14 @@ public class HistoryFragment extends Fragment {
             R.id.history_time_unit_14d
     };
 
+    private DevicesFragment.OnColorChange mOnColorChange = new DevicesFragment.OnColorChange() {
+        @Override
+        public void colorChanged(int color) {
+            Log.i(TAG, String.format("Change color to %08X", color));
+            graphLineAndPointFormatter = getColorFormatter(color);
+        }
+    };
+
     private GoSensePagerActivity.OnConnnectionStates mHistoryOnConnnectionStates =
             new GoSensePagerActivity.OnConnnectionStates() {
                 @Override
@@ -181,8 +191,17 @@ public class HistoryFragment extends Fragment {
 
                     initData();
 
-                    SensorDevice sensorPairListData = goSenseDb.getPairedSensorDevice(connectedAddress);
-                    String name = sensorPairListData.getAliasName();
+                    String name = peripheral.getName();
+                    if (name == null || name.isEmpty()) {
+                        try {
+                            SensorDevice sensorPairListData = goSenseDb.getPairedSensorDevice(connectedAddress);
+                            if (sensorPairListData != null) {
+                                name = sensorPairListData.getAliasName();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
                     if (name == null) {
                         name = getString(R.string.empty_bluetooth_device);
                     }
@@ -256,7 +275,7 @@ public class HistoryFragment extends Fragment {
         if (mAllDevicesService != null) {
             GoSensePagerActivity.registerOnConnnectionStates(mHistoryOnConnnectionStates);
         }
-
+        GoSensePagerActivity.registerOnColorChange(mOnColorChange);
         TrayPreferences trayPreferences = TraySettings.getPreferences();
         trayPreferences.registerOnTrayPreferenceChangeListener(new OnTrayPreferenceChangeListener() {
             @Override
@@ -430,6 +449,7 @@ public class HistoryFragment extends Fragment {
         if (mAllDevicesService != null) {
             GoSensePagerActivity.unregisterOnConnnectionStates(mHistoryOnConnnectionStates);
         }
+        GoSensePagerActivity.unregisterOnColorChange(mOnColorChange);
         if (goSenseDb != null) {
             goSenseDb.close();
             goSenseDb = null;

@@ -13,8 +13,8 @@ android {
         applicationId "com.draekko.gosense"
         minSdk 29
         targetSdk 33
-        versionCode 20250001
-        versionName "2025.1"
+        versionCode 20250002
+        versionName "2025.2"
         vectorDrawables.useSupportLibrary = true
     }
 

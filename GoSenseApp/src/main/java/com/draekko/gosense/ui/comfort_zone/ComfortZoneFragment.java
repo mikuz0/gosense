@@ -38,6 +38,7 @@ import com.draekko.gosense.misc.TraySettings;
 import com.draekko.gosense.misc.Utils;
 import com.draekko.gosense.services.AllDevicesService;
 import com.draekko.gosense.services.AllServicesDeviceDataHandler;
+import com.draekko.gosense.ui.devices.DevicesFragment;
 import com.draekko.gosense.views.XyPlotView;
 import com.draekko.gosense.views.XyPoint;
 import com.welie.blessed.BluetoothCentralManager;
@@ -176,6 +177,17 @@ public class ComfortZoneFragment extends Fragment {
     private final Map<String, XyPoint> mActiveSensorViews = Collections.synchronizedMap(new LinkedHashMap<String, XyPoint>());
 
 
+    private DevicesFragment.OnColorChange mOnColorChange = new DevicesFragment.OnColorChange() {
+        @Override
+        public void colorChanged(int color) {
+            Log.i(TAG, String.format("Change color to %08X", color));
+            mColor = color;
+            if (mAddress != null) {
+                createNewSensorViewFor(mAddress, mColor);
+            }
+        }
+    };
+
     private static ComfortZoneFragment mFragment;
 
     public static ComfortZoneFragment getInstance() {
@@ -233,6 +245,8 @@ public class ComfortZoneFragment extends Fragment {
             GoSensePagerActivity.registerOnConnnectionStates(mCfOnConnnectionStates);
         }
 
+        GoSensePagerActivity.registerOnColorChange(mOnColorChange);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             int flags = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ? Context.RECEIVER_NOT_EXPORTED : 0 ;
             ContextCompat.registerReceiver(mContext, remoteTemperatureDataReceiver, new IntentFilter( AllServicesDeviceDataHandler.MEASUREMENT_REMOTE_TEMPERATURE ), flags);
@@ -287,6 +301,7 @@ public class ComfortZoneFragment extends Fragment {
         if (mAllDevicesService != null) {
             GoSensePagerActivity.unregisterOnConnnectionStates(mCfOnConnnectionStates);
         }
+        GoSensePagerActivity.unregisterOnColorChange(mOnColorChange);
         try {
             mContext.unregisterReceiver(remoteTemperatureDataReceiver);
         } catch (Exception e) {
@@ -294,7 +309,6 @@ public class ComfortZoneFragment extends Fragment {
         try {
             mContext.unregisterReceiver(remoteHumidityDataReceiver);
         } catch (Exception e) {
-
         }
         binding = null;
     }
@@ -311,7 +325,6 @@ public class ComfortZoneFragment extends Fragment {
         mPlotView.setYAxisScale(GRAPH_MIN_Y_VALUE, GRAPH_MAX_Y_VALUE, GRAPH_Y_GRID_SIZE);
         mPlotView.setXAxisScale(GRAPH_MIN_X_VALUE, GRAPH_MAX_X_VALUE, GRAPH_X_GRID_SIZE_CELSIUS);
         mPlotView.setXAxisLabel(GRAPH_X_LABEL_CELSIUS);
-
         mTextViewLeft.bringToFront();
         mTextViewTop.bringToFront();
         mTextViewRight.bringToFront();
