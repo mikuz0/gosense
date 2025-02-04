@@ -32,6 +32,12 @@
 
         <com.draekko.traypreferences.TraySwitchPreference
             app:defaultValue="true"
+            app:key="PREF_KEY_DO_AUTO_SCALE"
+            app:summary="Turn on to scale range values display to zoom on relevant data"
+            app:title="Auto Scale History Graph Range" />
+
+        <com.draekko.traypreferences.TraySwitchPreference
+            app:defaultValue="true"
             app:key="PREF_KEY_AVERAGE_GRAPH_DATA"
             app:summary="When enabled will average data to fit screen display, when disable will skip data points"
             app:title="Use Graph Data Averaging" />

@@ -715,8 +715,8 @@ public class HistoryFragment extends Fragment {
 
     private void updateRangeAxis(boolean invalidate) {
         String rangeLabel = "Environmental Units";
-        int minRangeUnits = 0;
-        int maxRangeUnits = 100;
+        double minRangeUnits = 0;
+        double maxRangeUnits = 100;
         float insetLeft = Utils.pixelsFromDp(mContext, 31);
         double rangeSteps = 10;
         switch (default_sensor_view) {
@@ -798,7 +798,7 @@ public class HistoryFragment extends Fragment {
     }
 
     private void updatePlot() {
-        graphUpdateInterval = TraySettings.getGraphUpdateInterval() * 2;
+        graphUpdateInterval = TraySettings.getGraphUpdateInterval();
         if (!mHidden && connectedAddress != null) {
             currentTime = System.currentTimeMillis();
 
@@ -814,6 +814,8 @@ public class HistoryFragment extends Fragment {
 
             switch (default_sensor_view) {
                 case VIEW_TEMPERATURE: {
+                    double minT = 999999;
+                    double maxT = -999999;
                     ArrayList<TemperatureData> temperatureData = tempDataBuffer.getDataBuffer();
                     if (temperatureData != null && temperatureData.size() > 0) {
                         boolean tempF = TraySettings.isTemperatureUnitFahrenheit();
@@ -825,8 +827,16 @@ public class HistoryFragment extends Fragment {
                             double graphTime = (double)(currentTime - temperatureData.get(tt).getTimestamp()) / (double)graphUnit;
                             if (temperatureData.get(tt).getTimestamp() >= goBackTime) {
                                 double temperature = temperatureData.get(tt).getTemperature();
-                                if (tempF) {
+                                if (temperature != -9999 && tempF) {
                                     temperature = Converter.convertToF(temperatureData.get(tt).getTemperature());
+                                }
+                                if (doAutoScale()) {
+                                    if (temperature != -9999 && temperature < minT) {
+                                        minT = temperature;
+                                    }
+                                    if (temperature != -9999 && temperature > maxT) {
+                                        maxT = temperature;
+                                    }
                                 }
                                 xVals.add(graphTime);
                                 yVals.add(temperature);
@@ -836,6 +846,8 @@ public class HistoryFragment extends Fragment {
                             graphLineAndPointFormatter = getDeviceFormatter();
                         }
                         if (xVals.size() - 1 > screenDataPoints) {
+                            minT = 999999;
+                            maxT = -999999;
                             if (false) Log.i(TAG, "HANDLE EXCESS DATA FOR GRAPH");
                             ArrayList<Double> lxVals = new ArrayList<>();
                             ArrayList<Double> lyVals = new ArrayList<>();
@@ -853,9 +865,27 @@ public class HistoryFragment extends Fragment {
                                     value /= (int)intervalStep;
                                     lyVals.add(value);
                                     lxVals.add(xVals.get(index));
+
+                                    if (doAutoScale()) {
+                                        if (value != -9999 && value < minT) {
+                                            minT = yVals.get(index);
+                                        }
+                                        if (value != -9999 && value > maxT) {
+                                            maxT = yVals.get(index);
+                                        }
+                                    }
                                 } else {
                                     lxVals.add(xVals.get(index));
                                     lyVals.add(yVals.get(index));
+
+                                    if (doAutoScale()) {
+                                        if (yVals.get(index) != -9999 && yVals.get(index) < minT) {
+                                            minT = yVals.get(index);
+                                        }
+                                        if (yVals.get(index) != -9999 && yVals.get(index) > maxT) {
+                                            maxT = yVals.get(index);
+                                        }
+                                    }
                                 }
                             }
                             valuesSeries = new SimpleXYSeries(lxVals, lyVals, "T " + unit);
@@ -864,21 +894,58 @@ public class HistoryFragment extends Fragment {
                             valuesSeries = new SimpleXYSeries(xVals, yVals, "T " + unit);
                             graphXyPlot.addSeries(valuesSeries, graphLineAndPointFormatter);
                         }
+
+                        if (doAutoScale()) {
+                            String dispUnit = getString(R.string.unit_celsius);
+                            if (TraySettings.isTemperatureUnitFahrenheit()) {
+                                dispUnit = getString(R.string.unit_fahrenheit);
+                            }
+                            String rangeLabel = getString(R.string.temperature) + "  (" + dispUnit + ")";
+                            double minRangeUnits = 0;
+                            double maxRangeUnits = 100;
+                            float insetLeft = Utils.pixelsFromDp(mContext, 31);
+                            double rangeSteps = 10;
+                            minRangeUnits = (int)(minT - 1.0);
+                            maxRangeUnits = (int)(maxT + 1.0);
+                            if (TraySettings.isTemperatureUnitFahrenheit()) {
+                                rangeLabel += "  (" + getString(R.string.unit_fahrenheit) + ")";
+                                graphXyPlot.getGraph().getLineLabelStyle(XYGraphWidget.Edge.LEFT).setFormat(yAxisFormat_zero);
+                                insetLeft = Utils.pixelsFromDp(mContext, 25);
+                            } else {
+                                rangeLabel += "  (" + getString(R.string.unit_celsius) + ")";
+                                graphXyPlot.getGraph().getLineLabelStyle(XYGraphWidget.Edge.LEFT).setFormat(yAxisFormat_zero);
+                                insetLeft = Utils.pixelsFromDp(mContext, 21);
+                            }
+                            graphXyPlot.setRangeStep(StepMode.INCREMENT_BY_VAL, (maxRangeUnits - minRangeUnits) / rangeSteps);
+                            Insets gridInsets = graphXyPlot.getGraph().getGridInsets();
+                            gridInsets.setLeft(insetLeft);
+                            graphXyPlot.getGraph().setGridInsets(gridInsets);
+                            graphXyPlot.setRangeLabel(rangeLabel.toUpperCase(Locale.US));
+                            graphXyPlot.setRangeBoundaries(minRangeUnits, maxRangeUnits, BoundaryMode.FIXED);
+                            graphXyPlot.redraw();
+                        } else {
+                            updateRangeAxis(true);
+                        }
                     }
                 }
                 break;
                 case VIEW_RELATIVE_HUMIDITY: {
+                    double minRh = 999999;
+                    double maxRh = -999999;
                     ArrayList<RelativeHumidityData> relativeHumidityData = rhDataBuffer.getDataBuffer();
                     if (relativeHumidityData != null && relativeHumidityData.size() > 0) {
-                        boolean tempF = TraySettings.isTemperatureUnitFahrenheit();
-                        String unit = getString(R.string.unit_celsius);
-                        if (tempF) {
-                            unit = getString(R.string.unit_fahrenheit);
-                        }
                         for (int tt = 0; tt < relativeHumidityData.size(); tt++) {
                             double graphTime = (double)(currentTime - relativeHumidityData.get(tt).getTimestamp()) / (double)graphUnit;
                             if (relativeHumidityData.get(tt).getTimestamp() >= goBackTime) {
                                 double relativehumidity = relativeHumidityData.get(tt).getRelativeHumidity();
+                                if (doAutoScale()) {
+                                    if (relativehumidity != -9999 && relativehumidity < minRh) {
+                                        minRh = relativehumidity;
+                                    }
+                                    if (relativehumidity != -9999 && relativehumidity > maxRh) {
+                                        maxRh = relativehumidity;
+                                    }
+                                }
                                 xVals.add(graphTime);
                                 yVals.add(relativehumidity);
                             }
@@ -887,6 +954,8 @@ public class HistoryFragment extends Fragment {
                             graphLineAndPointFormatter = getDeviceFormatter();
                         }
                         if (xVals.size() - 1 > screenDataPoints) {
+                            minRh = 999999;
+                            maxRh = -999999;
                             if (false) Log.i(TAG, "HANDLE EXCESS DATA FOR GRAPH");
                             ArrayList<Double> lxVals = new ArrayList<>();
                             ArrayList<Double> lyVals = new ArrayList<>();
@@ -902,40 +971,96 @@ public class HistoryFragment extends Fragment {
                                         value += yVals.get(idx);
                                     }
                                     value /= (int)intervalStep;
+                                    if (doAutoScale()) {
+                                        if (value != -9999 && value < minRh) {
+                                            minRh = value;
+                                        }
+                                        if (value != -9999 && value > maxRh) {
+                                            maxRh = value;
+                                        }
+                                    }
                                     lyVals.add(value);
                                     lxVals.add(xVals.get(index));
                                 } else {
+                                    if (yVals.get(index) != -9999 && yVals.get(index) < minRh) {
+                                        minRh = yVals.get(index);
+                                    }
+                                    if (yVals.get(index) != -9999 && yVals.get(index) > maxRh) {
+                                        maxRh = yVals.get(index);
+                                    }
                                     lxVals.add(xVals.get(index));
                                     lyVals.add(yVals.get(index));
                                 }
                             }
-                            valuesSeries = new SimpleXYSeries(lxVals, lyVals, "T " + unit);
+                            valuesSeries = new SimpleXYSeries(lxVals, lyVals, "RH %");
                             graphXyPlot.addSeries(valuesSeries, graphLineAndPointFormatter);
                         } else {
-                            valuesSeries = new SimpleXYSeries(xVals, yVals, "T " + unit);
+                            valuesSeries = new SimpleXYSeries(xVals, yVals, "RH % ");
                             graphXyPlot.addSeries(valuesSeries, graphLineAndPointFormatter);
+                        }
+                        if (doAutoScale()) {
+                            String rangeLabel = getString(R.string.relative_humidity) + "  (%)";
+                            double minRangeUnits = 0;
+                            double maxRangeUnits = 100;
+                            graphXyPlot.getGraph().getLineLabelStyle(XYGraphWidget.Edge.LEFT).setFormat(yAxisFormat_zero);
+                            float insetLeft = Utils.pixelsFromDp(mContext, 25);
+                            double rangeSteps = 10;
+                            minRangeUnits = (int)(minRh - 1.0);
+                            maxRangeUnits = (int)(maxRh + 1.0);
+                            graphXyPlot.setRangeStep(StepMode.INCREMENT_BY_VAL, (maxRangeUnits - minRangeUnits) / rangeSteps);
+                            Insets gridInsets = graphXyPlot.getGraph().getGridInsets();
+                            gridInsets.setLeft(insetLeft);
+                            graphXyPlot.getGraph().setGridInsets(gridInsets);
+                            graphXyPlot.setRangeLabel(rangeLabel.toUpperCase(Locale.US));
+                            graphXyPlot.setRangeBoundaries(minRangeUnits, maxRangeUnits, BoundaryMode.FIXED);
+                            graphXyPlot.redraw();
+                        } else {
+                            updateRangeAxis(true);
                         }
                     }
                 }
                 break;
                 case VIEW_AIR_PRESSURE: {
+                    double minAp = 999999;
+                    double maxAp = -999999;
+                    String unit = "mbar";
+                    int apUnit = TraySettings.getAirPressureUnit();
+                    switch (apUnit) {
+                        case AIR_PRESSURE_HPA:
+                            unit = "hPa";
+                            break;
+                        case AIR_PRESSURE_KPA:
+                            unit = "kPa";
+                            break;
+                        case AIR_PRESSURE_PSI:
+                            unit = "Psi";
+                            break;
+                        case AIR_PRESSURE_MBAR:
+                            unit = "mbar";
+                            break;
+                    }
                     ArrayList<AirPressureData> airPressureData = apDataBuffer.getDataBuffer();
                     if (airPressureData != null && airPressureData.size() > 0) {
-                        boolean tempF = TraySettings.isTemperatureUnitFahrenheit();
-                        String unit = getString(R.string.unit_celsius);
-                        if (tempF) {
-                            unit = getString(R.string.unit_fahrenheit);
-                        }
+                        minAp = 999999;
+                        maxAp = -999999;
                         int unitIndex = TraySettings.getAirPressureUnit();
                         for (int tt = 0; tt < airPressureData.size(); tt++) {
                             double graphTime = (double)(currentTime - airPressureData.get(tt).getTimestamp()) / (double)graphUnit;
                             if (airPressureData.get(tt).getTimestamp() >= goBackTime) {
                                 double airPressure = airPressureData.get(tt).getAirPressure();
-                                if (unitIndex == AIR_PRESSURE_KPA) {
+                                if (airPressure != -9999 && unitIndex == AIR_PRESSURE_KPA) {
                                     airPressure /= 10.0;
                                 }
-                                if (unitIndex == AIR_PRESSURE_PSI) {
+                                if (airPressure != -9999 && unitIndex == AIR_PRESSURE_PSI) {
                                     airPressure *= Utils.PSI_VALUE_ONE_MILLIBAR;
+                                }
+                                if (doAutoScale()) {
+                                    if (airPressure != -9999 && airPressure < minAp) {
+                                        minAp = airPressure;
+                                    }
+                                    if (airPressure != -9999 && airPressure > maxAp) {
+                                        maxAp = airPressure;
+                                    }
                                 }
                                 xVals.add(graphTime);
                                 yVals.add(airPressure);
@@ -960,18 +1085,72 @@ public class HistoryFragment extends Fragment {
                                         value += yVals.get(idx);
                                     }
                                     value /= (int)intervalStep;
+                                    if (doAutoScale()) {
+                                        if (value != -9999 && value < minAp) {
+                                            minAp = value;
+                                        }
+                                        if (value != -9999 && value > maxAp) {
+                                            maxAp = value;
+                                        }
+                                    }
                                     lyVals.add(value);
                                     lxVals.add(xVals.get(index));
                                 } else {
+                                    if (doAutoScale()) {
+                                        if (yVals.get(index) != -9999 && yVals.get(index) < minAp) {
+                                            minAp = yVals.get(index);
+                                        }
+                                        if (yVals.get(index) != -9999 && yVals.get(index) > maxAp) {
+                                            maxAp = yVals.get(index);
+                                        }
+                                    }
                                     lxVals.add(xVals.get(index));
                                     lyVals.add(yVals.get(index));
                                 }
                             }
-                            valuesSeries = new SimpleXYSeries(lxVals, lyVals, "T " + unit);
+                            valuesSeries = new SimpleXYSeries(lxVals, lyVals, "AP " + unit);
                             graphXyPlot.addSeries(valuesSeries, graphLineAndPointFormatter);
                         } else {
-                            valuesSeries = new SimpleXYSeries(xVals, yVals, "T " + unit);
+                            valuesSeries = new SimpleXYSeries(xVals, yVals, "AP " + unit);
                             graphXyPlot.addSeries(valuesSeries, graphLineAndPointFormatter);
+                        }
+                        if (doAutoScale()) {
+                            String rangeLabel = getString(R.string.air_pressure) + "  ("+unit+")";
+                            double minRangeUnits = 0;
+                            double maxRangeUnits = 100;
+                            graphXyPlot.getGraph().getLineLabelStyle(XYGraphWidget.Edge.LEFT).setFormat(yAxisFormat_zero);
+                            float insetLeft = Utils.pixelsFromDp(mContext, 25);
+                            double rangeSteps = 10;
+                            double offset = 5.0;
+                            switch (apUnit) {
+                                case AIR_PRESSURE_HPA:
+                                    offset = 1.0;
+                                    insetLeft = Utils.pixelsFromDp(mContext, 39);
+                                    break;
+                                case AIR_PRESSURE_KPA:
+                                    offset = 1.0;
+                                    insetLeft = Utils.pixelsFromDp(mContext, 35);
+                                    break;
+                                case AIR_PRESSURE_PSI:
+                                    offset = 0.5;
+                                    insetLeft = Utils.pixelsFromDp(mContext, 27);
+                                    break;
+                                case AIR_PRESSURE_MBAR:
+                                    offset = 1.0;
+                                    insetLeft = Utils.pixelsFromDp(mContext, 39);
+                                    break;
+                            }
+                            minRangeUnits = (int)(minAp - offset);
+                            maxRangeUnits = (int)(maxAp + offset);
+                            graphXyPlot.setRangeStep(StepMode.INCREMENT_BY_VAL, (maxRangeUnits - minRangeUnits) / rangeSteps);
+                            Insets gridInsets = graphXyPlot.getGraph().getGridInsets();
+                            gridInsets.setLeft(insetLeft);
+                            graphXyPlot.getGraph().setGridInsets(gridInsets);
+                            graphXyPlot.setRangeLabel(rangeLabel.toUpperCase(Locale.US));
+                            graphXyPlot.setRangeBoundaries(minRangeUnits, maxRangeUnits, BoundaryMode.FIXED);
+                            graphXyPlot.redraw();
+                        } else {
+                            updateRangeAxis(true);
                         }
                     }
                 }
@@ -1108,5 +1287,9 @@ public class HistoryFragment extends Fragment {
     private void resetPlot() {
         graphXyPlot.removeSeries(valuesSeries);
         graphXyPlot.redraw();
+    }
+
+    private boolean doAutoScale() {
+        return TraySettings.getDoAutoScale();
     }
 }

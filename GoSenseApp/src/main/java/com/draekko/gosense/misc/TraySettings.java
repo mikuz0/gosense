@@ -72,6 +72,7 @@ public class TraySettings {
     public static final String PREF_KEY_GRAPH_UPDATE_INTERVAL = "PREF_KEY_GRAPH_UPDATE_INTERVAL";
     public static final String PREF_KEY_AVERAGE_GRAPH_DATA = "PREF_KEY_AVERAGE_GRAPH_DATA";
     public static final String PREF_KEY_DATA_RETENTION_INTERVAL = "PREF_KEY_DATA_RETENTION_INTERVAL";
+    public static final String PREF_KEY_DO_AUTO_SCALE = "PREF_KEY_DO_AUTO_SCALE";
 
     public static boolean putData(Object data, String key) {
         Context applicationContext = GoSenseAppContext.getInstance().getApplicationContext();
@@ -91,6 +92,8 @@ public class TraySettings {
         } else if (key.equals(PREF_KEY_AVERAGE_GRAPH_DATA)) {
             dataStoragePreference.put(key, (Boolean)data);
         } else if (key.equals(PREF_KEY_KEEP_SCREEN_ON)) {
+            dataStoragePreference.put(key, (Boolean)data);
+        } else if (key.equals(PREF_KEY_DO_AUTO_SCALE)) {
             dataStoragePreference.put(key, (Boolean)data);
         } else if (key.equals(PREF_KEY_HAS_AIR_PRESSURE)) {
             dataStoragePreference.put(key, (Boolean)data);
@@ -143,6 +146,8 @@ public class TraySettings {
         } else if (key.equals(PREF_KEY_FIRST_CHECK_PRESSURE_SENSOR)) {
             return dataStoragePreference.getBoolean(key, true);
         } else if (key.equals(PREF_KEY_KEEP_SCREEN_ON)) {
+            return dataStoragePreference.getBoolean(key, true);
+        } else if (key.equals(PREF_KEY_DO_AUTO_SCALE)) {
             return dataStoragePreference.getBoolean(key, true);
         } else if (key.equals(PREF_KEY_AUTOCONNECT_BT_ON_DISCONNECT)) {
             return dataStoragePreference.getBoolean(key, true);
@@ -250,6 +255,10 @@ public class TraySettings {
 
     public static boolean getUseLocation() {
         return (Boolean)getData(PREF_KEY_USE_LOCATON);
+    }
+
+    public static boolean getDoAutoScale() {
+        return (Boolean)getData(PREF_KEY_DO_AUTO_SCALE);
     }
 
     public static int getDataRetentionIntervalCode() {
