@@ -248,7 +248,7 @@ public class ComfortZoneFragment extends Fragment {
         GoSensePagerActivity.registerOnColorChange(mOnColorChange);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            int flags = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ? Context.RECEIVER_NOT_EXPORTED : 0 ;
+            int flags = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ? Context.RECEIVER_NOT_EXPORTED : 0 ;
             ContextCompat.registerReceiver(mContext, remoteTemperatureDataReceiver, new IntentFilter( AllServicesDeviceDataHandler.MEASUREMENT_REMOTE_TEMPERATURE ), flags);
             ContextCompat.registerReceiver(mContext, remoteHumidityDataReceiver, new IntentFilter( AllServicesDeviceDataHandler.MEASUREMENT_REMOTE_RELATIVE_HUMIDITY ), flags);
         } else {

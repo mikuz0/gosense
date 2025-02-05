@@ -108,10 +108,10 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     private boolean isBtScanConnectPermissionGranted() {
         boolean canConnectBt = true;
-        boolean canScanBt = true;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        boolean canScanBt = false;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             canScanBt = ContextCompat.checkSelfPermission(mActivity, BLUETOOTH_SCAN) == PackageManager.PERMISSION_GRANTED;
-            canConnectBt = ContextCompat.checkSelfPermission(mActivity, BLUETOOTH_SCAN) == PackageManager.PERMISSION_GRANTED;
+            canConnectBt = ContextCompat.checkSelfPermission(mActivity, BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED;
             if (!canConnectBt || !canScanBt) {
                 requestBtPermission(new String[]{ BLUETOOTH_SCAN, BLUETOOTH_CONNECT });
             }

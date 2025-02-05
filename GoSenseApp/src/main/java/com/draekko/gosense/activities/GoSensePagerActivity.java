@@ -16,9 +16,11 @@ import static com.draekko.gosense.views.InfiniteViewPager2.SCROLL_STATE_IDLE;
 import static com.draekko.gosense.views.InfiniteViewPager2.SCROLL_STATE_SETTLING;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.KeyguardManager;
+import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.le.ScanResult;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -48,6 +50,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -96,12 +99,44 @@ public class GoSensePagerActivity extends FragmentActivity {
 
     private static final String TAG = "GoSensePagerActivity";
 
+    private static final int TAB_SETTINGS_PRE_ID = 0;
+    private static final int TAB_DASHBOARD_ID = 1;
+    private static final int TAB_COMFORT_ZONE_ID = 2;
+    private static final int TAB_HISTORY_ID = 3;
+    private static final int TAB_DEVICES_ID = 4;
+    private static final int TAB_SETTINGS_ID = 5;
+    private static final int TAB_DASHBOARD_POST_ID = 6;
+
+    private static final long RECONNECT_TIME = 20000;
+
+    private static final int REQUEST_ENABLE_BT                = 0x1001;
+    /*
+    private static final int REQUEST_BT_PERMISSION            = 0x3002;
+    private static final int REQUEST_ENABLE_BT                = 0x1001;
+    private static final int REQUEST_OAUTH_REQUEST_CODE       = 0x1003;
+    private static final int REQUEST_PAIRING                  = 0x1002;
+    private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 0x1004;
+    private static final int REQUEST_SETTINGS                 = 0x2000;
+    private static final int REQUEST_MANAGE_FILES             = 0x1010;
+     */
+
     private static OnRssiUpdates mDashboardRssiUpdate;
     private static OnRssiUpdates mDevicesRssiUpdate;
     private static OnRssiUpdates mComfortZoneRssiUpdate;
 
     private static ArrayList<OnConnnectionStates> mOnConnnectionStates = new ArrayList<>();
 
+
+    private ActivityResultLauncher<Intent> launchBtEnabledActivityResult = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        //Intent data = result.getData();
+                    }
+                }
+            });
 
     public static void registerOnColorChange(DevicesFragment.OnColorChange onColorChange) {
         if (onColorChange != null) {
@@ -271,26 +306,6 @@ public class GoSensePagerActivity extends FragmentActivity {
         mComfortZoneRssiUpdate = onRssiUpdates;
     }
 
-    private static final int TAB_SETTINGS_PRE_ID = 0;
-    private static final int TAB_DASHBOARD_ID = 1;
-    private static final int TAB_COMFORT_ZONE_ID = 2;
-    private static final int TAB_HISTORY_ID = 3;
-    private static final int TAB_DEVICES_ID = 4;
-    private static final int TAB_SETTINGS_ID = 5;
-    private static final int TAB_DASHBOARD_POST_ID = 6;
-
-    private static final long RECONNECT_TIME = 20000;
-
-    /*
-    private static final int REQUEST_BT_PERMISSION            = 0x3002;
-    private static final int REQUEST_ENABLE_BT                = 0x1001;
-    private static final int REQUEST_OAUTH_REQUEST_CODE       = 0x1003;
-    private static final int REQUEST_PAIRING                  = 0x1002;
-    private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 0x1004;
-    private static final int REQUEST_SETTINGS                 = 0x2000;
-    private static final int REQUEST_MANAGE_FILES             = 0x1010;
-     */
-
     private static final long TIMEOUT_CONNECT = 25000;
 
     private int totalItems = 7;
@@ -452,7 +467,7 @@ public class GoSensePagerActivity extends FragmentActivity {
                 mAllDevicesService.getCentral().getConnectedPeripherals().size() > 0;
     }
 
-    BroadcastReceiver mScrnUpdateReceiver = new BroadcastReceiver() {
+    private BroadcastReceiver mScrnUpdateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             String strAction = intent.getAction();
@@ -473,7 +488,7 @@ public class GoSensePagerActivity extends FragmentActivity {
         }
     };
 
-    AllServicesDeviceDataHandler.OnDeviceReconnection mOnDeviceReconnection =
+    private AllServicesDeviceDataHandler.OnDeviceReconnection mOnDeviceReconnection =
             new AllServicesDeviceDataHandler.OnDeviceReconnection() {
 
         @Override
@@ -483,6 +498,7 @@ public class GoSensePagerActivity extends FragmentActivity {
     };
 
     private ServiceConnection mAllDevicesServiceConnection = new ServiceConnection() {
+        @SuppressLint("MissingPermission")
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             if (service == null) {
@@ -495,6 +511,15 @@ public class GoSensePagerActivity extends FragmentActivity {
                 mInfiniteViewPager2.setCurrentItem(4, false);
             }
             mAllDevicesService.registerOnDeviceReconnection(mOnDeviceReconnection);
+
+            if (!mAllDevicesService.isBluetoothAdapterEnabled()) {
+                Intent intentBtEnabled = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    launchBtEnabledActivityResult.launch(intentBtEnabled);
+                } else {
+                    startActivityForResult(intentBtEnabled, REQUEST_ENABLE_BT);
+                }
+            }
         }
 
         @Override

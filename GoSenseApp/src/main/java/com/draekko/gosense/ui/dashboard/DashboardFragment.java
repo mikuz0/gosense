@@ -350,7 +350,7 @@ public class DashboardFragment extends Fragment {
             GoSensePagerActivity.registerOnReadRemoteBatteryLevel(mOnReadRemoteBatteryLevel);
         }
 
-        int flags = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ? Context.RECEIVER_NOT_EXPORTED : 0 ;
+        int flags = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ? Context.RECEIVER_NOT_EXPORTED : 0 ;
         ContextCompat.registerReceiver(mContext, remoteBatteryLevelDataReceiver, new IntentFilter( AllServicesDeviceDataHandler.MEASUREMENT_REMOTE_BATTERY_LEVEL ), flags);
         ContextCompat.registerReceiver(mContext, remoteTemperatureDataReceiver, new IntentFilter( AllServicesDeviceDataHandler.MEASUREMENT_REMOTE_TEMPERATURE ), flags);
         ContextCompat.registerReceiver(mContext, remotehumidityDataReceiver, new IntentFilter( AllServicesDeviceDataHandler.MEASUREMENT_REMOTE_RELATIVE_HUMIDITY ), flags);

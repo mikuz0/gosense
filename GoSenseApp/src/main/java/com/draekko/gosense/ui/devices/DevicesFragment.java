@@ -15,6 +15,7 @@ import static com.draekko.gosense.services.AllServicesDeviceDataHandler.UUID_TEM
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.le.ScanResult;
 import android.content.ComponentName;
@@ -122,21 +123,36 @@ public class DevicesFragment extends Fragment {
         }
     };
 
-    AllServicesDeviceDataHandler.OnReadRemoteBatteryLevel mOnReadRemoteBatteryLevel = new AllServicesDeviceDataHandler.OnReadRemoteBatteryLevel() {
+
+    private ActivityResultLauncher<Intent> launchBtEnabledActivityResult = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        //Intent data = result.getData();
+                    }
+                }
+            });
+
+    private AllServicesDeviceDataHandler.OnReadRemoteBatteryLevel mOnReadRemoteBatteryLevel =
+            new AllServicesDeviceDataHandler.OnReadRemoteBatteryLevel() {
         @Override
         public void remoteBatteryLevel(@NotNull BluetoothPeripheral peripheral, int batterylevel) {
             pairedDevicesListAdapter.updateBattery(peripheral.getAddress(), batterylevel);
         }
     };
 
-    AllServicesDeviceDataHandler.OnReadRemoteRssi mOnReadRemoteRssi = new AllServicesDeviceDataHandler.OnReadRemoteRssi() {
+    private AllServicesDeviceDataHandler.OnReadRemoteRssi mOnReadRemoteRssi =
+            new AllServicesDeviceDataHandler.OnReadRemoteRssi() {
         @Override
         public void remoteRssi(@NotNull BluetoothPeripheral peripheral, int rssi) {
             pairedDevicesListAdapter.updateRssi(peripheral.getAddress(), rssi);
         }
     };
 
-    private GoSensePagerActivity.OnConnnectionStates mDeviceOnConnnectionStates = new GoSensePagerActivity.OnConnnectionStates() {
+    private GoSensePagerActivity.OnConnnectionStates mDeviceOnConnnectionStates =
+            new GoSensePagerActivity.OnConnnectionStates() {
         @Override
         public void onConnected(@NotNull BluetoothPeripheral peripheral) {
             onDeviceConnected();
@@ -435,6 +451,17 @@ public class DevicesFragment extends Fragment {
             @Override
             public void onItemClick(View view, int position) {
                 Log.i(TAG, "Clicked device position " + position);
+
+                if (!mAllDevicesService.isBluetoothAdapterEnabled()) {
+                    Intent intentBtEnabled = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                        launchBtEnabledActivityResult.launch(intentBtEnabled);
+                    } else {
+                        startActivityForResult(intentBtEnabled, REQUEST_ENABLE_BT);
+                    }
+                    return;
+                }
+
                 int menu = R.menu.device_disconnection_menu;
                 itemPosition = position;
 
@@ -758,6 +785,16 @@ public class DevicesFragment extends Fragment {
         actionScanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!mAllDevicesService.isBluetoothAdapterEnabled()) {
+                    Intent intentBtEnabled = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                        launchBtEnabledActivityResult.launch(intentBtEnabled);
+                    } else {
+                        startActivityForResult(intentBtEnabled, REQUEST_ENABLE_BT);
+                    }
+                    return;
+                }
+
                 if (progressBar.getVisibility() == View.VISIBLE) {
                     stopBtScan();
                 } else {
