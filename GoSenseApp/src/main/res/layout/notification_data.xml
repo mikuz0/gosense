@@ -2,15 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/black"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="50dp">
 
     <RelativeLayout
         android:id="@+id/bpmLayout"
         android:layout_width="match_parent"
-        android:layout_height="32dp"
+        android:layout_height="wrap_content"
         android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:layout_margin="8dp" >
+        android:paddingEnd="12dp" >
 
         <LinearLayout
             android:id="@+id/topframe"

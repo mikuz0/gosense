@@ -27,6 +27,8 @@ public class AirPressureDataBuffer  extends DataBuffer<AirPressureData> {
 
     @Override
     public synchronized void popAll() {
+        popSingle();
+        /*
         try {
             if(!isEmpty()) {
                 ArrayList<AirPressureData> list = getDataBuffer();
@@ -45,5 +47,6 @@ public class AirPressureDataBuffer  extends DataBuffer<AirPressureData> {
         } catch (Exception e) {
             e.printStackTrace();
         }
+         */
     }
 }

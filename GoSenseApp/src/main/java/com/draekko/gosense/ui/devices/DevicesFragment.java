@@ -504,6 +504,7 @@ public class DevicesFragment extends Fragment {
                             SensorPairListData device = pairedDevicesListAdapter.getSensorDevice(itemPosition);
                             if (device == null) {
                                 Toast.makeText(getActivity(), getString(R.string.device_failed), Toast.LENGTH_SHORT).show();
+                                iconContextMenu.dismiss();
                                 return;
                             }
 
@@ -533,6 +534,7 @@ public class DevicesFragment extends Fragment {
                             connectToName = null;
                             connectToAddress = null;
 
+                            iconContextMenu.dismiss();
                             return;
                         }
 
@@ -550,6 +552,7 @@ public class DevicesFragment extends Fragment {
                             connectToName = null;
                             connectToAddress = null;
 
+                            iconContextMenu.dismiss();
                             return;
                         }
 
@@ -593,6 +596,7 @@ public class DevicesFragment extends Fragment {
                                     for (BluetoothPeripheral connectedDevice: connectedList) {
                                         if (Utils.addressIsSame(connectToAddress, connectedDevice.getAddress())) {
                                             Toast.makeText(mContext, getString(R.string.device_is_connected),  Toast.LENGTH_LONG).show();
+                                            iconContextMenu.dismiss();
                                             return;
                                         } else {
                                             connectedDevice.cancelConnection();
@@ -610,7 +614,6 @@ public class DevicesFragment extends Fragment {
                                 currentDevice = false;
                                 handleDeviceSelection(connectToAddress, connectToName);
                                 pairedDevicesListAdapter.notifyDataSetChanged();
-                                iconContextMenu.dismiss();
 
                                 connectToName = null;
                                 connectToAddress = null;

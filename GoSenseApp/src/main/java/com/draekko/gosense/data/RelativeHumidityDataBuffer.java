@@ -25,6 +25,9 @@ public class RelativeHumidityDataBuffer extends DataBuffer<RelativeHumidityData>
 
     @Override
     public synchronized void popAll() {
+        popSingle();
+
+        /*
         if(!isEmpty()) {
             ArrayList<RelativeHumidityData> list = getDataBuffer();
             for (RelativeHumidityData relativeHumidityData : list) {
@@ -35,5 +38,6 @@ public class RelativeHumidityDataBuffer extends DataBuffer<RelativeHumidityData>
                 }
             }
         }
+         */
     }
 }

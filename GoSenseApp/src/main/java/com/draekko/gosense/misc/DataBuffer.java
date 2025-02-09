@@ -60,7 +60,7 @@ public class DataBuffer<T> implements Iterable<T> {
 
     public synchronized void push(T item) {
         buffer.add(item);
-        popAll();
+        pop();
     }
 
     public synchronized void popSingle() {

@@ -43,11 +43,11 @@
             app:title="Use Graph Data Averaging" />
 
         <com.draekko.traypreferences.TraySeekBarPreference
-            app:summary="Sets the interval that the history graphs will be updated at in seconds"
+            app:summary="Sets the interval speed that the history graphs will be updated"
             app:defaultValue="1"
             app:key="PREF_KEY_GRAPH_UPDATE_INTERVAL"
             app:max="60"
-            app:min="1"
+            app:min="5"
             app:seekBarIncrement="1"
             app:displayIncrement="1"
             app:showSeekBarValue="true"

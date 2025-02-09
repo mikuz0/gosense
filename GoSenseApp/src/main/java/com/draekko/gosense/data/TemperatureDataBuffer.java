@@ -26,6 +26,8 @@ public class TemperatureDataBuffer extends DataBuffer<TemperatureData> {
 
     @Override
     public synchronized void popAll() {
+        popSingle();
+        /*
         if(!isEmpty()) {
             ArrayList<TemperatureData> list = getDataBuffer();
             for (TemperatureData temperatureData : list) {
@@ -36,5 +38,6 @@ public class TemperatureDataBuffer extends DataBuffer<TemperatureData> {
                 }
             }
         }
+         */
     }
 }
