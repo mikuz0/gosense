@@ -93,6 +93,12 @@ public class ComfortZoneFragment extends Fragment {
 
             mSensorNameTextView.setText(getString(R.string.empty_bluetooth_device));
             mSensorAddressTextView.setText(Utils.DEFAULT_EMPTY_ADDRESS);
+            mSensorAmbientTemperatureTextView.setText(getString(R.string.label_empty_t));
+            mSensorRelativeHumidity.setText(getString(R.string.label_empty_rh));
+
+            if (selectedPoint != null) {
+                selectedPoint.setVisibility(visibility);
+            }
         }
     };
 
@@ -512,6 +518,7 @@ public class ComfortZoneFragment extends Fragment {
         }
     }
 
+    private XyPoint selectedPoint;
     public void updateViewValues(@NonNull final String address,
                                  final float temperature,
                                  final float relativeHumidity) {
@@ -541,7 +548,7 @@ public class ComfortZoneFragment extends Fragment {
                     if (mPlotView.isOutsideGrid(newPos)) {
                         isClipped = true;
                     }
-                    XyPoint selectedPoint = mActiveSensorViews.get(address);
+                    selectedPoint = mActiveSensorViews.get(address);
                     if (selectedPoint != null) {
                         selectedPoint.setVisibility(visibility);
                         updateViewPositionFor(selectedPoint, newPos, isClipped);

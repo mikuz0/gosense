@@ -84,6 +84,7 @@ public class DashboardFragment extends Fragment {
         public void onDisconnected(@NotNull BluetoothPeripheral peripheral, @NotNull HciStatus status) {
             isConnected = false;
             toggleBtMessage(isConnected);
+            clearDisplay();
         }
     };
 
@@ -597,5 +598,14 @@ public class DashboardFragment extends Fragment {
                 traySwitchPreference.setChecked(change);
             }
         }
+    }
+
+    private void clearDisplay() {
+        dash_temp_value.setText(getString(R.string.label_empty_t));
+        dash_humidity_value.setText(getString(R.string.label_empty_rh));
+        dash_dp_value.setText(getString(R.string.label_empty_t));
+        dash_hi_value.setText(getString(R.string.label_empty_t));
+        dash_hdex_value.setText(getString(R.string.label_empty_t));
+        dash_ap_value.setText(getString(R.string.label_empty_ap));
     }
 }

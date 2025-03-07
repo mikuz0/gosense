@@ -686,8 +686,15 @@ public class GoSensePagerActivity extends FragmentActivity {
                     setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            mAllDevicesService.disconnectAll();
-                            mAllDevicesService.close();
+                            try {
+                                mAllDevicesService.setExit(true);
+                                mAllDevicesService.disconnectAll();
+                            } catch (Exception e) {
+                            }
+                            try {
+                                mAllDevicesService.close();
+                            } catch (Exception e) {
+                            }
 
                             finish();
                             finishAffinity();

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.draekko.gosense.app.GoSenseApplication;
 import com.draekko.gosense.database.GoSenseDb;
 import com.draekko.gosense.misc.TraySettings;
 import com.draekko.gosense.misc.Utils;

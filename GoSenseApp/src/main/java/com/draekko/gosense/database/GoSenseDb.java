@@ -111,6 +111,54 @@ public class GoSenseDb {
         return null;
     }
 
+    private TemperatureData cursorTemperatureNegative(Cursor cursor) {
+        try {
+            if (cursor != null) {
+                int temp_idx = cursor.getColumnIndex(GoSenseContract.TEMPERATURE_RECORD.COLUMN.TEMPERATURE);
+                int time_idx = cursor.getColumnIndex(GoSenseContract.TEMPERATURE_RECORD.COLUMN.TIME);
+
+                long time = cursor.getLong(time_idx);
+                float temp = cursor.getFloat(temp_idx);
+                return new TemperatureData(-1, time, temp, -9999.0, -9999.0, null, null);
+            }
+        } catch (Exception e) {
+        }
+
+        return null;
+    }
+
+    private AirPressureData cursorAirPressureNegative(Cursor cursor) {
+        try {
+            if (cursor != null) {
+                int ap_idx = cursor.getColumnIndex(GoSenseContract.AIRPRESSURE_RECORD.COLUMN.AIRPRESSURE);
+                int time_idx = cursor.getColumnIndex(GoSenseContract.AIRPRESSURE_RECORD.COLUMN.TIME);
+
+                long time = cursor.getLong(time_idx);
+                float ap = cursor.getFloat(ap_idx);
+                return new AirPressureData(-1, time, ap, -9999.0, -9999.0, null, null);
+            }
+        } catch (Exception e) {
+        }
+
+        return null;
+    }
+
+    private RelativeHumidityData cursorRelativeHumidityNegative(Cursor cursor) {
+        try {
+            if (cursor != null) {
+                int rh_idx = cursor.getColumnIndex(GoSenseContract.RELATIVEHUMIDITY_RECORD.COLUMN.RELATIVEHUMIDITY);
+                int time_idx = cursor.getColumnIndex(GoSenseContract.RELATIVEHUMIDITY_RECORD.COLUMN.TIME);
+
+                long time = cursor.getLong(time_idx);
+                float rh = cursor.getFloat(rh_idx);
+                return new RelativeHumidityData(-1, time, rh, -9999.0, -9999.0, null, null);
+            }
+        } catch (Exception e) {
+        }
+
+        return null;
+    }
+
     private TemperatureData cursorTemperature(Cursor cursor) {
         if (cursor != null) {
             int id_idx = cursor.getColumnIndex(GoSenseContract.TEMPERATURE_RECORD.COLUMN.ID);
@@ -266,12 +314,12 @@ public class GoSenseDb {
 
         try {
             String query = "SELECT " + GoSenseContract.TEMPERATURE_RECORD.COLUMN.TIME +
-                    "FROM " + GoSenseContract.TEMPERATURE_RECORD.TABLE.NAME +
-                    "WHERE " + GoSenseContract.TEMPERATURE_RECORD.COLUMN.TIME +
-                    "BETWEEN " + (start_date - 1) +
-                    "AND " + (end_date + 1) +
-                    "ORDER BY " + GoSenseContract.TEMPERATURE_RECORD.COLUMN.TIME +
-                    "ASC";
+                    " FROM " + GoSenseContract.TEMPERATURE_RECORD.TABLE.NAME +
+                    " WHERE " + GoSenseContract.TEMPERATURE_RECORD.COLUMN.TIME +
+                    " BETWEEN " + (start_date - 1) +
+                    " AND " + (end_date + 1) +
+                    " ORDER BY " + GoSenseContract.TEMPERATURE_RECORD.COLUMN.TIME +
+                    " ASC";
             cursor = db.rawQuery(query, null);
 
             if (cursor != null) {
@@ -292,6 +340,114 @@ public class GoSenseDb {
         }
 
         return temperatureDataList;
+    }
+
+    public ArrayList<TemperatureData> getTemperatureRangeNegative(long start_date, long end_date) {
+        final ArrayList<TemperatureData> temperatureDataList = new ArrayList<>();
+        Cursor cursor = null;
+
+        try {
+            String query = "SELECT " + GoSenseContract.TEMPERATURE_RECORD.COLUMN.TIME + "," +
+                    GoSenseContract.TEMPERATURE_RECORD.COLUMN.TEMPERATURE +
+                    " FROM " + GoSenseContract.TEMPERATURE_RECORD.TABLE.NAME +
+                    " WHERE " + GoSenseContract.TEMPERATURE_RECORD.COLUMN.TIME +
+                    " BETWEEN " + (start_date - 1) +
+                    " AND " + (end_date + 1) +
+                    " AND " + GoSenseContract.TEMPERATURE_RECORD.COLUMN.TEMPERATURE + "=-9999.0" +
+                    " ORDER BY " + GoSenseContract.TEMPERATURE_RECORD.COLUMN.TIME +
+                    " ASC";
+            cursor = db.rawQuery(query, null);
+
+            if (cursor != null) {
+                int count = cursor.getCount();
+                if (count > 0) {
+                    cursor.moveToFirst();
+                    TemperatureData temperatureData = cursorTemperatureNegative(cursor);
+                    if (temperatureData != null) {
+                        temperatureDataList.add(temperatureData);
+                    }
+                }
+            }
+        } catch (Exception e) {
+        }
+
+        if (cursor != null && !cursor.isClosed()) {
+            cursor.close();
+        }
+
+        return temperatureDataList;
+    }
+
+    public ArrayList<AirPressureData> getAirPressureRangeNegative(long start_date, long end_date) {
+        final ArrayList<AirPressureData> airpressureDataList = new ArrayList<>();
+        Cursor cursor = null;
+
+        try {
+            String query = "SELECT " + GoSenseContract.AIRPRESSURE_RECORD.COLUMN.TIME + "," +
+                    GoSenseContract.AIRPRESSURE_RECORD.COLUMN.AIRPRESSURE +
+                    " FROM " + GoSenseContract.AIRPRESSURE_RECORD.TABLE.NAME +
+                    " WHERE " + GoSenseContract.AIRPRESSURE_RECORD.COLUMN.TIME +
+                    " BETWEEN " + (start_date - 1) +
+                    " AND " + (end_date + 1) +
+                    " AND " + GoSenseContract.AIRPRESSURE_RECORD.COLUMN.AIRPRESSURE + "=-9999.0" +
+                    " ORDER BY " + GoSenseContract.AIRPRESSURE_RECORD.COLUMN.TIME +
+                    " ASC";
+            cursor = db.rawQuery(query, null);
+
+            if (cursor != null) {
+                int count = cursor.getCount();
+                if (count > 0) {
+                    cursor.moveToFirst();
+                    AirPressureData airPressureData = cursorAirPressureNegative(cursor);
+                    if (airPressureData != null) {
+                        airpressureDataList.add(airPressureData);
+                    }
+                }
+            }
+        } catch (Exception e) {
+        }
+
+        if (cursor != null && !cursor.isClosed()) {
+            cursor.close();
+        }
+
+        return airpressureDataList;
+    }
+
+    public ArrayList<RelativeHumidityData> getRelativeHumidityRangeNegative(long start_date, long end_date) {
+        final ArrayList<RelativeHumidityData> relativeHumidityDataList = new ArrayList<>();
+        Cursor cursor = null;
+
+        try {
+            String query = "SELECT " + GoSenseContract.RELATIVEHUMIDITY_RECORD.COLUMN.TIME + "," +
+                    GoSenseContract.RELATIVEHUMIDITY_RECORD.COLUMN.RELATIVEHUMIDITY +
+                    " FROM " + GoSenseContract.RELATIVEHUMIDITY_RECORD.TABLE.NAME +
+                    " WHERE " + GoSenseContract.RELATIVEHUMIDITY_RECORD.COLUMN.TIME +
+                    " BETWEEN " + (start_date - 1) +
+                    " AND " + (end_date + 1) +
+                    " AND " + GoSenseContract.RELATIVEHUMIDITY_RECORD.COLUMN.RELATIVEHUMIDITY + "=-9999.0" +
+                    " ORDER BY " + GoSenseContract.RELATIVEHUMIDITY_RECORD.COLUMN.TIME +
+                    " ASC";
+            cursor = db.rawQuery(query, null);
+
+            if (cursor != null) {
+                int count = cursor.getCount();
+                if (count > 0) {
+                    cursor.moveToFirst();
+                    RelativeHumidityData relativeHumidityData = cursorRelativeHumidityNegative(cursor);
+                    if (relativeHumidityData != null) {
+                        relativeHumidityDataList.add(relativeHumidityData);
+                    }
+                }
+            }
+        } catch (Exception e) {
+        }
+
+        if (cursor != null && !cursor.isClosed()) {
+            cursor.close();
+        }
+
+        return relativeHumidityDataList;
     }
 
     public ArrayList<RelativeHumidityData> getRelativeHumidityRange(long start_date, long end_date) {
@@ -1017,5 +1173,9 @@ public class GoSenseDb {
             saveSensorDevice(sensorDevice);
         }
         cursor.close();
+    }
+
+    public boolean isOpen() {
+        return db.isOpen();
     }
 }

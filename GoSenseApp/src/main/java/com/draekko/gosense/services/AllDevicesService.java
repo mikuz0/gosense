@@ -52,6 +52,7 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import com.draekko.gosense.R;
 import com.draekko.gosense.activities.GoSensePagerActivity;
@@ -83,7 +84,9 @@ import androidx.core.os.BuildCompat;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -150,7 +153,7 @@ public class AllDevicesService extends Service
     private AllServicesDeviceDataHandler btDataHandler;
     private Notification notification1;
     private Notification notification2;
-
+    private Handler toastHandler;
     private LocationListener locationListener = null;
     private boolean useLocation = true;
     private LocationManager locationManager;
@@ -164,6 +167,7 @@ public class AllDevicesService extends Service
     private float mAirpressure;
     private int mBattery;
     private boolean connected = false;
+    private boolean exiting = false;
     private BluetoothCentralManagerCallback mBluetoothCentralManagerCallback;
 
     private BluetoothCentralManagerCallback mDataHandlerBluetoothCentralManagerCallback = new BluetoothCentralManagerCallback() {
@@ -195,6 +199,9 @@ public class AllDevicesService extends Service
 
         @Override
         public void onDisconnectedPeripheral(@NotNull BluetoothPeripheral peripheral, @NotNull HciStatus status) {
+            updateNotification(peripheral, 0, -9999, -9999, -9999, false);
+            cancelNotifications();
+
             connected = false;
             String deviceName = peripheral.getName();
             if (deviceName == null || deviceName.isEmpty()) {
@@ -207,7 +214,9 @@ public class AllDevicesService extends Service
             updateEndStartDataConnection(deviceName, peripheral.getAddress());
             connectedName = null;
             connectedAddress = null;
+
             super.onDisconnectedPeripheral(peripheral, status);
+
             if (mBluetoothCentralManagerCallback != null) {
                 mBluetoothCentralManagerCallback.onDisconnectedPeripheral(peripheral, status);
             }
@@ -501,6 +510,8 @@ public class AllDevicesService extends Service
     @SuppressLint({"WrongConstant", "MissingPermission"})
     public void onCreate() {
         mContext = this;
+
+        toastHandler = new Handler(Looper.getMainLooper());
 
         powerManager = (PowerManager) getSystemService(POWER_SERVICE);
         btDataHandler = AllServicesDeviceDataHandler.getInstance(mContext);
@@ -1092,5 +1103,75 @@ public class AllDevicesService extends Service
 
     public boolean isBluetoothAdapterEnabled() {
         return btDataHandler.getCentral().isBluetoothEnabled();
+    }
+
+    private void cancelNotifications() {
+        if (notificationManager == null) {
+            notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        }
+        if (notificationManager == null) {
+            Log.e(TAG, "can't cancel all notifications, notification manager returns null");
+            return;
+        }
+
+        String chanid = CHANNEL_ID_RELEASE;
+        int procid = ID_PROCESS_RELEASE;
+        if (BuildConfig.DEBUG) {
+            chanid = CHANNEL_ID_DEBUG;
+            procid = ID_PROCESS_DEBUG;
+        }
+        notificationManager.cancel(chanid, procid);
+        notificationManager.cancelAll();
+
+        if (exiting) {
+            return;
+        }
+
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Date date = new Date(System.currentTimeMillis());
+                String pattern = "'" + getString(R.string.at) +"' hh:mm:ss '" + getString(R.string.on) + "' yyyy/MM/dd";
+                SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+                String msg = getString(R.string.bt_dev_or_gatt_disconnected) + " " + sdf.format(date);
+                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext, chanid)
+                        .setSmallIcon(R.drawable.ic_notify_logo)
+                        .setContentTitle(getString(R.string.warning))
+                        .setCategory(NotificationCompat.CATEGORY_ALARM)
+                        .setPriority(NotificationCompat.PRIORITY_HIGH)
+                        .setVibrate(new long[] { 50, 50, 100, 50, 50 })
+                        .setChannelId(chanid)
+                        .setContentText(msg)
+                        .setAutoCancel(false);
+
+                Intent intent = new Intent(mContext, GoSensePagerActivity.class);
+                intent.setAction(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+                mBuilder.setContentIntent(PendingIntent.getActivity(mContext, 0, intent, FLAG_MUTABLE | FLAG_UPDATE_CURRENT));
+                Notification notification2 = mBuilder.build();
+
+                NotificationChannel channel = new NotificationChannel(
+                        chanid,
+                        "Disconnection Warning",
+                        NotificationManager.IMPORTANCE_HIGH);
+                notificationManager.createNotificationChannel(channel);
+
+                notificationManager.notify(procid, notification2);
+            }
+        }, 250);
+    }
+
+    private void showToast(String msg, int length) {
+        toastHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), msg, length).show();
+            }
+        });
+    }
+
+    public void setExit(boolean value) {
+        exiting = value;
     }
 }

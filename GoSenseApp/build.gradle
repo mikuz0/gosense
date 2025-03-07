@@ -13,8 +13,8 @@ android {
         applicationId "com.draekko.gosense"
         minSdk 29
         targetSdk 33
-        versionCode 20250005
-        versionName "2025.5"
+        versionCode 20250006
+        versionName "2025.6"
         vectorDrawables.useSupportLibrary = true
     }
 
@@ -61,20 +61,20 @@ android {
 }
 
 dependencies {
+    releaseImplementation(files('libs/AndroidPlot-release-20250307060614.aar'))
+    debugImplementation(files('libs/AndroidPlot-debug-20250307060614.aar'))
+
+    releaseImplementation(files('libs/BlessedAndroid-release-20250307060614.aar'))
+    debugImplementation(files('libs/BlessedAndroid-debug-20250307060614.aar'))
+
     releaseImplementation(files('libs/Tray-release-20241213054130.aar'))
     debugImplementation(files('libs/Tray-debug-20241213054130.aar'))
-
-    releaseImplementation(files('libs/AndroidPlot-release-20250121062524.aar'))
-    debugImplementation(files('libs/AndroidPlot-debug-20250121062524.aar'))
 
     releaseImplementation(files('libs/ColorPickerView-release-20250121062524.aar'))
     debugImplementation(files('libs/ColorPickerView-debug-20250121062524.aar'))
 
     releaseImplementation(files('libs/IconContextMenu-release-20250121062524.aar'))
     debugImplementation(files('libs/IconContextMenu-debug-20250121062524.aar'))
-
-    releaseImplementation(files('libs/BlessedAndroid-release-20250121062524.aar'))
-    debugImplementation(files('libs/BlessedAndroid-debug-20250121062524.aar'))
 
     releaseImplementation(files('libs/TrayPrefsAX-release-20250121062524.aar'))
     debugImplementation(files('libs/TrayPrefsAX-debug-20250121062524.aar'))

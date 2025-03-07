@@ -36,6 +36,7 @@ import androidx.core.content.ContextCompat;
 import com.draekko.gosense.BuildConfig;
 import com.draekko.gosense.R;
 import com.draekko.gosense.activities.SplashScreenActivity;
+import com.draekko.gosense.app.GoSenseApplication;
 import com.draekko.gosense.data.AirPressureData;
 import com.draekko.gosense.data.RelativeHumidityData;
 import com.draekko.gosense.data.SensorDevice;

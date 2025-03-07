@@ -209,8 +209,16 @@ public class AllServicesDeviceDataHandler {
                 mBluetoothCentralManagerCallback.onBluetoothAdapterStateChanged(state);
             }
             if (!disconnectDevice) {
+                if (state == 12) {
+                    Log.d(TAG, "state == 12");
+                } else  if (state == 13) {
+                    Log.d(TAG, "state == 13");
+                } else if ((state & 12) == 12) {
+                    Log.d(TAG, "(state & 0xC) == 0xC : " + (state & 0x3));
+                }
                 if (state == BluetoothAdapter.STATE_OFF ||
                         state == BluetoothAdapter.STATE_DISCONNECTED) {
+                    reinitCentral();
                     new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -391,9 +399,7 @@ public class AllServicesDeviceDataHandler {
         return instance;
     }
 
-    private AllServicesDeviceDataHandler(Context context) {
-        this.mContext = context;
-
+    public void initCentral() {
         // Create BluetoothCentral
         central = new BluetoothCentralManager(mContext, bluetoothCentralManagerCallback, new Handler());
 
@@ -401,8 +407,20 @@ public class AllServicesDeviceDataHandler {
         central.startPairingPopupHack();
     }
 
+    public void reinitCentral() {
+        if (central != null) {
+            central.close();
+        }
+        initCentral();
+    }
+
+    private AllServicesDeviceDataHandler(Context context) {
+        this.mContext = context;
+        initCentral();
+    }
+
     private void reconnectDevice(BluetoothPeripheral peripheral) {
-        if (reconnectCount < 4) {
+        if (reconnectCount < 6) {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -416,7 +434,7 @@ public class AllServicesDeviceDataHandler {
                     reconnectCount++;
                     central.connectPeripheral(peripheral, peripheralCallback);
                 }
-            }, 5000);
+            }, 10000);
         } else {
             Log.i(TAG, "Too many reconnection attempts, quitting");
         }

@@ -1,8 +1,15 @@
 package com.draekko.gosense.app;
 
+import android.app.Activity;
 import android.app.Application;
+import android.os.Bundle;
 
-public class GoSenseApplication  extends Application {
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.draekko.gosense.database.GoSenseDb;
+
+public class GoSenseApplication extends Application {
 
     @Override
     public void onCreate() {

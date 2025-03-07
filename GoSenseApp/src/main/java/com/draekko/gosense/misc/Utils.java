@@ -34,6 +34,7 @@ import android.util.TypedValue;
 
 import com.draekko.gosense.R;
 import com.draekko.gosense.activities.GoSensePagerActivity;
+import com.draekko.gosense.app.GoSenseApplication;
 import com.draekko.gosense.data.SensorDevice;
 import com.draekko.gosense.data.SensorDeviceData;
 import com.draekko.gosense.data.SensorPairListData;
@@ -109,7 +110,8 @@ public class Utils {
     public static String getNameFromPairedDb(Context context, String address) {
         String name = "DEVICE";
         GoSenseDb goSenseDb = new GoSenseDb(context);
-        ArrayList<SensorDevice> list =  goSenseDb.getPairedSensorDevices();
+        ArrayList<SensorDevice> list = goSenseDb.getPairedSensorDevices();
+        goSenseDb.close();
         if (list.size() > 0) {
             for (SensorDevice sensorDevice : list) {
                 String address1 = sensorDevice.getAddress();
@@ -119,14 +121,14 @@ public class Utils {
                 }
             }
         }
-        goSenseDb.close();
         return name;
     }
 
     public static String getAliasNameFromPairedDb(Context context, String address) {
         String name = "DEVICE";
         GoSenseDb goSenseDb = new GoSenseDb(context);
-        ArrayList<SensorDevice> list =  goSenseDb.getPairedSensorDevices();
+        ArrayList<SensorDevice> list = goSenseDb.getPairedSensorDevices();
+        goSenseDb.close();
         if (list.size() > 0) {
             for (SensorDevice sensorDevice : list) {
                 String address1 = sensorDevice.getAddress();
@@ -136,7 +138,6 @@ public class Utils {
                 }
             }
         }
-        goSenseDb.close();
         return name;
     }
 
@@ -144,6 +145,7 @@ public class Utils {
         int color = DEFAULT_COLOR;
         GoSenseDb goSenseDb = new GoSenseDb(context);
         ArrayList<SensorDevice> list =  goSenseDb.getPairedSensorDevices();
+        goSenseDb.close();
         if (list.size() > 0) {
             for (SensorDevice sensorDevice : list) {
                 String address1 = sensorDevice.getAddress();
@@ -153,7 +155,6 @@ public class Utils {
                 }
             }
         }
-        goSenseDb.close();
         return color;
     }
 

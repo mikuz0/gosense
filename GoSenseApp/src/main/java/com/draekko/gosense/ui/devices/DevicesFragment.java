@@ -15,6 +15,7 @@ import static com.draekko.gosense.services.AllServicesDeviceDataHandler.UUID_TEM
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.NotificationManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.le.ScanResult;
@@ -62,6 +63,7 @@ import com.draekko.contextmenu.IconContextItemSelectedListener;
 import com.draekko.contextmenu.IconContextMenu;
 import com.draekko.gosense.R;
 import com.draekko.gosense.activities.GoSensePagerActivity;
+import com.draekko.gosense.app.GoSenseApplication;
 import com.draekko.gosense.data.ScannedDevicesData;
 import com.draekko.gosense.data.SensorDevice;
 import com.draekko.gosense.data.SensorPairListData;
@@ -200,16 +202,19 @@ public class DevicesFragment extends Fragment {
 
         @Override
         public void onDisconnected(@NotNull BluetoothPeripheral peripheral, @NotNull HciStatus status) {
-            pairedDevicesListAdapter.updateBattery(peripheral.getAddress(), -1);
-            pairedDevicesListAdapter.updateRssi(peripheral.getAddress(), -9999);
+            NotificationManager notificationManager = (NotificationManager)mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.cancelAll();
             pairedDevicesListAdapter.updateConnected(peripheral.getAddress(), false);
             pairedDevicesListAdapter.updateSelected(peripheral.getAddress(), false);
+            pairedDevicesListAdapter.updateBattery(peripheral.getAddress(), -1);
+            pairedDevicesListAdapter.updateRssi(peripheral.getAddress(), -9999);
+            pairedDevicesListAdapter.notifyDataSetChanged();
             GoSensePagerActivity.unregisterOnReadRemoteBatteryLevel(mOnReadRemoteBatteryLevel);
             GoSensePagerActivity.unregisterOnReadRemoteRssi(mOnReadRemoteRssi);
         }
     };
 
-    private final DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.ENGLISH);
+    private final DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.US);
     AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
 
         @Override
@@ -425,6 +430,7 @@ public class DevicesFragment extends Fragment {
         GoSenseDb goSenseDb = new GoSenseDb(mContext);
         sensorDevicesList = goSenseDb.getPairedSensorDevices();
         goSenseDb.close();
+
         GoSensePagerActivity.registerOnConnnectionStates(mDeviceOnConnnectionStates);
     }
 
@@ -1199,6 +1205,7 @@ public class DevicesFragment extends Fragment {
                 }
             }
         }
+        goSenseDb.close();
         if (!currentlyPaired) {
             pairing = true;
         }

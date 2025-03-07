@@ -207,4 +207,9 @@
 
     <string name="import_export_in_progress">Data import or export in progress, exiting now would corrupt data</string>
 
+    <string name="at">at</string>
+    <string name="on">on</string>
+    <string name="warning">Warning</string>
+    <string name="bt_dev_or_gatt_disconnected">Bluetooth Device or Gatt got disconnected</string>
+
 </resources>
