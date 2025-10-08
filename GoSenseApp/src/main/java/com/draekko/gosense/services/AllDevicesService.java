@@ -1105,6 +1105,15 @@ public class AllDevicesService extends Service
         btDataHandler.registerOnDeviceReconnection(onDeviceReconnection);
     }
 
+
+    public void registerOnBluetoothStatusChange(AllServicesDeviceDataHandler.OnBluetoothStatusChange onBluetoothStatusChange) {
+        btDataHandler.registerOnBluetoothStatusChange(onBluetoothStatusChange);
+    }
+
+    public void unregisterOnBluetoothStatusChange(AllServicesDeviceDataHandler.OnBluetoothStatusChange onBluetoothStatusChange) {
+        btDataHandler.unregisterOnBluetoothStatusChange(onBluetoothStatusChange);
+    }
+
     public boolean isBluetoothAdapterEnabled() {
         return btDataHandler.getCentral().isBluetoothEnabled();
     }

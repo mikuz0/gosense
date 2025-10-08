@@ -150,6 +150,18 @@ public class GoSensePagerActivity extends FragmentActivity {
         }
     }
 
+    public static void registerOnBluetoothStatusChange(AllServicesDeviceDataHandler.OnBluetoothStatusChange onBluetoothStatusChange) {
+        if (onBluetoothStatusChange != null && mAllDevicesService != null) {
+            mAllDevicesService.registerOnBluetoothStatusChange(onBluetoothStatusChange);
+        }
+    }
+
+    public static void unregisterOnBluetoothStatusChange(AllServicesDeviceDataHandler.OnBluetoothStatusChange onBluetoothStatusChange) {
+        if (onBluetoothStatusChange != null && mAllDevicesService != null) {
+            mAllDevicesService.unregisterOnBluetoothStatusChange(onBluetoothStatusChange);
+        }
+    }
+
     public static void registerOnAirPressureSensorChange(AllDevicesService.OnAirPressureSensorChange onAirPressureSensorChange) {
         if (onAirPressureSensorChange != null) {
             mAllDevicesService.registerOnAirPressureSensorChange(onAirPressureSensorChange);

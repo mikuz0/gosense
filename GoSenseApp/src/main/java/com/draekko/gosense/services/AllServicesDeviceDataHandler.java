@@ -51,6 +51,7 @@ public class AllServicesDeviceDataHandler {
 
     private BluetoothCentralManagerCallback mBluetoothCentralManagerCallback;
 
+    private ArrayList<OnBluetoothStatusChange> mOnBluetoothStatusChange = new ArrayList<>();
     private ArrayList<OnReadRemoteRssi> mOnReadRemoteRssiList = new ArrayList<>();
     private ArrayList<OnReadRemoteBatteryLevel> mOnReadRemoteBatteryLevel = new ArrayList<>();
     private ArrayList<OnServicesDiscovery> mOnServicesDiscovery = new ArrayList<>();
@@ -58,6 +59,10 @@ public class AllServicesDeviceDataHandler {
 
     /* ======================================================================================= */
     // Interfaces
+
+    public interface OnBluetoothStatusChange {
+        public void doOnStatusChanged(int state);
+    }
 
     public interface OnBluetoothDeviceDiscovery {
         public void onDiscoveredPeripheral(@NotNull BluetoothCentralManager central,
@@ -78,6 +83,10 @@ public class AllServicesDeviceDataHandler {
 
     public interface OnDeviceReconnection {
         public void onReconnecting(@NotNull BluetoothPeripheral peripheral);
+    }
+
+    public interface OnDeviceDisconnection {
+        public void onDisconnected();
     }
 
     /* ======================================================================================= */
@@ -220,6 +229,7 @@ public class AllServicesDeviceDataHandler {
                 if (state == BluetoothAdapter.STATE_OFF ||
                         state == BluetoothAdapter.STATE_DISCONNECTED) {
                     reinitCentral();
+                    updateDeviceStatus(state);
                     new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -413,6 +423,31 @@ public class AllServicesDeviceDataHandler {
             central.close();
         }
         initCentral();
+    }
+
+    public void updateDeviceStatus(int state) {
+        if (state == BluetoothAdapter.STATE_OFF ||
+                state == BluetoothAdapter.STATE_DISCONNECTED) {
+            if (!mOnBluetoothStatusChange.isEmpty()) {
+                for (OnBluetoothStatusChange statusChanged: mOnBluetoothStatusChange) {
+                    statusChanged.doOnStatusChanged(state);
+                }
+            }
+        }
+    }
+
+    public void registerOnBluetoothStatusChange(OnBluetoothStatusChange onBluetoothStatusChange) {
+        if (onBluetoothStatusChange == null) return;
+        if (!mOnBluetoothStatusChange.contains(onBluetoothStatusChange)) {
+            mOnBluetoothStatusChange.add(onBluetoothStatusChange);
+        }
+    }
+
+    public void unregisterOnBluetoothStatusChange(OnBluetoothStatusChange onBluetoothStatusChange) {
+        if (onBluetoothStatusChange == null) return;
+        if (!mOnBluetoothStatusChange.contains(onBluetoothStatusChange)) {
+            mOnBluetoothStatusChange.remove(onBluetoothStatusChange);
+        }
     }
 
     private AllServicesDeviceDataHandler(Context context) {

@@ -153,6 +153,24 @@ public class DevicesFragment extends Fragment {
         }
     };
 
+    private AllServicesDeviceDataHandler.OnBluetoothStatusChange mOnBluetoothStatusChange =
+            new AllServicesDeviceDataHandler.OnBluetoothStatusChange() {
+                @Override
+                public void doOnStatusChanged(int state) {
+                    if (state == BluetoothAdapter.STATE_OFF ||
+                            state == BluetoothAdapter.STATE_DISCONNECTED) {
+                        ArrayList<SensorPairListData> list = pairedDevicesListAdapter.getAdapterList();
+                        for (SensorPairListData item : list) {
+                            pairedDevicesListAdapter.updateConnected(item.getAddress(), false);
+                            pairedDevicesListAdapter.updateSelected(item.getAddress(), false);
+                            pairedDevicesListAdapter.updateBattery(item.getAddress(), -1);
+                            pairedDevicesListAdapter.updateRssi(item.getAddress(), -9999);
+                        }
+                        pairedDevicesListAdapter.notifyDataSetChanged();
+                    }
+                }
+            };
+
     private GoSensePagerActivity.OnConnnectionStates mDeviceOnConnnectionStates =
             new GoSensePagerActivity.OnConnnectionStates() {
         @Override
@@ -432,6 +450,7 @@ public class DevicesFragment extends Fragment {
         goSenseDb.close();
 
         GoSensePagerActivity.registerOnConnnectionStates(mDeviceOnConnnectionStates);
+        GoSensePagerActivity.registerOnBluetoothStatusChange(mOnBluetoothStatusChange);
     }
 
     @Override
@@ -895,6 +914,7 @@ public class DevicesFragment extends Fragment {
             mAllDevicesService.registerOnServicesDiscovery(mOnServicesDiscovery);
         }
         GoSensePagerActivity.registerOnConnnectionStates(mDeviceOnConnnectionStates);
+        GoSensePagerActivity.registerOnBluetoothStatusChange(mOnBluetoothStatusChange);
         if (TraySettings.getAutoConnectDevicesOnStart()) {
             new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                 @Override
@@ -925,6 +945,7 @@ public class DevicesFragment extends Fragment {
         super.onPause();
         stopBtScan();
         GoSensePagerActivity.unregisterOnConnnectionStates(mDeviceOnConnnectionStates);
+        GoSensePagerActivity.unregisterOnBluetoothStatusChange(mOnBluetoothStatusChange);
     }
 
     @Override

@@ -18,7 +18,10 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
+        if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED") ||
+                intent.getAction().equals("android.intent.action.LOCKED_BOOT_COMPLETED") ||
+                intent.getAction().equals("android.intent.action.QUICKBOOT_POWERON") ||
+                intent.getAction().equals("com.htc.intent.action.QUICKBOOT_POWERON")) {
             Log.i(TAG, "setting up data cleanup alarm");
             new SetupAlarm(context).setup();
             if (TraySettings.getAutoConnectDevicesOnStart()) {
