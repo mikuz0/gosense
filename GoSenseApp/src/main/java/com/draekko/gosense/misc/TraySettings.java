@@ -73,6 +73,9 @@ public class TraySettings {
     public static final String PREF_KEY_AVERAGE_GRAPH_DATA = "PREF_KEY_AVERAGE_GRAPH_DATA";
     public static final String PREF_KEY_DATA_RETENTION_INTERVAL = "PREF_KEY_DATA_RETENTION_INTERVAL";
     public static final String PREF_KEY_DO_AUTO_SCALE = "PREF_KEY_DO_AUTO_SCALE";
+    public static final String PREF_KEY_BLE_SCAN_MODE = "PREF_KEY_BLE_SCAN_MODE";
+    public static final String PREF_KEY_BATTERY_OPTIMIZATION = "PREF_KEY_BATTERY_OPTIMIZATION";
+    public static final String PREF_KEY_RESET_EVERYTHING = "PREF_KEY_RESET_EVERYTHING";
 
     public static boolean putData(Object data, String key) {
         Context applicationContext = GoSenseAppContext.getInstance().getApplicationContext();
@@ -87,6 +90,8 @@ public class TraySettings {
             dataStoragePreference.put(key, (Integer)data);
         } else if (key.equals(PREF_KEY_IS_WINTER_SEASON)) {
             dataStoragePreference.put(key, (Boolean)data);
+        } else if (key.equals(PREF_KEY_BLE_SCAN_MODE)) {
+            dataStoragePreference.put(key, (Integer)data);
         } else if (key.equals(PREF_KEY_FIRST_CHECK_PRESSURE_SENSOR)) {
             dataStoragePreference.put(key, (Boolean)data);
         } else if (key.equals(PREF_KEY_AVERAGE_GRAPH_DATA)) {
@@ -143,6 +148,8 @@ public class TraySettings {
             return dataStoragePreference.getInt(key, 1);
         } else if (key.equals(PREF_KEY_IS_WINTER_SEASON)) {
             return dataStoragePreference.getBoolean(key, false);
+        } else if (key.equals(PREF_KEY_BLE_SCAN_MODE)) {
+            return dataStoragePreference.getInt(key, 1);
         } else if (key.equals(PREF_KEY_FIRST_CHECK_PRESSURE_SENSOR)) {
             return dataStoragePreference.getBoolean(key, true);
         } else if (key.equals(PREF_KEY_KEEP_SCREEN_ON)) {
@@ -195,6 +202,10 @@ public class TraySettings {
 
     public static boolean isSeasonWinter() {
         return (Boolean)getData(PREF_KEY_IS_WINTER_SEASON);
+    }
+
+    public static int getBleScanMode() {
+        return (int)getData(PREF_KEY_BLE_SCAN_MODE);
     }
 
     public static String getSelectedAddress() {
@@ -277,6 +288,10 @@ public class TraySettings {
 
     public static void setHasBarometer(boolean value) {
         putData(value, PREF_KEY_HAS_AIR_PRESSURE);
+    }
+
+    public static void setBleScanMode(int value) {
+        putData(value, PREF_KEY_BLE_SCAN_MODE);
     }
 
     public static void setPressureSensorFirstCheck(boolean value) {

@@ -212,4 +212,7 @@
     <string name="warning">Warning</string>
     <string name="bt_dev_or_gatt_disconnected">Bluetooth Device or Gatt got disconnected</string>
 
+    <string name="scan_low_latency">Low Latency</string>
+    <string name="scan_low_power">Low Power</string>
+
 </resources>

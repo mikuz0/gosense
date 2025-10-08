@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_settings_title">APP SETTINGS</string>
+
+    <string name="PREF_STR_IS_IMPERIAL_TEMP_summary">Toggles between Celsius and Fahrenheit temperature units</string>
+    <string name="PREF_STR_IS_IMPERIAL_TEMP_title">Use Fahrenheit</string>
+
+    <string name="PREF_STR_WINTER_SEASON_summary">Toggles between summer or winter season calculations</string>
+    <string name="PREF_STR_WINTER_SEASON_title">Set App To Winter Season</string>
+
+    <string name="PREF_STR_AIR_PRESSURE_UNIT_summary">Current air pressure unit set to %s</string>
+    <string name="PREF_STR_AIR_PRESSURE_UNIT_title">Set Air Pressure Unit</string>
+
+    <string name="PREF_STR_DO_AUTO_SCALE_summary">Turn on to scale range values display to zoom on relevant data</string>
+    <string name="PREF_STR_DO_AUTO_SCALE_title">Auto Scale History Graph Range</string>
+
+    <string name="PREF_STR_AVERAGE_GRAPH_DATA_summary">When enabled will average data to fit screen display, when disable will skip data points</string>
+    <string name="PREF_STR_AVERAGE_GRAPH_DATA_title">Use Graph Data Averaging</string>
+
+    <string name="PREF_STR_GRAPH_UPDATE_INTERVAL_summary">Sets the interval speed that the history graphs will be updated</string>
+    <string name="PREF_STR_GRAPH_UPDATE_INTERVAL_title">History Graph Update Interval</string>
+
+
+    <string name="bluetooth_title">BLUETOOTH</string>
+
+    <string name="PREF_STR_BLE_SCAN_MODE_summary">BLE scan mode : %s</string>
+    <string name="PREF_STR_BLE_SCAN_MODE_title">Set BLE Scan mode priority</string>
+
+    <string name="PREF_STR_SCAN_SORT_ORDER_summary">Sort devices from scan %s</string>
+    <string name="PREF_STR_SCAN_SORT_ORDER_title">Scan Sort Order Priority</string>
+
+    <string name="PREF_STR_AUTOCONNECT_BT_ON_START_summary">Toggles to automatically reconnect when device reboots or app starts</string>
+    <string name="PREF_STR_AUTOCONNECT_BT_ON_START_title">Auto Reconnect Devices On Start</string>
+
+    <string name="PREF_STR_AUTOCONNECT_BT_ON_DISCONNECT_summary">Toggles to automatically reconnect devices when bluetooth connection is lost</string>
+    <string name="PREF_STR_AUTOCONNECT_BT_ON_DISCONNECT_title">Auto Reconnect Devices on Disconnect</string>
+
+    <string name="PREF_STR_USE_NEW_CONNECTION_AS_PRIMARY_summary">Set to make all newly connected devices as the primary to data to display</string>
+    <string name="PREF_STR_USE_NEW_CONNECTION_AS_PRIMARY_title">Set newly connected device as primary</string>
+
+
+    <string name="miscellaneous_title">MISCELLANEOUS</string>
+
+    <string name="PREF_STR_BATTERY_OPTIMIZATION_summary">Go to device settings to disable battery optimzation</string>
+    <string name="PREF_STR_BATTERY_OPTIMIZATION_title">Battery Optimization</string>
+
+
+    <string name="data_title">DATA</string>
+
+    <string name="PREF_STR_DATA_RETENTION_INTERVAL_summary">Keep for %s</string>
+    <string name="PREF_STR_DATA_RETENTION_INTERVAL_title">Data Retention Interval</string>
+
+    <string name="PREF_STR_CLEAR_DATABASE_summary">Deletes all data from database</string>
+    <string name="PREF_STR_CLEAR_DATABASE_title">Clear All Data</string>
+
+    <string name="PREF_STR_BT_IMPORT_DATABASE_summary">Import data to database from data file</string>
+    <string name="PREF_STR_BT_IMPORT_DATABASE_title">Import data</string>
+
+    <string name="PREF_STR_BT_EXPORT_DATABASE_summary">Export data from database in csv format file</string>
+    <string name="PREF_STR_BT_EXPORT_DATABASE_title">Export all data</string>
+
+
+    <string name="developer_title">DEVELOPER</string>
+
+    <string name="PREF_STR_RESET_EVERYTHING_summary">Reset all data from app</string>
+    <string name="PREF_STR_RESET_EVERYTHING_title">Reset all data and restart app</string>
+
+</resources>

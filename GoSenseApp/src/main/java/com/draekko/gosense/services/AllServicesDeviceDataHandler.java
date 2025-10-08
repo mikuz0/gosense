@@ -1,6 +1,7 @@
 package com.draekko.gosense.services;
 
 import static android.bluetooth.le.ScanSettings.SCAN_MODE_LOW_LATENCY;
+import static android.bluetooth.le.ScanSettings.SCAN_MODE_LOW_POWER;
 import static com.draekko.gosense.misc.Utils.getBtState;
 import static com.welie.blessed.BluetoothBytesParser.FORMAT_UINT8;
 import static com.welie.blessed.BluetoothBytesParser.asHexString;
@@ -447,11 +448,19 @@ public class AllServicesDeviceDataHandler {
         central.stopScan();
     }
 
-    public void startScan(boolean useCustom) {
-        central.setScanMode(ScanMode.LOW_LATENCY);
+    public void startScan(boolean useCustom, boolean useLowLatency) {
+        ScanMode scanmode_latency = ScanMode.LOW_POWER;
+        if (useLowLatency) {
+            scanmode_latency = ScanMode.LOW_LATENCY;
+        }
+        central.setScanMode(scanmode_latency);
         central.setTransport(Transport.LE);
         if (useCustom) {
-            ScanSettings scanSettings = new ScanSettings.Builder().setScanMode(SCAN_MODE_LOW_LATENCY).build();
+            int scan_latency = SCAN_MODE_LOW_POWER;
+            if (useLowLatency) {
+                scan_latency = SCAN_MODE_LOW_LATENCY;
+            }
+            ScanSettings scanSettings = new ScanSettings.Builder().setScanMode(scan_latency).build();
             ArrayList scanFilterList = new ArrayList();
             scanFilterList.add(new ScanFilter.Builder().build());
             central.scanForPeripheralsWithCustom(scanFilterList,scanSettings);

@@ -930,7 +930,11 @@ public class AllDevicesService extends Service
     }
 
     public void startBtScan() {
-        btDataHandler.startScan(true);
+        boolean scan_low_latency = false;
+        if (TraySettings.getBleScanMode() != 1) {
+            scan_low_latency = true;
+        }
+        btDataHandler.startScan(true, scan_low_latency);
     }
 
     public void stopBtScan() {

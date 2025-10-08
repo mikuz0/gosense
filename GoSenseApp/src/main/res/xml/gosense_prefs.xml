@@ -8,50 +8,50 @@
         android:layout="@layout/settings_title_text_material"
         app:allowDividerAbove="false"
         app:allowDividerBelow="false"
-        app:title="APP SETTINGS">
+        app:title="@string/app_settings_title">
 
         <com.draekko.traypreferences.TraySwitchPreference
             app:defaultValue="false"
-            app:key="PREF_KEY_IS_IMPERIAL_TEMP"
-            app:summary="Toggles between Celsius and Fahrenheit temperature units"
-            app:title="Use Fahrenheit" />
+            app:key="@string/PREF_KEY_IS_IMPERIAL_TEMP"
+            app:summary="@string/PREF_STR_IS_IMPERIAL_TEMP_summary"
+            app:title="@string/PREF_STR_IS_IMPERIAL_TEMP_title" />
 
         <com.draekko.traypreferences.TraySwitchPreference
             app:defaultValue="false"
-            app:key="PREF_KEY_WINTER_SEASON"
-            app:summary="Toggles between summer or winter season calculations"
-            app:title="Set App To Winter Season" />
+            app:key="@string/PREF_KEY_IS_WINTER_SEASON"
+            app:summary="@string/PREF_STR_WINTER_SEASON_summary"
+            app:title="@string/PREF_STR_WINTER_SEASON_title" />
 
         <com.draekko.traypreferences.TrayDropDownPreference
             app:defaultValue="1"
-            app:key="PREF_KEY_AIR_PRESSURE_UNIT"
-            app:summary="Current air pressure unit set to %s"
-            app:title="Set Air Pressure Unit"
+            app:key="@string/PREF_KEY_AIR_PRESSURE_UNIT"
+            app:summary="@string/PREF_STR_AIR_PRESSURE_UNIT_summary"
+            app:title="@string/PREF_STR_AIR_PRESSURE_UNIT_title"
             app:entries="@array/pressure_units"
             app:entryValues="@array/pref_pressure_units" />
 
         <com.draekko.traypreferences.TraySwitchPreference
             app:defaultValue="true"
-            app:key="PREF_KEY_DO_AUTO_SCALE"
-            app:summary="Turn on to scale range values display to zoom on relevant data"
-            app:title="Auto Scale History Graph Range" />
+            app:key="@string/PREF_KEY_DO_AUTO_SCALE"
+            app:summary="@string/PREF_STR_DO_AUTO_SCALE_summary"
+            app:title="@string/PREF_STR_DO_AUTO_SCALE_title" />
 
         <com.draekko.traypreferences.TraySwitchPreference
             app:defaultValue="true"
-            app:key="PREF_KEY_AVERAGE_GRAPH_DATA"
-            app:summary="When enabled will average data to fit screen display, when disable will skip data points"
-            app:title="Use Graph Data Averaging" />
+            app:key="@string/PREF_KEY_AVERAGE_GRAPH_DATA"
+            app:summary="@string/PREF_STR_AVERAGE_GRAPH_DATA_summary"
+            app:title="@string/PREF_STR_AVERAGE_GRAPH_DATA_title" />
 
         <com.draekko.traypreferences.TraySeekBarPreference
-            app:summary="Sets the interval speed that the history graphs will be updated"
             app:defaultValue="1"
-            app:key="PREF_KEY_GRAPH_UPDATE_INTERVAL"
+            app:key="@string/PREF_KEY_GRAPH_UPDATE_INTERVAL"
             app:max="60"
             app:min="5"
             app:seekBarIncrement="1"
             app:displayIncrement="1"
             app:showSeekBarValue="true"
-            app:title="History Graph Update Interval" />
+            app:summary="@string/PREF_STR_GRAPH_UPDATE_INTERVAL_summary"
+            app:title="@string/PREF_STR_GRAPH_UPDATE_INTERVAL_title" />
 
     </com.draekko.traypreferences.TrayPreferenceCategory>
 
@@ -59,33 +59,41 @@
         android:layout="@layout/settings_title_text_material"
         app:allowDividerAbove="false"
         app:allowDividerBelow="false"
-        app:title="BLUETOOTH">
+        app:title="@string/bluetooth_title">
 
         <com.draekko.traypreferences.TrayDropDownPreference
             app:defaultValue="1"
-            app:key="PREF_KEY_SCAN_SORT_ORDER"
-            app:summary="Sort devices from scan %s"
-            app:title="Scan Sort Order Priority"
+            app:key="@string/PREF_KEY_BLE_SCAN_MODE"
+            app:summary="@string/PREF_STR_BLE_SCAN_MODE_summary"
+            app:title="@string/PREF_STR_BLE_SCAN_MODE_title"
+            app:entries="@array/ble_scan_mode"
+            app:entryValues="@array/ble_scan_mode_values" />
+
+        <com.draekko.traypreferences.TrayDropDownPreference
+            app:defaultValue="1"
+            app:key="@string/PREF_KEY_SCAN_SORT_ORDER"
+            app:summary="@string/PREF_STR_SCAN_SORT_ORDER_summary"
+            app:title="@string/PREF_STR_SCAN_SORT_ORDER_title"
             app:entries="@array/scan_order_priority_entries"
             app:entryValues="@array/scan_order_priority_values" />
 
         <com.draekko.traypreferences.TraySwitchPreference
             app:defaultValue="false"
-            app:key="PREF_KEY_AUTOCONNECT_BT_ON_START"
-            app:summary="Toggles to automatically reconnect when device reboots or app starts"
-            app:title="Auto Reconnect Devices On Start" />
+            app:key="@string/PREF_KEY_AUTOCONNECT_BT_ON_START"
+            app:summary="@string/PREF_STR_AUTOCONNECT_BT_ON_START_summary"
+            app:title="@string/PREF_STR_AUTOCONNECT_BT_ON_START_title" />
 
         <com.draekko.traypreferences.TraySwitchPreference
             app:defaultValue="true"
-            app:key="PREF_KEY_AUTOCONNECT_BT_ON_DISCONNECT"
-            app:summary="Toggles to automatically reconnect devices when bluetooth connection is lost"
-            app:title="Auto Reconnect Devices on Disconnect" />
+            app:key="@string/PREF_KEY_AUTOCONNECT_BT_ON_DISCONNECT"
+            app:summary="@string/PREF_STR_AUTOCONNECT_BT_ON_DISCONNECT_summary"
+            app:title="@string/PREF_STR_AUTOCONNECT_BT_ON_DISCONNECT_title" />
 
         <com.draekko.traypreferences.TraySwitchPreference
             app:defaultValue="true"
-            app:key="PREF_KEY_USE_NEW_CONNECTION_AS_PRIMARY"
-            app:summary="Set to make all newly connected devices as the primary to data to display"
-            app:title="Set newly connected device as primary" />
+            app:key="@string/PREF_KEY_USE_NEW_CONNECTION_AS_PRIMARY"
+            app:summary="@string/PREF_STR_USE_NEW_CONNECTION_AS_PRIMARY_summary"
+            app:title="@string/PREF_STR_USE_NEW_CONNECTION_AS_PRIMARY_title" />
 
     </com.draekko.traypreferences.TrayPreferenceCategory>
 
@@ -93,12 +101,12 @@
         android:layout="@layout/settings_title_text_material"
         app:allowDividerAbove="false"
         app:allowDividerBelow="false"
-        app:title="MISCELLANEOUS">
+        app:title="@string/miscellaneous_title">
 
         <com.draekko.traypreferences.TrayPreference
-            app:key="PREF_KEY_BATTERY_OPTIMIZATION"
-            app:summary="Go to device settings to disable battery optimzation"
-            app:title="Battery Optimization" />
+            app:key="@string/PREF_KEY_BATTERY_OPTIMIZATION"
+            app:summary="@string/PREF_STR_BATTERY_OPTIMIZATION_summary"
+            app:title="@string/PREF_STR_BATTERY_OPTIMIZATION_title" />
 
     </com.draekko.traypreferences.TrayPreferenceCategory>
 
@@ -106,44 +114,44 @@
         android:layout="@layout/settings_title_text_material"
         app:allowDividerAbove="false"
         app:allowDividerBelow="false"
-        app:title="DATA">
+        app:title="@string/data_title">
 
         <com.draekko.traypreferences.TrayDropDownPreference
             app:defaultValue="1"
-            app:key="PREF_KEY_DATA_RETENTION_INTERVAL"
-            app:summary="Keep for %s"
-            app:title="Data Retention Interval"
+            app:key="@string/PREF_KEY_DATA_RETENTION_INTERVAL"
+            app:summary="@string/PREF_STR_DATA_RETENTION_INTERVAL_summary"
+            app:title="@string/PREF_STR_DATA_RETENTION_INTERVAL_title"
             app:entries="@array/data_retention_interval"
             app:entryValues="@array/pref_data_retention_interval" />
 
         <com.draekko.traypreferences.TrayPreference
-            app:key="PREF_KEY_CLEAR_DATABASE"
-            app:summary="Deletes all data from database"
-            app:title="Clear All Data" />
+            app:key="@string/PREF_KEY_CLEAR_DATABASE"
+            app:summary="@string/PREF_STR_CLEAR_DATABASE_summary"
+            app:title="@string/PREF_STR_CLEAR_DATABASE_title" />
 
         <com.draekko.traypreferences.TrayPreference
-            app:key="PREF_KEY_BT_IMPORT_DATABASE"
-            app:summary="Import data to database from data file"
-            app:title="Import data" />
+            app:key="@string/PREF_KEY_BT_IMPORT_DATABASE"
+            app:summary="@string/PREF_STR_BT_IMPORT_DATABASE_summary"
+            app:title="@string/PREF_STR_BT_IMPORT_DATABASE_title" />
 
         <com.draekko.traypreferences.TrayPreference
-            app:key="PREF_KEY_BT_EXPORT_DATABASE"
-            app:summary="Export data from database in csv format file"
-            app:title="Export all data" />
+            app:key="@string/PREF_KEY_BT_EXPORT_DATABASE"
+            app:summary="@string/PREF_STR_BT_EXPORT_DATABASE_summary"
+            app:title="@string/PREF_STR_BT_EXPORT_DATABASE_title" />
 
     </com.draekko.traypreferences.TrayPreferenceCategory>
 
     <com.draekko.traypreferences.TrayPreferenceCategory
         android:layout="@layout/settings_title_text_material"
-        app:key="PREF_KEY_DEVELOPER"
+        app:key="@string/PREF_KEY_DEVELOPER"
         app:allowDividerAbove="false"
         app:allowDividerBelow="false"
-        app:title="DEVELOPER">
+        app:title="@string/developer_title">
 
         <com.draekko.traypreferences.TrayPreference
-            app:key="PREF_KEY_RESET_EVERYTHING"
-            app:summary="Reset all data from app"
-            app:title="Reset all data and restart app" />
+            app:key="@string/PREF_KEY_RESET_EVERYTHING"
+            app:summary="@string/PREF_STR_RESET_EVERYTHING_summary"
+            app:title="@string/PREF_STR_RESET_EVERYTHING_title" />
 
     </com.draekko.traypreferences.TrayPreferenceCategory>
 

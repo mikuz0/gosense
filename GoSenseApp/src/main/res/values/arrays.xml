@@ -51,4 +51,14 @@
         <item>2</item>
     </string-array>
 
+    <string-array name="ble_scan_mode">
+        <item>Low Power</item>
+        <item>Low Latency</item>
+    </string-array>
+
+    <string-array name="ble_scan_mode_values">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
 </resources>
