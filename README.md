@@ -16,13 +16,14 @@ Open sourced environmental sensor monitor app that logs temperature, relative hu
 ---
 ***Notes:***
 
-* Tested with BTH01 using PVVX firmware which is BTHome compatible.
+* Tested with BTH01 and TH05F using PVVX firmware which is BTHome compatible.
 * Currently only handles one device at a time.
 * Borrows the Comnfort Zone Screen from the Sensiron SmartGadget app for indoor use.
 
 ---
 ***Known working devices:***
 * Tuya BTH01
+* Tuya TH05F
  
 ---
 Licensed under ***GPL V3***
