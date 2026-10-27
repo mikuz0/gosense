@@ -1,31 +1,31 @@
 GoSense
 ===
- 
-Open sourced environmental sensor monitor app that logs temperature, relative humidity from Bluetooth BLE devices and air pressure from your phone if available.
 
- 
+Приложение с открытым исходным кодом для мониторинга параметров окружающей среды, которое регистрирует температуру и относительную влажность с Bluetooth BLE-устройств, а также атмосферное давление с вашего телефона (если поддерживается).
+
+
 ---
-***Screenshots:***
+***Скриншоты:***
 
 | 1 | 2 | 3 | 4 | 5 | 6 |
 | --- | --- | --- | --- | --- | --- |
-| <img src="https://gitlab.com/draekko-rand/gosense/-/raw/main/images/gosense_1.webp" data-canonical-src="https://gitlab.com/draekko-rand/gosense/-/raw/main/images/gosense_1.webp" /> | <img src="https://gitlab.com/draekko-rand/gosense/-/raw/main/images/gosense_2.webp" data-canonical-src="https://gitlab.com/draekko-rand/gosense/-/raw/main/images/gosense_2.webp" /> | <img src="https://gitlab.com/draekko-rand/gosense/-/raw/main/images/gosense_3.webp" data-canonical-src="https://gitlab.com/draekko-rand/gosense/-/raw/main/images/gosense_3.webp" /> | <img src="https://gitlab.com/draekko-rand/gosense/-/raw/main/images/gosense_4.webp" data-canonical-src="https://gitlab.com/draekko-rand/gosense/-/raw/main/images/gosense_4.webp" /> | <img src="https://gitlab.com/draekko-rand/gosense/-/raw/main/images/gosense_5.webp" data-canonical-src="https://gitlab.com/draekko-rand/gosense/-/raw/main/images/gosense_5.webp" /> | <img src="https://gitlab.com/draekko-rand/gosense/-/raw/main/images/gosense_6.webp" data-canonical-src="https://gitlab.com/draekko-rand/gosense/-/raw/main/images/gosense_6.webp" /> |
+| <img src="https://raw.githubusercontent.com/mikuz0/gosense/main/images/gosense_1.webp" data-canonical-src="https://raw.githubusercontent.com/mikuz0/gosense/main/images/gosense_1.webp" /> | <img src="https://raw.githubusercontent.com/mikuz0/gosense/main/images/gosense_2.webp" data-canonical-src="https://raw.githubusercontent.com/mikuz0/gosense/main/images/gosense_2.webp" /> | <img src="https://raw.githubusercontent.com/mikuz0/gosense/main/images/gosense_3.webp" data-canonical-src="https://raw.githubusercontent.com/mikuz0/gosense/main/images/gosense_3.webp" /> | <img src="https://raw.githubusercontent.com/mikuz0/gosense/main/images/gosense_4.webp" data-canonical-src="https://raw.githubusercontent.com/mikuz0/gosense/main/images/gosense_4.webp" /> | <img src="https://raw.githubusercontent.com/mikuz0/gosense/main/images/gosense_5.webp" data-canonical-src="https://raw.githubusercontent.com/mikuz0/gosense/main/images/gosense_5.webp" /> | <img src="https://raw.githubusercontent.com/mikuz0/gosense/main/images/gosense_6.webp" data-canonical-src="https://raw.githubusercontent.com/mikuz0/gosense/main/images/gosense_6.webp" /> |
 
-(Dashboard, Comfort Zone, Historical Data, Device Management Settings, Data Notification)
-
----
-***Notes:***
-
-* Tested with BTH01 and TH05F using PVVX firmware which is BTHome compatible.
-* Currently only handles one device at a time.
-* Borrows the Comnfort Zone Screen from the Sensiron SmartGadget app for indoor use.
+(Панель управления, Зона комфорта, Исторические данные, Настройки управления устройствами, Уведомления о данных)
 
 ---
-***Known working devices:***
+***Примечания:***
+
+* Протестировано с BTH01 и TH05F с прошивкой PVVX, совместимой с BTHome.
+* В настоящее время поддерживается только одно устройство одновременно.
+* Экран «Зона комфорта» заимствован из приложения Sensiron SmartGadget для использования в помещении.
+
+---
+***Известные работающие устройства:***
 * Tuya BTH01
 * Tuya TH05F
- 
+
 ---
-Licensed under ***GPL V3***
- 
+Лицензировано под ***GPL V3***
+
 ---
