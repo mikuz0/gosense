@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_settings_title">НАСТРОЙКИ ПРИЛОЖЕНИЯ</string>
+
+    <string name="PREF_STR_IS_IMPERIAL_TEMP_summary">Переключение между градусами Цельсия и Фаренгейта</string>
+    <string name="PREF_STR_IS_IMPERIAL_TEMP_title">Использовать Фаренгейт</string>
+
+    <string name="PREF_STR_WINTER_SEASON_summary">Переключение между летними и зимними расчётами зоны комфорта</string>
+    <string name="PREF_STR_WINTER_SEASON_title">Зимний сезон</string>
+
+    <string name="PREF_STR_AIR_PRESSURE_UNIT_summary">Текущая единица давления: %s</string>
+    <string name="PREF_STR_AIR_PRESSURE_UNIT_title">Единицы атмосферного давления</string>
+
+    <string name="PREF_STR_DO_AUTO_SCALE_summary">Включите, чтобы масштаб графика автоматически подстраивался под данные</string>
+    <string name="PREF_STR_DO_AUTO_SCALE_title">Автоматический масштаб графика</string>
+
+    <string name="PREF_STR_AVERAGE_GRAPH_DATA_summary">При включении данные усредняются под размер экрана, при отключении точки пропускаются</string>
+    <string name="PREF_STR_AVERAGE_GRAPH_DATA_title">Усреднять данные графика</string>
+
+    <string name="PREF_STR_GRAPH_UPDATE_INTERVAL_summary">Задаёт интервал обновления графиков истории</string>
+    <string name="PREF_STR_GRAPH_UPDATE_INTERVAL_title">Интервал обновления графиков</string>
+
+
+    <string name="bluetooth_title">BLUETOOTH</string>
+
+    <string name="PREF_STR_BLE_SCAN_MODE_summary">Режим сканирования BLE: %s</string>
+    <string name="PREF_STR_BLE_SCAN_MODE_title">Приоритет режима сканирования BLE</string>
+
+    <string name="PREF_STR_SCAN_SORT_ORDER_summary">Сортировка устройств при сканировании: %s</string>
+    <string name="PREF_STR_SCAN_SORT_ORDER_title">Приоритет сортировки при сканировании</string>
+
+    <string name="PREF_STR_AUTOCONNECT_BT_ON_START_summary">Автоматически переподключаться при перезагрузке устройства или запуске приложения</string>
+    <string name="PREF_STR_AUTOCONNECT_BT_ON_START_title">Автоподключение при запуске</string>
+
+    <string name="PREF_STR_AUTOCONNECT_BT_ON_DISCONNECT_summary">Автоматически переподключать устройства при потере Bluetooth-соединения</string>
+    <string name="PREF_STR_AUTOCONNECT_BT_ON_DISCONNECT_title">Автопереподключение при обрыве</string>
+
+    <string name="PREF_STR_USE_NEW_CONNECTION_AS_PRIMARY_summary">Считать каждое новое подключённое устройство основным для отображения данных</string>
+    <string name="PREF_STR_USE_NEW_CONNECTION_AS_PRIMARY_title">Новое подключение — основное</string>
+
+
+    <string name="miscellaneous_title">РАЗНОЕ</string>
+
+    <string name="PREF_STR_BATTERY_OPTIMIZATION_summary">Перейдите в настройки устройства, чтобы отключить оптимизацию батареи</string>
+    <string name="PREF_STR_BATTERY_OPTIMIZATION_title">Оптимизация батареи</string>
+
+
+    <string name="data_title">ДАННЫЕ</string>
+
+    <string name="PREF_STR_DATA_RETENTION_INTERVAL_summary">Хранить %s</string>
+    <string name="PREF_STR_DATA_RETENTION_INTERVAL_title">Срок хранения данных</string>
+
+    <string name="PREF_STR_CLEAR_DATABASE_summary">Удаляет все данные из базы данных</string>
+    <string name="PREF_STR_CLEAR_DATABASE_title">Очистить все данные</string>
+
+    <string name="PREF_STR_BT_IMPORT_DATABASE_summary">Импортировать данные в базу из файла</string>
+    <string name="PREF_STR_BT_IMPORT_DATABASE_title">Импорт данных</string>
+
+    <string name="PREF_STR_BT_EXPORT_DATABASE_summary">Экспортировать данные из базы в CSV-файл</string>
+    <string name="PREF_STR_BT_EXPORT_DATABASE_title">Экспорт всех данных</string>
+
+
+    <string name="developer_title">ДЛЯ РАЗРАБОТЧИКОВ</string>
+
+    <string name="PREF_STR_RESET_EVERYTHING_summary">Сбросить все данные приложения</string>
+    <string name="PREF_STR_RESET_EVERYTHING_title">Сбросить все данные и перезапустить</string>
+
+</resources>
