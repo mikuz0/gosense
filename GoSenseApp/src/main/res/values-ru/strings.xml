@@ -1,0 +1,218 @@
+<resources>
+    <string name="app_name">GoSense</string>
+
+    <string name="keyboard">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_</string>
+
+    <string name="menu_devices">Устройства</string>
+    <string name="menu_dashboard">Панель</string>
+    <string name="menu_history">История</string>
+    <string name="menu_comfort_zone">Зона комфорта</string>
+    <string name="menu_settings">Настройки</string>
+
+    <string name="title_comfort_zone">ЗОНА КОМФОРТА</string>
+    <string name="title_dashboard">ПАНЕЛЬ</string>
+    <string name="title_history">ИСТОРИЯ</string>
+    <string name="title_devices">УСТРОЙСТВА</string>
+    <string name="title_settings">НАСТРОЙКИ</string>
+
+    <!-- '-.-' -->
+    <string name="label_empty_t">\u002d\u002d\u002E\u002d \u00B0</string>
+    <!-- '-.-%' -->
+    <string name="label_empty_ap">\u002d\u002d\u002E\u002d мбар</string>
+    <!-- '-.-%' -->
+    <string name="label_empty_rh">\u002d\u002d\u002E\u002d \u0025</string>
+    <string name="label_empty_heat_index">Н/Д</string>
+    <!-- °C -->
+    <string name="unit_celsius">\u00B0C</string>
+    <!-- ºF -->
+    <string name="unit_fahrenheit">\u00B0F</string>
+    <!-- % -->
+    <string name="unit_humidity">\u0025</string>
+    <!-- % -->
+    <string name="char_percent">\u0025</string>
+    <string name="label_ap">Атм. давление</string>
+    <string name="label_t">Температура</string>
+    <string name="label_rh">Влажность</string>
+    <string name="label_dp">Точка росы</string>
+    <string name="label_hi">Индекс жары</string>
+    <string name="label_humidex">Гумидекс</string>
+
+    <!-- ComfortZone -->
+    <string name="text_zone_topleft">Ревматические боли</string>
+    <string name="text_zone_topright">Тепловой удар</string>
+    <string name="text_zone_bottomright">Обезвоживание</string>
+    <string name="text_zone_bottomleft">Проблемы с дыханием</string>
+
+    <string name="text_sensor_name_default">нет датчика</string>
+    <!-- '-.-º'-->
+    <string name="text_amb_temp_default">\u002D\u002D.\u002D \u00B0</string>
+    <!-- '-.-%' -->
+    <string name="text_rh_default">\u002D\u002D.\u002D \u0025</string>
+
+    <!-- HistoryFragment -->
+    <string name="label_download">Скачать</string>
+    <string name="label_10_minutes">10 мин</string>
+    <string name="label_1_hour">1 час</string>
+    <string name="label_6_hours">6 часов</string>
+    <string name="label_1_day">1 день</string>
+    <string name="label_1_week">1 неделя</string>
+
+    <string name="graph_label_domain_min">ВРЕМЯ (минуты)</string>
+    <string name="graph_label_domain_hours">ВРЕМЯ (часы)</string>
+    <string name="graph_label_domain_days">ВРЕМЯ (дни)</string>
+
+    <string name="graph_label_elapsed_time">ПРОШЛО ВРЕМЕНИ</string>
+    <string name="graph_label_temperature">ТЕМПЕРАТУРА</string>
+
+    <!-- (℃) -->
+    <string name="temperature_celsius">\u2103</string>
+    <!-- (℉) -->
+    <string name="temperature_fahrenheit">\u2109</string>
+
+    <!-- TEMPERATURE (℃) -->
+    <string name="graph_label_temperature_celsius">ТЕМПЕРАТУРА\u0020\u0028\u2103\u0029</string>
+    <!-- TEMPERATURE (℉) -->
+    <string name="graph_label_temperature_fahrenheit">ТЕМПЕРАТУРА\u0020\u0028\u2109\u0029</string>
+    <!-- HUMIDITY (%)-->
+    <string name="graph_label_humidity">ВЛАЖНОСТЬ\u0020\u0028\u0025\u0029\u0020</string>
+    <!-- RELATIVE HUMIDITY (%) -->
+    <string name="graph_label_relative_humidity">ОТНОСИТЕЛЬНАЯ ВЛАЖНОСТЬ\u0020\u0028\u0025\u0029\u0020</string>
+
+    <string name="toast_ble_not_supported">BLE не поддерживается</string>
+    <string name="toast_bluetooth_not_supported">Bluetooth не поддерживается</string>
+    <string name="toast_disconnected">BT-устройство не подключено!</string>
+    <string name="toast_no_any_files">Сохранённых файлов нет!</string>
+    <string name="toast_pairing_timeout">Время сопряжения истекло!</string>
+    <string name="toast_connection_timeout">Время подключения истекло!</string>
+
+    <string name="notify_data">Уведомлять о данных</string>
+    <string name="notify_channel_description">Показывает активное Bluetooth-соединение</string>
+    <string name="notify_channel_name">Bluetooth-соединение</string>
+    <string name="notify_msg">BT-устройство подключено</string>
+    <string name="notify_title">BLE-соединение активно</string>
+
+    <string name="exit_app_title">Выйти из GoSense</string>
+    <string name="exit_app_message">Вы уверены, что хотите выйти?</string>
+
+    <string name="airpressure_handler_msg">Обработка данных датчика атм. давления</string>
+    <string name="airpressure_handler_title">Служба атм. давления</string>
+
+    <string name="connecting">Подключение</string>
+
+    <string name="device_channel_description">Показывает активное соединение с устройством</string>
+    <string name="device_channel_name">Соединение с устройством</string>
+
+    <string name="data_handler_bpm">Обработчик данных</string>
+    <string name="data_handler_channel_description">Показывает активное Bluetooth-соединение</string>
+    <string name="data_handler_channel_name">Bluetooth-соединение</string>
+    <string name="data_handler_msg">BT-устройство подключено</string>
+    <string name="data_handler_title">BLE-соединение активно</string>
+
+    <string name="bt_device_connected">Устройство подключено</string>
+    <string name="bt_device_disconnected">Устройство отключено</string>
+
+    <string name="no_bt_dev_connected">НЕТ ПОДКЛЮЧЁННЫХ BLUETOOTH-УСТРОЙСТВ</string>
+
+    <string name="disconnect">Отключить</string>
+    <string name="disconnectInfo">Ваше BT-устройство отключено, сбор данных возобновится после повторного подключения.</string>
+    <string name="disconnectTitle">ОТКЛЮЧЕНО</string>
+
+    <string name="exit">Выход</string>
+    <string name="exit_message">Вы уверены, что хотите выйти?</string>
+    <string name="no_device">Нет сопряжённого BT-устройства. Пожалуйста, сопрягите BT-устройство.</string>
+    <string name="no_device_title">Нет сопряжённого BT-устройства</string>
+    <string name="no_selected">Файлы не выбраны!</string>
+
+    <string name="pair">Сопрячь новое BT-устройство</string>
+    <string name="paired_successful">BT-устройство успешно сопряжено.</string>
+    <string name="paired_successful_title">УСПЕХ</string>
+    <string name="pairing">Сопряжение…</string>
+    <string name="cancel">Отмена</string>
+    <string name="stop2">Стоп</string>
+    <string name="stop_recording">Остановить запись</string>
+    <string name="delete">УДАЛИТЬ</string>
+    <string name="delete_message">Вы уверены, что хотите удалить эту запись?</string>
+    <string name="delete_title">УДАЛИТЬ ЗАПИСЬ</string>
+    <string name="device_failed">"Не удалось получить BLE-устройство!"</string>
+    <string name="device_not_supported">Неподходящее устройство!</string>
+    <string name="device_not_supported_message">Приложение не поддерживает это устройство!</string>
+    <string name="device_terminated">Устройство отключено!</string>
+    <string name="di_na">Н/Д</string>
+    <string name="connect">Подключить</string>
+    <string name="ok">ОК</string>
+    <string name="attempting_reconnection">Попытка переподключения</string>
+    <string name="attempting_connection">Попытка подключения</string>
+    <string name="close">ЗАКРЫТЬ</string>
+    <string name="stop">СТОП</string>
+    <string name="no_paired_devices">НЕТ СОПРЯЖЁННЫХ УСТРОЙСТВ</string>
+    <string name="connected_devices">ПОДКЛЮЧЁННЫЕ УСТРОЙСТВА</string>
+    <string name="paired_devices">СОПРЯЖЁННЫЕ УСТРОЙСТВА</string>
+    <string name="start_scan">НАЧАТЬ ПОИСК</string>
+    <string name="stop_scan">ОСТАНОВИТЬ ПОИСК</string>
+    <string name="device_scanning">ПОИСК УСТРОЙСТВ</string>
+    <string name="start_device_scanning">ПУСТОЙ СПИСОК\nНАЧНИТЕ ПОИСК</string>
+    <string name="unknown_device">Неизвестное устройство</string>
+    <string name="disconnecting_current_device">Отключение текущего устройства.</string>
+    <string name="disconnecting_current_devices">Отключение текущих устройств.</string>
+    <string name="device_is_connected">Устройство уже подключено.</string>
+    <string name="device_is_current">Устройство уже выбрано по умолчанию.</string>
+    <string name="device_is_current_attempting_connection">Устройство выбрано по умолчанию. Попытка переподключения.</string>
+    <string name="scan_device">Поиск устройств</string>
+    <string name="scan_error">Ошибка поиска</string>
+    <string name="scanning">Поиск…</string>
+    <string name="restart_scanning">Перезапустить поиск</string>
+
+    <string name="title_bt_permission">Разрешение Bluetooth</string>
+    <string name="title_activity_settings">Настройки</string>
+    <string name="title_location_enable">Геолокация отключена</string>
+    <string name="title_location_permission">Разрешение на геолокацию</string>
+    <string name="title_notify_permission">Разрешение на уведомления</string>
+    <string name="title_file_permission">Разрешение на управление файлами</string>
+
+    <string name="text_bt_permission">Для поиска устройств необходимо разрешение Bluetooth!</string>
+    <string name="text_location_enable">Пожалуйста, включите геолокацию. Она необходима для поиска Bluetooth Low Energy устройств!</string>
+    <string name="text_location_permission">Для поиска Bluetooth Low Energy устройств необходимо разрешение на геолокацию!</string>
+    <string name="text_notify_permission">Для работы BLE необходимо разрешение на уведомления!</string>
+    <string name="text_file_permission">Для импорта или экспорта данных необходимо разрешение на управление файлами!</string>
+
+    <string name="empty_bluetooth_device">BT-УСТРОЙСТВО</string>
+    <string name="empty_bluetooth_mac_address">00:00:00:00</string>
+
+    <string name="not_supported_device">не поддерживает датчики окружающей среды, отключение.</string>
+    <string name="all_db_data_cleared">Все данные удалены из базы данных.</string>
+
+    <string name="temperature">Температура</string>
+    <string name="relative_humidity">Относительная влажность</string>
+    <string name="air_pressure">Атм. давление</string>
+    <string name="elapsed_time">Прошло времени</string>
+
+    <string name="dismiss">Закрыть</string>
+    <string name="apply">Применить</string>
+    <string name="reset">Сбросить</string>
+    <string name="set_graph_color">Задать цвет графика</string>
+
+    <string name="data_imported">Файл резервной копии импортирован в базу данных</string>
+    <string name="data_exported">База данных экспортирована</string>
+    <string name="data_not_imported">ОШИБКА: файл резервной копии не импортирован в базу данных</string>
+    <string name="data_not_exported">ОШИБКА: база данных не экспортирована</string>
+    <string name="finished_exporting_data">Экспорт данных завершён</string>
+    <string name="exporting_backup_file">Экспорт данных в файл резервной копии</string>
+    <string name="importing_backup_file">Импорт данных из файла резервной копии</string>
+    <string name="export_data_error">ОШИБКА: не удалось экспортировать файл данных</string>
+    <string name="import_in_progress">Идёт импорт, экспорт данных невозможен</string>
+    <string name="export_in_progress">Идёт экспорт, импорт данных невозможен</string>
+    <string name="import_in_progress_clearing">Идёт импорт, очистка базы данных невозможна</string>
+    <string name="export_in_progress_clearing">Идёт экспорт, очистка базы данных невозможна</string>
+    <string name="missing_permissions">Нет разрешений на файлы, импорт или экспорт невозможен</string>
+
+    <string name="import_export_in_progress">Идёт импорт или экспорт данных, выход сейчас приведёт к повреждению данных</string>
+
+    <string name="at">в</string>
+    <string name="on">в</string>
+    <string name="warning">Предупреждение</string>
+    <string name="bt_dev_or_gatt_disconnected">Bluetooth-устройство или GATT отключено</string>
+
+    <string name="scan_low_latency">Низкая задержка</string>
+    <string name="scan_low_power">Низкое энергопотребление</string>
+
+</resources>

@@ -17,16 +17,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
-import android.os.Looper;
 import android.provider.Settings;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
+import android.widget.Toast;
 
-import androidx.activity.ComponentActivity;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -109,40 +102,37 @@ public class SplashScreenActivity extends AppCompatActivity {
     private boolean isBtScanConnectPermissionGranted() {
         boolean canConnectBt = true;
         boolean canScanBt = false;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             canScanBt = ContextCompat.checkSelfPermission(mActivity, BLUETOOTH_SCAN) == PackageManager.PERMISSION_GRANTED;
             canConnectBt = ContextCompat.checkSelfPermission(mActivity, BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED;
             if (!canConnectBt || !canScanBt) {
                 requestBtPermission(new String[]{ BLUETOOTH_SCAN, BLUETOOTH_CONNECT });
             }
         }
-        return canConnectBt;
+        return canConnectBt && canScanBt;
     }
 
     private boolean isBtConnectScanPermissionGranted() {
         boolean canConnectBt = true;
         boolean canScanBt = true;
         boolean canLocation = true;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            canLocation = ContextCompat.checkSelfPermission(mActivity, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
-            if (!canConnectBt || !canScanBt || !canLocation) {
-                requestBtPermission(new String[]{ ACCESS_FINE_LOCATION });
-            }
-            return canLocation;
-        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             canConnectBt = ContextCompat.checkSelfPermission(mActivity, BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED;
             canScanBt = ContextCompat.checkSelfPermission(mActivity, BLUETOOTH_SCAN) == PackageManager.PERMISSION_GRANTED;
             canLocation = ContextCompat.checkSelfPermission(mActivity, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
             if (!canConnectBt || !canScanBt || !canLocation) {
-                if ((!canScanBt || !canConnectBt) && canLocation) {
-                    isBtScanConnectPermissionGranted();
-                } else {
-                    requestBtPermission(new String[]{ BLUETOOTH_CONNECT, BLUETOOTH_SCAN, ACCESS_FINE_LOCATION });
-                }
+                requestBtPermission(new String[]{ BLUETOOTH_CONNECT, BLUETOOTH_SCAN, ACCESS_FINE_LOCATION });
             }
+            return canConnectBt && canScanBt && canLocation;
         }
-        return canConnectBt && canScanBt;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            canLocation = ContextCompat.checkSelfPermission(mActivity, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+            if (!canLocation) {
+                requestLocationPermission(new String[]{ ACCESS_FINE_LOCATION });
+            }
+            return canLocation;
+        }
+        return true;
     }
 
     ActivityResultLauncher<Intent> fileaccessActivityResultLauncher = registerForActivityResult(
@@ -200,7 +190,6 @@ public class SplashScreenActivity extends AppCompatActivity {
                         setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                //request for the permission
                                 Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
                                 Uri uri = Uri.fromParts("package", getPackageName(), null);
                                 intent.setData(uri);
@@ -244,7 +233,6 @@ public class SplashScreenActivity extends AppCompatActivity {
             return;
         }
 
-
         Intent goSense = new Intent(mActivity, GoSensePagerActivity.class);
         startActivity(goSense);
         finish();
@@ -256,7 +244,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onResume();
         startup();
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -303,12 +290,25 @@ public class SplashScreenActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_POST_PERMISSION) {
-            Intent goSense = new Intent(mActivity, GoSensePagerActivity.class);
-            startActivity(goSense);
-            finish();
-            finishAffinity();
+
+        if (requestCode == REQUEST_BT_PERMISSION || requestCode == REQUEST_LOCATION_PERMISSION) {
+            // После выдачи (или отказа) повторно запускаем startup() — он либо продолжит,
+            // либо снова покажет запрос, если чего-то не хватает.
+            startup();
+        } else if (requestCode == REQUEST_POST_PERMISSION) {
+            boolean granted = grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
+            if (granted) {
+                Intent goSense = new Intent(mActivity, GoSensePagerActivity.class);
+                startActivity(goSense);
+                finish();
+                finishAffinity();
+            } else {
+                // Уведомления не критичны — всё равно переходим дальше.
+                Intent goSense = new Intent(mActivity, GoSensePagerActivity.class);
+                startActivity(goSense);
+                finish();
+                finishAffinity();
+            }
         }
     }
-
 }

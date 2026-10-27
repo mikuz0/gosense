@@ -435,10 +435,13 @@ public class AllDevicesService extends Service
 
     @SuppressLint("WrongConstant")
     private void handleBind() {
-        int flags = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ? Context.RECEIVER_NOT_EXPORTED : 0 ;
-        ContextCompat.registerReceiver(mContext, remoteTemperatureDataReceiver, new IntentFilter( AllServicesDeviceDataHandler.MEASUREMENT_REMOTE_TEMPERATURE ), flags);
-        ContextCompat.registerReceiver(mContext, remoteRelativeHumidityDataReceiver, new IntentFilter( AllServicesDeviceDataHandler.MEASUREMENT_REMOTE_RELATIVE_HUMIDITY ), flags);
-        mContext.registerReceiver(locationServiceStateReceiver, new IntentFilter((LocationManager.MODE_CHANGED_ACTION)));
+
+        ContextCompat.registerReceiver(mContext, remoteTemperatureDataReceiver,
+                new IntentFilter(AllServicesDeviceDataHandler.MEASUREMENT_REMOTE_TEMPERATURE),
+                ContextCompat.RECEIVER_NOT_EXPORTED);
+        ContextCompat.registerReceiver(mContext, remoteRelativeHumidityDataReceiver,
+                new IntentFilter(AllServicesDeviceDataHandler.MEASUREMENT_REMOTE_RELATIVE_HUMIDITY),
+                ContextCompat.RECEIVER_NOT_EXPORTED);
 
         if (goSenseDb == null) {
             goSenseDb = new GoSenseDb(mContext);
@@ -575,9 +578,12 @@ public class AllDevicesService extends Service
             }
         }
 
-        int flags = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R ? Context.RECEIVER_NOT_EXPORTED : 0 ;
-        ContextCompat.registerReceiver(mContext, remoteTemperatureDataReceiver, new IntentFilter( AllServicesDeviceDataHandler.MEASUREMENT_REMOTE_TEMPERATURE ), flags);
-        ContextCompat.registerReceiver(mContext, remoteRelativeHumidityDataReceiver, new IntentFilter( AllServicesDeviceDataHandler.MEASUREMENT_REMOTE_RELATIVE_HUMIDITY ), flags);
+        ContextCompat.registerReceiver(mContext, remoteTemperatureDataReceiver,
+                new IntentFilter(AllServicesDeviceDataHandler.MEASUREMENT_REMOTE_TEMPERATURE),
+                ContextCompat.RECEIVER_NOT_EXPORTED);
+        ContextCompat.registerReceiver(mContext, remoteRelativeHumidityDataReceiver,
+                new IntentFilter(AllServicesDeviceDataHandler.MEASUREMENT_REMOTE_RELATIVE_HUMIDITY),
+                ContextCompat.RECEIVER_NOT_EXPORTED);
 
         if (hasBarometer()) {
             if (mContext != null) {

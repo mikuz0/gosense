@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="tablayout_names">
+        <item>Настройки</item>
+        <item>Панель</item>
+        <item>Зона комфорта</item>
+        <item>История</item>
+        <item>Устройства</item>
+        <item>Настройки</item>
+        <item>Панель</item>
+    </string-array>
+
+    <string-array name="pressure_units">
+        <item>мбар</item>
+        <item>гПа</item>
+        <item>кПа</item>
+        <item>Psi</item>
+    </string-array>
+
+    <string-array name="pref_pressure_units">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="data_retention_interval">
+        <item>2 недели</item>
+        <item>1 месяц</item>
+        <item>3 месяца</item>
+        <item>6 месяцев</item>
+        <item>12 месяцев</item>
+    </string-array>
+
+    <string-array name="pref_data_retention_interval">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="scan_order_priority_entries">
+        <item>по уровню сигнала</item>
+        <item>по мере обнаружения</item>
+    </string-array>
+
+    <string-array name="scan_order_priority_values">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="ble_scan_mode">
+        <item>Низкое энергопотребление</item>
+        <item>Низкая задержка</item>
+    </string-array>
+
+    <string-array name="ble_scan_mode_values">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+</resources>
