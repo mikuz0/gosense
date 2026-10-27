@@ -84,10 +84,13 @@
     <string name="toast_no_any_files">Сохранённых файлов нет!</string>
     <string name="toast_pairing_timeout">Время сопряжения истекло!</string>
     <string name="toast_connection_timeout">Время подключения истекло!</string>
+    <string name="toast_no_devices_connected">Нет подключённых устройств</string>
+    <string name="toast_reconnection_attempt">Попытка переподключения #%1$d</string>
 
     <string name="notify_data">Уведомлять о данных</string>
     <string name="notify_channel_description">Показывает активное Bluetooth-соединение</string>
     <string name="notify_channel_name">Bluetooth-соединение</string>
+    <string name="notify_channel_disconnection_warning">Предупреждение об отключении</string>
     <string name="notify_msg">BT-устройство подключено</string>
     <string name="notify_title">BLE-соединение активно</string>
 
@@ -174,6 +177,8 @@
     <string name="text_location_permission">Для поиска Bluetooth Low Energy устройств необходимо разрешение на геолокацию!</string>
     <string name="text_notify_permission">Для работы BLE необходимо разрешение на уведомления!</string>
     <string name="text_file_permission">Для импорта или экспорта данных необходимо разрешение на управление файлами!</string>
+
+    <string name="enable">Включить</string>
 
     <string name="empty_bluetooth_device">BT-УСТРОЙСТВО</string>
     <string name="empty_bluetooth_mac_address">00:00:00:00</string>

@@ -84,10 +84,13 @@
     <string name="toast_no_any_files">There aren\'t any saved files!</string>
     <string name="toast_pairing_timeout">Pairing Timed Out!</string>
     <string name="toast_connection_timeout">Connection Timed Out!</string>
+    <string name="toast_no_devices_connected">No devices are connected</string>
+    <string name="toast_reconnection_attempt">Reconnection attempt #%1$d</string>
 
     <string name="notify_data">Notify Data</string>
     <string name="notify_channel_description">Shows active Bluetooth connection</string>
     <string name="notify_channel_name">Bluetooth connection</string>
+    <string name="notify_channel_disconnection_warning">Disconnection Warning</string>
     <string name="notify_msg">BT device connected</string>
     <string name="notify_title">BLE connection is active</string>
 
@@ -174,6 +177,8 @@
     <string name="text_location_permission">Location permission needs to be enabled for Bluetooth Low Energy Scanning!</string>
     <string name="text_notify_permission">Notification permission needs to be enabled for BLE!</string>
     <string name="text_file_permission">File management permissions is needed to import or export data!</string>
+
+    <string name="enable">Enable</string>
 
     <string name="empty_bluetooth_device">BT DEVICE</string>
     <string name="empty_bluetooth_mac_address">00:00:00:00</string>
