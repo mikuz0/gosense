@@ -55,7 +55,7 @@ public class Utils {
     public final static String HARDWARE_ADDRESS = "--:--:--:--";
     public final static String HARDWARE_NAME = Build.BRAND + " " + Build.DEVICE;
     public final static int COLOR_MASK_ALPHA = 0xFF000000;
-    public final static int COLOR_MASK = 0xFFFFFF;
+    public final static int COLOR_MASK = 0xFF00FF;
     public final static int DEFAULT_COLOR = COLOR_MASK_ALPHA | COLOR_MASK;
     public final static String DEFAULT_EMPTY_NAME = "BT DEVICE";
     public final static String DEFAULT_EMPTY_ADDRESS = "00:00:00:00";

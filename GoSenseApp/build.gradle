@@ -7,12 +7,12 @@ keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
     namespace 'com.draekko.gosense'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.draekko.gosense"
         minSdk 29
-        targetSdk 33
+        targetSdk 34
         versionCode 20250007
         versionName "2025.7"
         vectorDrawables.useSupportLibrary = true
@@ -52,10 +52,8 @@ android {
     }
 
     buildFeatures {
-        viewBinding true
-    }
-    lint {
-        abortOnError false
+        buildConfig = true
+        dataBinding = true
     }
 
 }

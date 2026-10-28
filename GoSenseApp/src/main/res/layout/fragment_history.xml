@@ -1,307 +1,310 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/history_scroll_view"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginBottom="60dp"
-    android:background="@color/black"
-    android:fillViewport="false"
-    android:overScrollMode="never">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
-        android:id="@+id/history_plot_container"
+    <ScrollView
+        android:id="@+id/history_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:layout_margin="2dp">
-
-        <TextView
-            android:id="@+id/history_current_device"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:text="BT DEVICE - 00:00:00:00"
-            android:textAllCaps="true"
-            android:background="@color/grey_dark"
-            android:textColor="@color/white"
-            android:gravity="center_vertical|start"
-            android:layout_marginBottom="@dimen/history_fragment_tabs_margin_bottom"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/history_fragment_tabs_layout_height" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
+        android:background="@color/black"
+        android:fillViewport="false"
+        android:overScrollMode="never">
 
         <LinearLayout
-            android:id="@+id/history_type_of_value_tabs"
+            android:id="@+id/history_plot_container"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/history_fragment_tabs_layout_height"
-            android:layout_marginBottom="@dimen/history_fragment_tabs_margin_bottom"
-            android:background="@color/grey_dark"
-            android:orientation="horizontal" >
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_margin="2dp">
+
+            <TextView
+                android:id="@+id/history_current_device"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="BT DEVICE - 00:00:00:00"
+                android:textAllCaps="true"
+                android:background="@color/grey_dark"
+                android:textColor="@color/white"
+                android:gravity="center_vertical|start"
+                android:layout_marginBottom="@dimen/history_fragment_tabs_margin_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/history_fragment_tabs_layout_height" />
 
             <LinearLayout
-                android:id="@+id/history_type_temperature_frm"
-                android:background="@drawable/history_selection_outline"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_weight="1"
+                android:id="@+id/history_type_of_value_tabs"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="@dimen/history_fragment_tabs_layout_height"
+                android:layout_marginBottom="@dimen/history_fragment_tabs_margin_bottom"
+                android:background="@color/grey_dark"
+                android:orientation="horizontal" >
 
-                <ImageView
-                    android:id="@+id/history_type_temperature_ic"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
+                <LinearLayout
+                    android:id="@+id/history_type_temperature_frm"
+                    android:background="@drawable/history_selection_outline"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/history_type_temperature_ic"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/temperature_icon"
+                        app:tint="@color/white"
+                        android:tint="@color/white"
+                        tools:ignore="UseAppTint" />
+
+                    <TextView
+                        android:layout_gravity="center"
+                        android:id="@+id/history_type_temperature_txt"
+                        android:layout_marginStart="0dp"
+                        android:text="TEMPERATURE"
+                        android:textAllCaps="true"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:gravity="start|center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="22dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/history_type_humidity_frm"
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/history_type_humidity_ic"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/humidity_icon"
+                        app:tint="@color/white"
+                        android:tint="@color/white"
+                        tools:ignore="UseAppTint" />
+
+                    <TextView
+                        android:id="@+id/history_type_humidity_txt"
+                        android:text="HUMIDITY"
+                        android:textColor="@color/white"
+                        android:textAllCaps="true"
+                        android:textSize="11sp"
+                        android:gravity="start|center_vertical"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="22dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/history_type_pressure_frm"
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     android:layout_gravity="center"
-                    android:src="@drawable/temperature_icon"
-                    app:tint="@color/white"
-                    android:tint="@color/white"
-                    tools:ignore="UseAppTint" />
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/history_type_pressure_ic"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_pressure"
+                        app:tint="@color/white"
+                        android:tint="@color/white"
+                        tools:ignore="UseAppTint" />
+
+                    <TextView
+                        android:id="@+id/history_type_pressure_txt"
+                        android:layout_marginStart="0dp"
+                        android:text="AIR PRESSURE"
+                        android:textColor="@color/white"
+                        android:textAllCaps="true"
+                        android:textSize="11sp"
+                        android:gravity="start|center_vertical"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="22dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/history_interval_tabs"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/history_fragment_tabs_layout_height"
+                android:layout_marginBottom="@dimen/history_fragment_tabs_margin_bottom"
+                android:background="@color/grey_dark"
+                android:weightSum="9"
+                android:orientation="horizontal" >
 
                 <TextView
-                    android:layout_gravity="center"
-                    android:id="@+id/history_type_temperature_txt"
-                    android:layout_marginStart="0dp"
-                    android:text="TEMPERATURE"
-                    android:textAllCaps="true"
+                    android:id="@+id/history_time_unit_10m"
+                    android:background="@drawable/history_selection_outline"
+                    android:layout_weight="1"
+                    android:text="10M"
+                    android:textColor="@color/white"
                     android:textSize="13sp"
+                    android:textAllCaps="true"
                     android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:gravity="start|center_vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="22dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/history_type_humidity_frm"
-                android:orientation="horizontal"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/history_type_humidity_ic"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
+                    android:gravity="center"
                     android:layout_gravity="center"
-                    android:src="@drawable/humidity_icon"
-                    app:tint="@color/white"
-                    android:tint="@color/white"
-                    tools:ignore="UseAppTint" />
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
                 <TextView
-                    android:id="@+id/history_type_humidity_txt"
-                    android:text="HUMIDITY"
+                    android:id="@+id/history_time_unit_60m"
+                    android:layout_weight="1"
+                    android:text="60M"
                     android:textColor="@color/white"
                     android:textAllCaps="true"
                     android:textSize="11sp"
-                    android:gravity="start|center_vertical"
+                    android:gravity="center"
                     android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="22dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/history_type_pressure_frm"
-                android:orientation="horizontal"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/history_type_pressure_ic"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_pressure"
-                    app:tint="@color/white"
-                    android:tint="@color/white"
-                    tools:ignore="UseAppTint" />
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
                 <TextView
-                    android:id="@+id/history_type_pressure_txt"
-                    android:layout_marginStart="0dp"
-                    android:text="AIR PRESSURE"
+                    android:id="@+id/history_time_unit_3h"
+                    android:layout_weight="1"
+                    android:text="3H"
                     android:textColor="@color/white"
                     android:textAllCaps="true"
                     android:textSize="11sp"
-                    android:gravity="start|center_vertical"
+                    android:gravity="center"
                     android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="22dp" />
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/history_time_unit_6h"
+                    android:layout_weight="1"
+                    android:text="6H"
+                    android:textColor="@color/white"
+                    android:textAllCaps="true"
+                    android:textSize="11sp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/history_time_unit_12h"
+                    android:layout_weight="1"
+                    android:text="12H"
+                    android:textColor="@color/white"
+                    android:textAllCaps="true"
+                    android:textSize="11sp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/history_time_unit_24h"
+                    android:layout_weight="1"
+                    android:text="24H"
+                    android:textColor="@color/white"
+                    android:textAllCaps="true"
+                    android:textSize="11sp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/history_time_unit_48h"
+                    android:layout_weight="1"
+                    android:text="48H"
+                    android:textColor="@color/white"
+                    android:textAllCaps="true"
+                    android:textSize="11sp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/history_time_unit_7d"
+                    android:layout_weight="1"
+                    android:text="7D"
+                    android:textColor="@color/white"
+                    android:textAllCaps="true"
+                    android:textSize="11sp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/history_time_unit_14d"
+                    android:layout_weight="1"
+                    android:text="14D"
+                    android:textColor="@color/white"
+                    android:textAllCaps="true"
+                    android:textSize="11sp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
             </LinearLayout>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/history_interval_tabs"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/history_fragment_tabs_layout_height"
-            android:layout_marginBottom="@dimen/history_fragment_tabs_margin_bottom"
-            android:background="@color/grey_dark"
-            android:weightSum="9"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:id="@+id/history_time_unit_10m"
-                android:background="@drawable/history_selection_outline"
-                android:layout_weight="1"
-                android:text="10M"
-                android:textColor="@color/white"
-                android:textSize="13sp"
-                android:textAllCaps="true"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:layout_gravity="center"
+            <FrameLayout
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/history_time_unit_60m"
-                android:layout_weight="1"
-                android:text="60M"
-                android:textColor="@color/white"
-                android:textAllCaps="true"
-                android:textSize="11sp"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                <com.androidplot.xy.XYPlot
+                    android:id="@+id/history_fragment_plot"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="300dp"
+                    app:borderThickness="4dp"
+                    app:borderColor="@color/grey_dark"
+                    app:backgroundColor="@color/grey_dark"
+                    app:gridBackgroundColor="@color/grey_dark"
+                    app:graphBackgroundColor="@color/grey_dark"
+                    app:domainLineColor="@color/ap_transparent"
+                    app:domainOriginLineColor="@color/ap_transparent"
+                    app:lineLabels="left|bottom"
+                    app:domainTitleTextColor="@color/font_light"
+                    app:rangeTitleTextColor="@color/font_light"
+                    app:lineLabelTextColorLeft="@color/font_light"
+                    app:lineLabelTextColorBottom="@color/font_light"
+                    app:domainTitle="@string/elapsed_time"
+                    app:domainTitleTextSize="8dp"
+                    app:rangeTitleWidth="11dp"
+                    app:rangeTitle="@string/temperature"
+                    app:rangeTitleTextSize="8dp"
+                    app:lineLabelTextSizeLeft="10dp"
+                    app:lineLabelTextSizeBottom="10dp"
+                    app:gridInsetBottom="16dp"
+                    app:gridInsetLeft="28dp"
+                    app:lineLabelInsetBottom="3dp"
+                    app:lineLabelInsetLeft="3dp"
+                    app:lineLabelAlignLeft="left"
+                    app:lineLabelAlignBottom="right"
+                    app:lineExtensionLeft="3dp" />
 
-            <TextView
-                android:id="@+id/history_time_unit_3h"
-                android:layout_weight="1"
-                android:text="3H"
-                android:textColor="@color/white"
-                android:textAllCaps="true"
-                android:textSize="11sp"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <TextView
-                android:id="@+id/history_time_unit_6h"
-                android:layout_weight="1"
-                android:text="6H"
-                android:textColor="@color/white"
-                android:textAllCaps="true"
-                android:textSize="11sp"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <TextView
-                android:id="@+id/history_time_unit_12h"
-                android:layout_weight="1"
-                android:text="12H"
-                android:textColor="@color/white"
-                android:textAllCaps="true"
-                android:textSize="11sp"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <TextView
-                android:id="@+id/history_time_unit_24h"
-                android:layout_weight="1"
-                android:text="24H"
-                android:textColor="@color/white"
-                android:textAllCaps="true"
-                android:textSize="11sp"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <TextView
-                android:id="@+id/history_time_unit_48h"
-                android:layout_weight="1"
-                android:text="48H"
-                android:textColor="@color/white"
-                android:textAllCaps="true"
-                android:textSize="11sp"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <TextView
-                android:id="@+id/history_time_unit_7d"
-                android:layout_weight="1"
-                android:text="7D"
-                android:textColor="@color/white"
-                android:textAllCaps="true"
-                android:textSize="11sp"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <TextView
-                android:id="@+id/history_time_unit_14d"
-                android:layout_weight="1"
-                android:text="14D"
-                android:textColor="@color/white"
-                android:textAllCaps="true"
-                android:textSize="11sp"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+            </FrameLayout>
 
         </LinearLayout>
 
-        <FrameLayout
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="2dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    </ScrollView>
 
-            <com.androidplot.xy.XYPlot
-                android:id="@+id/history_fragment_plot"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="300dp"
-                app:borderThickness="4dp"
-                app:borderColor="@color/grey_dark"
-                app:backgroundColor="@color/grey_dark"
-                app:gridBackgroundColor="@color/grey_dark"
-                app:graphBackgroundColor="@color/grey_dark"
-                app:domainLineColor="@color/ap_transparent"
-                app:domainOriginLineColor="@color/ap_transparent"
-                app:lineLabels="left|bottom"
-                app:domainTitleTextColor="@color/font_light"
-                app:rangeTitleTextColor="@color/font_light"
-                app:lineLabelTextColorLeft="@color/font_light"
-                app:lineLabelTextColorBottom="@color/font_light"
-                app:domainTitle="@string/elapsed_time"
-                app:domainTitleTextSize="8dp"
-                app:rangeTitleWidth="11dp"
-                app:rangeTitle="@string/temperature"
-                app:rangeTitleTextSize="8dp"
-                app:lineLabelTextSizeLeft="10dp"
-                app:lineLabelTextSizeBottom="10dp"
-                app:gridInsetBottom="16dp"
-                app:gridInsetLeft="28dp"
-                app:lineLabelInsetBottom="3dp"
-                app:lineLabelInsetLeft="3dp"
-                app:lineLabelAlignLeft="left"
-                app:lineLabelAlignBottom="right"
-                app:lineExtensionLeft="3dp" />
-
-        </FrameLayout>
-
-    </LinearLayout>
-
-</ScrollView>
+</layout>
