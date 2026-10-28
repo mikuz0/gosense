@@ -240,7 +240,11 @@ public class PairedDevicesListAdapter extends  RecyclerView.Adapter<PairedDevice
 
         holder.rssi.setText(rssi + " dBm");
         holder.address.setText(lSensorDevice.getAddress());
-        holder.name.setText(lSensorDevice.getAliasName());
+        String displayName = lSensorDevice.getAliasName();
+        if (displayName == null || displayName.isEmpty()) {
+            displayName = mContext.getString(R.string.unknown_device);
+        }
+        holder.name.setText(displayName);
         holder.battery.setText(battery + "%");
 
         int batteryicon = R.drawable.ic_baseline_battery_unknown_24;
@@ -369,5 +373,3 @@ public class PairedDevicesListAdapter extends  RecyclerView.Adapter<PairedDevice
         }
     }
 }
-
-

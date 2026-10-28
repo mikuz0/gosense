@@ -20,7 +20,7 @@ public class ScannedDevicesData {
         if (device.getName() != null) {
             mName = device.getName();
         } else {
-            mName = "Unknown";
+            mName = null;
         }
         mAddress = device.getAddress();
         mRssi = rssi;

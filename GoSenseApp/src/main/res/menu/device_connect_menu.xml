@@ -2,23 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/action_connect"
-        android:icon="@drawable/ic_linked"
-        android:iconTint="@color/white"
-        android:title="CONNECT" />
+          android:icon="@drawable/ic_linked"
+          android:iconTint="@color/white"
+          android:title="@string/menu_action_connect" />
 
     <item android:id="@+id/action_preferred"
-        android:icon="@drawable/ic_check_box"
-        android:iconTint="@color/white"
-        android:title="SET AS DISPLAY DEVICE" />
+          android:icon="@drawable/ic_check_box"
+          android:iconTint="@color/white"
+          android:title="@string/menu_action_set_display_device" />
 
     <item android:id="@+id/action_set_color"
-        android:icon="@drawable/ic_color_select"
-        android:iconTint="@color/white"
-        android:title="SET GRAPH COLOR" />
+          android:icon="@drawable/ic_color_select"
+          android:iconTint="@color/white"
+          android:title="@string/menu_action_set_graph_color" />
 
     <item android:id="@+id/action_delete"
-        android:icon="@drawable/ic_bin"
-        android:iconTint="@color/white"
-        android:title="DELETE" />
+          android:icon="@drawable/ic_bin"
+          android:iconTint="@color/white"
+          android:title="@string/menu_action_delete" />
 
-</menu>
+    </menu>

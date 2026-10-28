@@ -78,6 +78,10 @@
     <!-- RELATIVE HUMIDITY (%) -->
     <string name="graph_label_relative_humidity">RELATIVE HUMIDITY\u0020\u0028\u0025\u0029\u0020</string>
 
+    <string name="graph_unit_minutes">(Minutes)</string>
+    <string name="graph_unit_hours">(Hours)</string>
+    <string name="graph_unit_days">(Days)</string>
+
     <string name="toast_ble_not_supported">BLE not supported</string>
     <string name="toast_bluetooth_not_supported">Bluetooth not supported</string>
     <string name="toast_disconnected">BT Device is not connected!</string>
@@ -86,6 +90,8 @@
     <string name="toast_connection_timeout">Connection Timed Out!</string>
     <string name="toast_no_devices_connected">No devices are connected</string>
     <string name="toast_reconnection_attempt">Reconnection attempt #%1$d</string>
+    <string name="toast_battery_optimization_disabled">Battery Optimization Already Disabled</string>
+    <string name="toast_battery_optimization_error">Error: Could not disable battery optimization</string>
 
     <string name="notify_data">Notify Data</string>
     <string name="notify_channel_description">Shows active Bluetooth connection</string>
@@ -140,6 +146,8 @@
     <string name="device_not_supported">Wrong device!</string>
     <string name="device_not_supported_message">The App does not support this device!</string>
     <string name="device_terminated">Device terminated!</string>
+    <string name="device_is_paired">Device is paired</string>
+    <string name="device_is_paired_named">%1$s is paired</string>
     <string name="di_na">N.A.</string>
     <string name="connect">Connect</string>
     <string name="ok">OK</string>
@@ -171,6 +179,7 @@
     <string name="title_location_permission">Location permission</string>
     <string name="title_notify_permission">Notification permission</string>
     <string name="title_file_permission">File management permission</string>
+    <string name="title_import_data_file">Import Data File</string>
 
     <string name="text_bt_permission">Bluetooth permission needs to be enabled for scanning!</string>
     <string name="text_location_enable">Please, enable location. It needs to be enabled for Bluetooth Low Energy Scanning!</string>
@@ -219,5 +228,11 @@
 
     <string name="scan_low_latency">Low Latency</string>
     <string name="scan_low_power">Low Power</string>
+    <!-- Меню устройств -->
+    <string name="menu_action_connect">CONNECT</string>
+    <string name="menu_action_disconnect">DISCONNECT</string>
+    <string name="menu_action_set_display_device">SET AS DISPLAY DEVICE</string>
+    <string name="menu_action_set_graph_color">SET GRAPH COLOR</string>
+    <string name="menu_action_delete">DELETE</string>
 
 </resources>

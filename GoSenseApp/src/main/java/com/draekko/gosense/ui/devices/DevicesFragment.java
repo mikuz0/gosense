@@ -139,19 +139,19 @@ public class DevicesFragment extends Fragment {
 
     private AllServicesDeviceDataHandler.OnReadRemoteBatteryLevel mOnReadRemoteBatteryLevel =
             new AllServicesDeviceDataHandler.OnReadRemoteBatteryLevel() {
-        @Override
-        public void remoteBatteryLevel(@NotNull BluetoothPeripheral peripheral, int batterylevel) {
-            pairedDevicesListAdapter.updateBattery(peripheral.getAddress(), batterylevel);
-        }
-    };
+                @Override
+                public void remoteBatteryLevel(@NotNull BluetoothPeripheral peripheral, int batterylevel) {
+                    pairedDevicesListAdapter.updateBattery(peripheral.getAddress(), batterylevel);
+                }
+            };
 
     private AllServicesDeviceDataHandler.OnReadRemoteRssi mOnReadRemoteRssi =
             new AllServicesDeviceDataHandler.OnReadRemoteRssi() {
-        @Override
-        public void remoteRssi(@NotNull BluetoothPeripheral peripheral, int rssi) {
-            pairedDevicesListAdapter.updateRssi(peripheral.getAddress(), rssi);
-        }
-    };
+                @Override
+                public void remoteRssi(@NotNull BluetoothPeripheral peripheral, int rssi) {
+                    pairedDevicesListAdapter.updateRssi(peripheral.getAddress(), rssi);
+                }
+            };
 
     private AllServicesDeviceDataHandler.OnBluetoothStatusChange mOnBluetoothStatusChange =
             new AllServicesDeviceDataHandler.OnBluetoothStatusChange() {
@@ -173,64 +173,64 @@ public class DevicesFragment extends Fragment {
 
     private GoSensePagerActivity.OnConnnectionStates mDeviceOnConnnectionStates =
             new GoSensePagerActivity.OnConnnectionStates() {
-        @Override
-        public void onConnected(@NotNull BluetoothPeripheral peripheral) {
-            onDeviceConnected();
-            GoSensePagerActivity.registerOnReadRemoteBatteryLevel(mOnReadRemoteBatteryLevel);
-            GoSensePagerActivity.registerOnReadRemoteRssi(mOnReadRemoteRssi);
-            pairedDevicesListAdapter.updateConnected(peripheral.getAddress(), true);
+                @Override
+                public void onConnected(@NotNull BluetoothPeripheral peripheral) {
+                    onDeviceConnected();
+                    GoSensePagerActivity.registerOnReadRemoteBatteryLevel(mOnReadRemoteBatteryLevel);
+                    GoSensePagerActivity.registerOnReadRemoteRssi(mOnReadRemoteRssi);
+                    pairedDevicesListAdapter.updateConnected(peripheral.getAddress(), true);
 
-            if (pairedDevicesListAdapter.getItemCount() == 1) {
-                pairedDevicesListAdapter.updateSelected(peripheral.getAddress(), true);
-            } else {
-                ArrayList<SensorPairListData> list = pairedDevicesListAdapter.getAdapterList();
-                if (TraySettings.getUseNewConnectionAsPrimary()) {
-                    for (SensorPairListData sensorPairListData : list) {
-                        pairedDevicesListAdapter.updateSelected(sensorPairListData.getAddress(), false);
-                    }
-                    pairedDevicesListAdapter.updateSelected(peripheral.getAddress(), true);
-                } else {
-                    boolean selected = false;
-                    for (SensorPairListData sensorPairListData : list) {
-                        if (sensorPairListData.getSelected()) {
-                            selected = true;
-                            break;
+                    if (pairedDevicesListAdapter.getItemCount() == 1) {
+                        pairedDevicesListAdapter.updateSelected(peripheral.getAddress(), true);
+                    } else {
+                        ArrayList<SensorPairListData> list = pairedDevicesListAdapter.getAdapterList();
+                        if (TraySettings.getUseNewConnectionAsPrimary()) {
+                            for (SensorPairListData sensorPairListData : list) {
+                                pairedDevicesListAdapter.updateSelected(sensorPairListData.getAddress(), false);
+                            }
+                            pairedDevicesListAdapter.updateSelected(peripheral.getAddress(), true);
+                        } else {
+                            boolean selected = false;
+                            for (SensorPairListData sensorPairListData : list) {
+                                if (sensorPairListData.getSelected()) {
+                                    selected = true;
+                                    break;
+                                }
+                            }
+                            if (!selected) {
+                                pairedDevicesListAdapter.updateSelected(peripheral.getAddress(), true);
+                            }
                         }
                     }
-                    if (!selected) {
-                        pairedDevicesListAdapter.updateSelected(peripheral.getAddress(), true);
+
+                    actionScanButton.setText(getString(R.string.start_scan));
+                    progressBar.setVisibility(View.GONE);
+                    try {
+                        mHandler.removeCallbacks(timeoutConnect);
+                    } catch (Exception e) {
+
+                    }
+                    empty_device_list_msg.setVisibility(View.VISIBLE);
+                    listView.setVisibility(View.INVISIBLE);
+
+                    if (pairedDevicesListAdapter.getItemCount() > 0) {
+                        no_device_notifications.setVisibility(View.GONE);
                     }
                 }
-            }
 
-            actionScanButton.setText(getString(R.string.start_scan));
-            progressBar.setVisibility(View.GONE);
-            try {
-                mHandler.removeCallbacks(timeoutConnect);
-            } catch (Exception e) {
-
-            }
-            empty_device_list_msg.setVisibility(View.VISIBLE);
-            listView.setVisibility(View.INVISIBLE);
-
-            if (pairedDevicesListAdapter.getItemCount() > 0) {
-                no_device_notifications.setVisibility(View.GONE);
-            }
-        }
-
-        @Override
-        public void onDisconnected(@NotNull BluetoothPeripheral peripheral, @NotNull HciStatus status) {
-            NotificationManager notificationManager = (NotificationManager)mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.cancelAll();
-            pairedDevicesListAdapter.updateConnected(peripheral.getAddress(), false);
-            pairedDevicesListAdapter.updateSelected(peripheral.getAddress(), false);
-            pairedDevicesListAdapter.updateBattery(peripheral.getAddress(), -1);
-            pairedDevicesListAdapter.updateRssi(peripheral.getAddress(), -9999);
-            pairedDevicesListAdapter.notifyDataSetChanged();
-            GoSensePagerActivity.unregisterOnReadRemoteBatteryLevel(mOnReadRemoteBatteryLevel);
-            GoSensePagerActivity.unregisterOnReadRemoteRssi(mOnReadRemoteRssi);
-        }
-    };
+                @Override
+                public void onDisconnected(@NotNull BluetoothPeripheral peripheral, @NotNull HciStatus status) {
+                    NotificationManager notificationManager = (NotificationManager)mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+                    notificationManager.cancelAll();
+                    pairedDevicesListAdapter.updateConnected(peripheral.getAddress(), false);
+                    pairedDevicesListAdapter.updateSelected(peripheral.getAddress(), false);
+                    pairedDevicesListAdapter.updateBattery(peripheral.getAddress(), -1);
+                    pairedDevicesListAdapter.updateRssi(peripheral.getAddress(), -9999);
+                    pairedDevicesListAdapter.notifyDataSetChanged();
+                    GoSensePagerActivity.unregisterOnReadRemoteBatteryLevel(mOnReadRemoteBatteryLevel);
+                    GoSensePagerActivity.unregisterOnReadRemoteRssi(mOnReadRemoteRssi);
+                }
+            };
 
     private final DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.US);
     AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
@@ -1038,7 +1038,7 @@ public class DevicesFragment extends Fragment {
 
     private boolean isPermissionGranted() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            if (ContextCompat.checkSelfPermission(mContext, BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED &&
+            if (ContextCompat.checkSelfPermission(mContext, BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED ||
                     ContextCompat.checkSelfPermission(mContext, BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
                 requestBtPermission(new String[]{ BLUETOOTH_SCAN, BLUETOOTH_CONNECT}, 3);
                 return false;
@@ -1251,11 +1251,11 @@ public class DevicesFragment extends Fragment {
 
     public void onPaired() {
         SensorDevice sensorDevice = TraySettings.getActiveSensorDevice();
-        String connection = "Device is paired";
+        String connection = getString(R.string.device_is_paired);
         if (sensorDevice != null &&
                 sensorDevice.getAliasName() != null &&
                 !sensorDevice.getAliasName().isEmpty()) {
-            connection = sensorDevice.getAliasName() + " is paired";
+            connection = getString(R.string.device_is_paired_named, sensorDevice.getAliasName());
         }
 
         GoSenseDb goSenseDb = new GoSenseDb(mContext);

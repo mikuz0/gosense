@@ -13,8 +13,8 @@ public class SensorPairListData {
     private boolean isSelected;
 
     public SensorPairListData() {
-        this.name = "Unknown";
-        this.aliasName = "Unknown";
+        this.name = null;
+        this.aliasName = null;
         this.address = Utils.DEFAULT_EMPTY_ADDRESS;
         this.color = Utils.DEFAULT_COLOR;
         this.rssi = -9999;

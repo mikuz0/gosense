@@ -843,63 +843,63 @@ public class HistoryFragment extends Fragment {
             case TIME_UNIT_10_MINUTE:
                 minTimeUnit = 0;
                 maxTimeUnit = 10;
-                domainLabel += "  (Minutes)";
+                domainLabel += " " + getString(R.string.graph_unit_minutes);
                 valOffset = 1;
                 break;
 
             case TIME_UNIT_60_MINUTE:
                 minTimeUnit = 0;
                 maxTimeUnit = 60;
-                domainLabel += "  (Minutes)";
+                domainLabel += " " + getString(R.string.graph_unit_minutes);
                 valOffset = 10;
                 break;
 
             case TIME_UNIT_3_HOURS:
                 minTimeUnit = 0;
                 maxTimeUnit = 3;
-                domainLabel += "  (Hours)";
+                domainLabel += " " + getString(R.string.graph_unit_hours);
                 valOffset = 1;
                 break;
 
             case TIME_UNIT_6_HOURS:
                 minTimeUnit = 0;
                 maxTimeUnit = 6;
-                domainLabel += "  (Hours)";
+                domainLabel += " " + getString(R.string.graph_unit_hours);
                 valOffset = 1;
                 break;
 
             case TIME_UNIT_12_HOURS:
                 minTimeUnit = 0;
                 maxTimeUnit = 12;
-                domainLabel += "  (Hours)";
+                domainLabel += " " + getString(R.string.graph_unit_hours);
                 valOffset = 1;
                 break;
 
             case TIME_UNIT_24_HOURS:
                 minTimeUnit = 0;
                 maxTimeUnit = 24;
-                domainLabel += "  (Hours)";
+                domainLabel += " " + getString(R.string.graph_unit_hours);
                 valOffset = 2;
                 break;
 
             case TIME_UNIT_48_HOURS:
                 minTimeUnit = 0;
                 maxTimeUnit = 48;
-                domainLabel += "  (Hours)";
+                domainLabel += " " + getString(R.string.graph_unit_hours);
                 valOffset = 4;
                 break;
 
             case TIME_UNIT_7_DAYS:
                 minTimeUnit = 0;
                 maxTimeUnit = 7;
-                domainLabel += "  (Days)";
+                domainLabel += " " + getString(R.string.graph_unit_days);
                 valOffset = 1;
                 break;
 
             case TIME_UNIT_14_DAYS:
                 minTimeUnit = 0;
                 maxTimeUnit = 14;
-                domainLabel += "  (Days)";
+                domainLabel += " " + getString(R.string.graph_unit_days);
                 valOffset = 1;
                 break;
         }

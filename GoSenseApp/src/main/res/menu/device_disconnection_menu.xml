@@ -6,22 +6,22 @@
         android:id="@+id/action_disconnect"
         android:iconTint="@color/white"
         android:icon="@drawable/ic_unlinked"
-        android:title="DISCONNECT" />
+        android:title="@string/menu_action_disconnect" />
 
     <item android:id="@+id/action_preferred"
-        android:icon="@drawable/ic_check_box"
-        android:iconTint="@color/white"
-        android:title="SET AS DISPLAY DEVICE" />
+          android:icon="@drawable/ic_check_box"
+          android:iconTint="@color/white"
+          android:title="@string/menu_action_set_display_device" />
 
     <item android:id="@+id/action_set_color"
-        android:icon="@drawable/ic_color_select"
-        android:iconTint="@color/white"
-        android:title="SET GRAPH COLOR" />
+          android:icon="@drawable/ic_color_select"
+          android:iconTint="@color/white"
+          android:title="@string/menu_action_set_graph_color" />
 
     <item
         android:id="@+id/action_delete"
         android:iconTint="@color/white"
         android:icon="@drawable/ic_bin"
-        android:title="DELETE" />
+        android:title="@string/menu_action_delete" />
 
-</menu>
+    </menu>

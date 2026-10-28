@@ -1172,7 +1172,7 @@ public class AllDevicesService extends Service
 
                 NotificationChannel channel = new NotificationChannel(
                         chanid,
-                        "Disconnection Warning",
+                        getString(R.string.notify_channel_disconnection_warning),
                         NotificationManager.IMPORTANCE_HIGH);
                 notificationManager.createNotificationChannel(channel);
 

@@ -9,11 +9,14 @@
     <TextView
         android:id="@+id/device_notifications"
         android:layout_width="match_parent"
-        android:layout_height="24dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="2dp"
         android:layout_marginEnd="8dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:includeFontPadding="false"
         android:textAlignment="center"
         android:textSize="22sp"
         android:text="@string/paired_devices"
@@ -38,11 +41,14 @@
         android:id="@+id/no_device_notifications"
         android:layout_below="@id/divider_devices"
         android:layout_width="match_parent"
-        android:layout_height="24dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:includeFontPadding="false"
         android:textAlignment="center"
         android:textSize="22sp"
         android:text="@string/no_paired_devices"
@@ -70,21 +76,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!--
-        <TextView
-            android:id="@+id/device_scan"
-            android:layout_width="match_parent"
-            android:layout_height="24dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="4dp"
-            android:layout_marginEnd="8dp"
-            android:textAlignment="center"
-            android:textSize="22sp"
-            android:text="@string/device_scanning"
-            android:textColor="@color/white" />
-            -->
-
         <LinearLayout
             android:id="@+id/scan_panel"
             android:layout_width="match_parent"
@@ -110,8 +101,9 @@
             <TextView
                 android:id="@+id/device_scan"
                 android:layout_width="wrap_content"
-                android:layout_height="28dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:includeFontPadding="false"
                 android:textSize="22sp"
                 android:text="@string/device_scanning"
                 android:textColor="@color/white" />
@@ -133,11 +125,14 @@
         <TextView
             android:id="@+id/start_device_scan"
             android:layout_width="match_parent"
-            android:layout_height="54dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="4dp"
             android:layout_marginEnd="8dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:includeFontPadding="false"
             android:textAlignment="center"
             android:textSize="22sp"
             android:text="@string/start_device_scanning"

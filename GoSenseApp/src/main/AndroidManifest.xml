@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-feature android:name="android.hardware.sensor.pressure"/>
-
     <uses-feature android:name="android.hardware.bluetooth" android:required="true"/>
     <uses-feature android:name="android.hardware.bluetooth_le" android:required="true" />
 
@@ -14,15 +13,9 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" android:usesPermissionFlags="neverForLocation"/>
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-    <uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED" tools:ignore="ProtectedPermissions" />
 
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" tools:ignore="ScopedStorage" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" android:maxSdkVersion="30" />
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -34,7 +27,6 @@
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.SET_ALARM"/>
-
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -49,7 +41,6 @@
         android:launchMode="singleTop"
         android:theme="@style/Theme.GoSense"
         android:hardwareAccelerated="true"
-        android:requestLegacyExternalStorage="true"
         android:fullBackupOnly="true"
         tools:targetApi="31">
 
@@ -58,8 +49,7 @@
             android:name=".activities.GoSensePagerActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:label="@string/app_name">
-        </activity>
+            android:label="@string/app_name" />
 
         <activity
             android:name=".activities.SplashScreenActivity"
@@ -73,7 +63,7 @@
         </activity>
 
         <service
-            android:foregroundServiceType="connectedDevice|location"
+            android:foregroundServiceType="connectedDevice"
             android:name=".services.AllDevicesService"
             android:enabled="true"
             android:exported="true" />
@@ -83,19 +73,16 @@
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
-                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED"></action>
-                <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
-                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
             </intent-filter>
         </receiver>
 
-
         <receiver android:name=".services.CleanupAlarmReceiver"
             android:enabled="true"
-            android:exported="true">
-        </receiver>
+            android:exported="true" />
 
     </application>
-
 </manifest>

@@ -78,6 +78,10 @@
     <!-- RELATIVE HUMIDITY (%) -->
     <string name="graph_label_relative_humidity">ОТНОСИТЕЛЬНАЯ ВЛАЖНОСТЬ\u0020\u0028\u0025\u0029\u0020</string>
 
+    <string name="graph_unit_minutes">(Минуты)</string>
+    <string name="graph_unit_hours">(Часы)</string>
+    <string name="graph_unit_days">(Дни)</string>
+
     <string name="toast_ble_not_supported">BLE не поддерживается</string>
     <string name="toast_bluetooth_not_supported">Bluetooth не поддерживается</string>
     <string name="toast_disconnected">BT-устройство не подключено!</string>
@@ -86,6 +90,8 @@
     <string name="toast_connection_timeout">Время подключения истекло!</string>
     <string name="toast_no_devices_connected">Нет подключённых устройств</string>
     <string name="toast_reconnection_attempt">Попытка переподключения #%1$d</string>
+    <string name="toast_battery_optimization_disabled">Оптимизация батареи уже отключена</string>
+    <string name="toast_battery_optimization_error">Ошибка: не удалось отключить оптимизацию батареи</string>
 
     <string name="notify_data">Уведомлять о данных</string>
     <string name="notify_channel_description">Показывает активное Bluetooth-соединение</string>
@@ -140,6 +146,8 @@
     <string name="device_not_supported">Неподходящее устройство!</string>
     <string name="device_not_supported_message">Приложение не поддерживает это устройство!</string>
     <string name="device_terminated">Устройство отключено!</string>
+    <string name="device_is_paired">Устройство сопряжено</string>
+    <string name="device_is_paired_named">%1$s сопряжено</string>
     <string name="di_na">Н/Д</string>
     <string name="connect">Подключить</string>
     <string name="ok">ОК</string>
@@ -171,6 +179,7 @@
     <string name="title_location_permission">Разрешение на геолокацию</string>
     <string name="title_notify_permission">Разрешение на уведомления</string>
     <string name="title_file_permission">Разрешение на управление файлами</string>
+    <string name="title_import_data_file">Импорт файла данных</string>
 
     <string name="text_bt_permission">Для поиска устройств необходимо разрешение Bluetooth!</string>
     <string name="text_location_enable">Пожалуйста, включите геолокацию. Она необходима для поиска Bluetooth Low Energy устройств!</string>
@@ -219,5 +228,11 @@
 
     <string name="scan_low_latency">Низкая задержка</string>
     <string name="scan_low_power">Низкое энергопотребление</string>
+    <!-- Меню устройств -->
+    <string name="menu_action_connect">ПОДКЛЮЧИТЬ</string>
+    <string name="menu_action_disconnect">ОТКЛЮЧИТЬ</string>
+    <string name="menu_action_set_display_device">СДЕЛАТЬ ОСНОВНЫМ</string>
+    <string name="menu_action_set_graph_color">ЗАДАТЬ ЦВЕТ ГРАФИКА</string>
+    <string name="menu_action_delete">УДАЛИТЬ</string>
 
 </resources>

@@ -34,7 +34,6 @@ import android.content.res.ColorStateList;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
@@ -334,7 +333,6 @@ public class GoSensePagerActivity extends FragmentActivity {
 
     private static boolean inSettingsFragment = false;
     private boolean inNewBtDeviceScan = false;
-    private boolean isExternalStorageManager = false;
 
     private static AllDevicesService mAllDevicesService;
     private KeyguardManager keyguardManager;
@@ -473,7 +471,7 @@ public class GoSensePagerActivity extends FragmentActivity {
             mAllDevicesService = (AllDevicesService)((AllDevicesService.LocalBinder) service).getService();
             mAllDevicesService.setBluetoothCentralManagerCallback(mBluetoothCentralManagerCallback);
             if (mAllDevicesService.getConnectedPeripherals().size() == 0) {
-                Toast.makeText(mContext, "No devices are connected", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, getString(R.string.toast_no_devices_connected), Toast.LENGTH_LONG).show();
                 mInfiniteViewPager2.setCurrentItem(4, false);
             }
             mAllDevicesService.registerOnDeviceReconnection(mOnDeviceReconnection);
@@ -513,16 +511,16 @@ public class GoSensePagerActivity extends FragmentActivity {
 
     /**
      * Проверяет, выданы ли все разрешения, необходимые для работы Bluetooth-сканирования.
-     * Библиотека blessed требует ACCESS_FINE_LOCATION даже на Android 12+.
+     * На Android 12+ библиотека blessed не требует ACCESS_FINE_LOCATION, если в манифесте
+     * для BLUETOOTH_SCAN указан neverForLocation.
      */
     private boolean hasRequiredPermissions() {
-        boolean fineLocation = ContextCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             boolean scan = ContextCompat.checkSelfPermission(this, BLUETOOTH_SCAN) == PackageManager.PERMISSION_GRANTED;
             boolean connect = ContextCompat.checkSelfPermission(this, BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED;
-            return fineLocation && scan && connect;
+            return scan && connect;
         }
-        return fineLocation;
+        return ContextCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
     }
 
     /**
@@ -537,9 +535,10 @@ public class GoSensePagerActivity extends FragmentActivity {
             if (ContextCompat.checkSelfPermission(this, BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
                 perms.add(BLUETOOTH_CONNECT);
             }
-        }
-        if (ContextCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            perms.add(ACCESS_FINE_LOCATION);
+        } else {
+            if (ContextCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                perms.add(ACCESS_FINE_LOCATION);
+            }
         }
         if (perms.isEmpty()) {
             startAllDevicesServiceService();
@@ -618,8 +617,6 @@ public class GoSensePagerActivity extends FragmentActivity {
             activePeripheral = TraySettings.getActiveSensorDevice();
         }
 
-        // Запускаем службу только после проверки разрешений.
-        // Если разрешений нет — запросим их, а службу запустим в onRequestPermissionsResult.
         requestNeededPermissionsOrStartService();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -747,16 +744,6 @@ public class GoSensePagerActivity extends FragmentActivity {
     protected void onResume() {
         super.onResume();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if (Environment.isExternalStorageManager()) {
-                isExternalStorageManager = true;
-            } else {
-                isExternalStorageManager = false;
-            }
-        }
-
-        // Ugly hack to hide invisible items from user display and space
-        // usable items to fit window width
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int width = displayMetrics.widthPixels;
@@ -768,9 +755,9 @@ public class GoSensePagerActivity extends FragmentActivity {
 
         ContextCompat.registerReceiver(mContext, mScrnUpdateReceiver,
                 makeScrnIntentFilter(), ContextCompat.RECEIVER_EXPORTED);
-        registerReceiver(locationServiceStateReceiver, new IntentFilter((LocationManager.MODE_CHANGED_ACTION)));
+        ContextCompat.registerReceiver(mContext, locationServiceStateReceiver,
+                new IntentFilter(LocationManager.MODE_CHANGED_ACTION), ContextCompat.RECEIVER_EXPORTED);
 
-        // Если разрешения выданы пользователем вручную в настройках, но служба ещё не запущена — запустим.
         if (hasRequiredPermissions() && mAllDevicesService == null) {
             startAllDevicesServiceService();
         }
@@ -779,13 +766,6 @@ public class GoSensePagerActivity extends FragmentActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if (Environment.isExternalStorageManager()) {
-                isExternalStorageManager = true;
-            } else {
-                isExternalStorageManager = false;
-            }
-        }
     }
 
     public class GoSenseUIPagerAdapter extends InfiniteFragmentStateAdapter {
@@ -939,7 +919,7 @@ public class GoSensePagerActivity extends FragmentActivity {
                 requestBtPermission(new String[]{ BLUETOOTH_SCAN, BLUETOOTH_CONNECT });
             }
         }
-        return canConnectBt;
+        return canConnectBt && canScanBt;
     }
 
     private boolean isBtConnectScanPermissionGranted() {
@@ -949,11 +929,10 @@ public class GoSensePagerActivity extends FragmentActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             canConnectBt = ContextCompat.checkSelfPermission(mContext, BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED;
             canScanBt = ContextCompat.checkSelfPermission(mContext, BLUETOOTH_SCAN) == PackageManager.PERMISSION_GRANTED;
-            canLocation = ContextCompat.checkSelfPermission(mContext, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
-            if (!canConnectBt || !canScanBt || !canLocation) {
-                requestBtPermission(new String[]{ BLUETOOTH_CONNECT, BLUETOOTH_SCAN, ACCESS_FINE_LOCATION });
+            if (!canConnectBt || !canScanBt) {
+                requestBtPermission(new String[]{ BLUETOOTH_CONNECT, BLUETOOTH_SCAN });
             }
-            return canConnectBt && canScanBt && canLocation;
+            return canConnectBt && canScanBt;
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             canLocation = ContextCompat.checkSelfPermission(mContext, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
@@ -1098,15 +1077,15 @@ public class GoSensePagerActivity extends FragmentActivity {
     private boolean checkLocationServices() {
         if (!areLocationServicesEnabled()) {
             new AlertDialog.Builder(mContext)
-                    .setTitle("Location services are not enabled")
-                    .setMessage("Scanning for Bluetooth peripherals requires locations services to be enabled.")
-                    .setPositiveButton("Enable", new DialogInterface.OnClickListener() {
+                    .setTitle(getString(R.string.title_location_enable))
+                    .setMessage(getString(R.string.text_location_enable))
+                    .setPositiveButton(getString(R.string.enable), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialogInterface, int i) {
                             dialogInterface.cancel();
                             startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
                         }
                     })
-                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.cancel();

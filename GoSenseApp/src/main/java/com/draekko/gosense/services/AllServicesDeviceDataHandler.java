@@ -18,6 +18,7 @@ import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.draekko.gosense.R;
 import com.draekko.gosense.data.RemoteBatteryLevelMeasurement;
 import com.draekko.gosense.data.RemoteRelativeHumidityMeasurement;
 import com.draekko.gosense.data.RemoteTemperatureMeasurement;
@@ -460,7 +461,7 @@ public class AllServicesDeviceDataHandler {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(mContext, "Reconnection attempt #" + reconnectCount + 1, Toast.LENGTH_LONG);
+                    Toast.makeText(mContext, mContext.getString(R.string.toast_reconnection_attempt, reconnectCount + 1), Toast.LENGTH_LONG).show();
                     Log.i(TAG, "Reconnection attempt #" + reconnectCount + 1);
                     if (mOnDeviceReconnection.size() > 0) {
                         for (OnDeviceReconnection onDeviceReconnection : mOnDeviceReconnection) {

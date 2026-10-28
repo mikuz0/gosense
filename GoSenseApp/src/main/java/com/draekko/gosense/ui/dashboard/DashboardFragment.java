@@ -113,15 +113,15 @@ public class DashboardFragment extends Fragment {
     private boolean checkLocationServices() {
         if (!areLocationServicesEnabled()) {
             new AlertDialog.Builder(mContext)
-                    .setTitle("Location services are not enabled")
-                    .setMessage("Scanning for Bluetooth peripherals requires locations services to be enabled.") // Want to enable?
-                    .setPositiveButton("Enable", new DialogInterface.OnClickListener() {
+                    .setTitle(getString(R.string.title_location_enable))
+                    .setMessage(getString(R.string.text_location_enable))
+                    .setPositiveButton(getString(R.string.enable), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialogInterface, int i) {
                             dialogInterface.cancel();
                             startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
                         }
                     })
-                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             // if this button is clicked, just close
