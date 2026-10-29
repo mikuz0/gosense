@@ -1,5 +1,7 @@
 # GoSense
 
+[![Release](https://img.shields.io/github/v/release/mikuz0/gosense?include_prereleases&label=Download)](https://github.com/mikuz0/gosense/releases/latest)
+
 Приложение с открытым исходным кодом для мониторинга параметров окружающей среды, которое регистрирует температуру и относительную влажность с Bluetooth BLE-устройств, а также атмосферное давление с вашего телефона (если поддерживается).
 
 ---
