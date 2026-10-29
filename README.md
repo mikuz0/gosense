@@ -86,5 +86,6 @@
 Лицензировано под **GPL V3**.
 
 ---
+[![Android CI](https://github.com/mikuz0/gosense/actions/workflows/android.yml/badge.svg)](https://github.com/mikuz0/gosense/actions/workflows/android.yml)
 
 *Последнее обновление README: 28 октября 2026 г.*
