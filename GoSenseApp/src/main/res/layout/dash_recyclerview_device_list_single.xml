@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/deviceframe"
-    android:orientation="horizontal"
-    android:background="@drawable/selection_ripple"
-    android:layout_width="match_parent"
-    android:layout_height="50dp">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/deviceframe"
+                android:orientation="horizontal"
+                android:background="@drawable/selection_ripple"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="50dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp">
 
     <TextView
         android:id="@+id/devicename"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="6dp"
-        android:textAlignment="center"
+        android:layout_marginTop="2dp"
+        android:textAlignment="viewStart"
         android:text="BLUETOOTH DEVICE"
         android:textColor="@color/white"
         android:textSize="15sp"
+        android:includeFontPadding="false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -23,10 +27,11 @@
         android:id="@+id/deviceaddress"
         android:layout_below="@+id/devicename"
         android:layout_alignStart="@+id/devicename"
-        android:textAlignment="center"
+        android:textAlignment="viewStart"
         android:text="00:00:00:00"
         android:textColor="@color/white"
         android:textSize="13sp"
+        android:includeFontPadding="false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -39,6 +44,7 @@
         android:text="-100 dBm"
         android:textColor="@color/white"
         android:textSize="15sp"
+        android:includeFontPadding="false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -51,6 +57,7 @@
         android:text="\?\?\?%"
         android:textColor="@color/white"
         android:textSize="15sp"
+        android:includeFontPadding="false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -66,4 +73,4 @@
         android:layout_height="18dp"
         tools:ignore="UseAppTint" />
 
-</RelativeLayout>
+    </RelativeLayout>
