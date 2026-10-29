@@ -3,6 +3,8 @@ name: Android CI
 on:
   push:
     branches: [ "main", "master" ]
+    tags:
+      - 'v*'
   pull_request:
     branches: [ "main", "master" ]
   workflow_dispatch:
@@ -10,6 +12,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # Важно: без этого шаг создания релиза упадёт
 
     steps:
     - name: Checkout repository
@@ -36,20 +40,34 @@ jobs:
             -keyalg RSA -keysize 2048 -validity 10000 \
             -dname "CN=Android Debug,O=Android,C=US"
         fi
-        echo "storeDebugFile=$HOME/.android/debug.keystore" >> keystore.properties
-        echo "storeDebugPassword=android" >> keystore.properties
-        echo "keyDebugPassword=android" >> keystore.properties
-        echo "keyDebugAlias=androiddebugkey" >> keystore.properties
-        echo "storeReleaseFile=$HOME/.android/debug.keystore" >> keystore.properties
-        echo "storeReleasePassword=android" >> keystore.properties
-        echo "keyReleasePassword=android" >> keystore.properties
-        echo "keyReleaseAlias=androiddebugkey" >> keystore.properties
+        cat > keystore.properties <<EOF
+        storeDebugFile=$HOME/.android/debug.keystore
+        storeDebugPassword=android
+        keyDebugPassword=android
+        keyDebugAlias=androiddebugkey
+        storeReleaseFile=$HOME/.android/debug.keystore
+        storeReleasePassword=android
+        keyReleasePassword=android
+        keyReleaseAlias=androiddebugkey
+        EOF
 
     - name: Build with Gradle
       run: ./gradlew assembleDebug
 
-    - name: Upload APK
+    - name: Upload APK to Artifacts
       uses: actions/upload-artifact@v4
       with:
         name: GoSense-debug-apk
         path: GoSenseApp/build/outputs/apk/debug/GoSenseApp-debug.apk
+
+    - name: Create Release and Upload APK
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v2
+      with:
+        files: GoSenseApp/build/outputs/apk/debug/GoSenseApp-debug.apk
+        name: Release ${{ github.ref_name }}
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
