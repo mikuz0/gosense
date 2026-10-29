@@ -13,7 +13,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # Важно: без этого шаг создания релиза упадёт
+      contents: write
 
     steps:
     - name: Checkout repository
@@ -31,43 +31,31 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
-    - name: Create debug keystore and keystore.properties
+    - name: Decode Release Keystore
       run: |
-        mkdir -p $HOME/.android
-        if [ ! -f "$HOME/.android/debug.keystore" ]; then
-          keytool -genkey -v -keystore $HOME/.android/debug.keystore \
-            -storepass android -alias androiddebugkey -keypass android \
-            -keyalg RSA -keysize 2048 -validity 10000 \
-            -dname "CN=Android Debug,O=Android,C=US"
-        fi
-        cat > keystore.properties <<EOF
-        storeDebugFile=$HOME/.android/debug.keystore
-        storeDebugPassword=android
-        keyDebugPassword=android
-        keyDebugAlias=androiddebugkey
-        storeReleaseFile=$HOME/.android/debug.keystore
-        storeReleasePassword=android
-        keyReleasePassword=android
-        keyReleaseAlias=androiddebugkey
-        EOF
+        echo "${{ secrets.RELEASE_KEYSTORE_BASE64 }}" | base64 --decode > ${{ github.workspace }}/gosense-release.jks
 
-    - name: Build with Gradle
-      run: ./gradlew assembleDebug
+    - name: Build Release APK
+      env:
+        RELEASE_KEYSTORE_PATH: ${{ github.workspace }}/gosense-release.jks
+        RELEASE_STORE_PASSWORD: ${{ secrets.RELEASE_STORE_PASSWORD }}
+        RELEASE_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
+        RELEASE_KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD }}
+      run: ./gradlew assembleRelease
 
     - name: Upload APK to Artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: GoSense-debug-apk
-        path: GoSenseApp/build/outputs/apk/debug/GoSenseApp-debug.apk
+        name: GoSense-release-apk
+        path: GoSenseApp/build/outputs/apk/release/GoSenseApp-release.apk
 
     - name: Create Release and Upload APK
       if: startsWith(github.ref, 'refs/tags/')
       uses: softprops/action-gh-release@v2
       with:
-        files: GoSenseApp/build/outputs/apk/debug/GoSenseApp-debug.apk
+        files: GoSenseApp/build/outputs/apk/release/GoSenseApp-release.apk
         name: Release ${{ github.ref_name }}
         draft: false
         prerelease: false
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-

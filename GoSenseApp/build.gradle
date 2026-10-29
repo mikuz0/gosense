@@ -1,10 +1,5 @@
 apply plugin: 'com.android.application'
 
-def homePath = System.properties['user.home']
-def keystorePropertiesFile = rootProject.file("keystore.properties")
-def keystoreProperties = new Properties()
-keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-
 android {
     namespace 'com.draekko.gosense'
     compileSdk 34
@@ -20,16 +15,45 @@ android {
 
     signingConfigs {
         Default {
-            storeFile rootProject.file(keystoreProperties['storeReleaseFile'])
-            storePassword keystoreProperties['storeReleasePassword']
-            keyPassword keystoreProperties['keyReleasePassword']
-            keyAlias keystoreProperties['keyReleaseAlias']
+            if (System.getenv("RELEASE_KEYSTORE_PATH") != null) {
+                // GitHub Actions: путь и пароли из переменных окружения
+                storeFile file(System.getenv("RELEASE_KEYSTORE_PATH"))
+                storePassword System.getenv("RELEASE_STORE_PASSWORD")
+                keyAlias System.getenv("RELEASE_KEY_ALIAS")
+                keyPassword System.getenv("RELEASE_KEY_PASSWORD")
+            } else {
+                // Локальная сборка: читаем из папки секретов
+                def keystorePropertiesFile = file("/home/mikuz/soft/com_src/AppMarkets/GoSense/keystore.properties")
+                if (keystorePropertiesFile.exists()) {
+                    def keystoreProperties = new Properties()
+                    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+                    storeFile file(keystoreProperties['storeReleaseFile'])
+                    storePassword keystoreProperties['storeReleasePassword']
+                    keyAlias keystoreProperties['keyReleaseAlias']
+                    keyPassword keystoreProperties['keyReleasePassword']
+                } else {
+                    // Fallback: используем debug-ключ (для других разработчиков)
+                    storeFile file("${System.properties['user.home']}/.android/debug.keystore")
+                    storePassword "android"
+                    keyAlias "androiddebugkey"
+                    keyPassword "android"
+                }
+            }
         }
         debug {
-            storeFile rootProject.file(keystoreProperties['storeDebugFile'])
-            storePassword keystoreProperties['storeDebugPassword']
-            keyPassword keystoreProperties['keyDebugPassword']
-            keyAlias keystoreProperties['keyDebugAlias']
+            if (System.getenv("RELEASE_KEYSTORE_PATH") != null) {
+                // В CI debug-сборка тоже подписывается release-ключом (чтобы не искать debug.keystore)
+                storeFile file(System.getenv("RELEASE_KEYSTORE_PATH"))
+                storePassword System.getenv("RELEASE_STORE_PASSWORD")
+                keyAlias System.getenv("RELEASE_KEY_ALIAS")
+                keyPassword System.getenv("RELEASE_KEY_PASSWORD")
+            } else {
+                // Локально: стандартный отладочный ключ
+                storeFile file("${System.properties['user.home']}/.android/debug.keystore")
+                storePassword "android"
+                keyAlias "androiddebugkey"
+                keyPassword "android"
+            }
         }
     }
 
@@ -55,7 +79,6 @@ android {
         buildConfig = true
         dataBinding = true
     }
-
 }
 
 dependencies {
